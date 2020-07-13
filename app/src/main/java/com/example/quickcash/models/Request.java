@@ -30,6 +30,7 @@ public class Request extends ParseObject {
     public void setDescription(String name){
         put(KEY_DESCRIPTION, name);
     }
+
     public String getAddress(){
         return getString(KEY_ADDRESS);
     }
