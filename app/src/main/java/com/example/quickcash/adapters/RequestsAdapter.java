@@ -1,4 +1,5 @@
 package com.example.quickcash.adapters;
 
-public class TasksAdapter {
+public class RequestsAdapter {
+
 }
