@@ -14,6 +14,8 @@ import com.example.quickcash.R;
  * Use the {@link ComposeFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
+
+//This class will handle
 public class ComposeFragment extends Fragment {
 
     // TODO: Rename parameter arguments, choose names that match

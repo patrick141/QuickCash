@@ -13,7 +13,8 @@
     <ImageView
         android:id="@+id/SAiconView"
         android:layout_width="match_parent"
-        android:layout_height="50dp" />
+        android:layout_height="175dp"
+        app:srcCompat="@drawable/logoname" />
 
     <EditText
         android:id="@+id/LAusername"
