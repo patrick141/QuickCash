@@ -15,6 +15,7 @@ import com.parse.LogInCallback;
 import com.parse.ParseException;
 import com.parse.ParseUser;
 
+//This is where our user signs into their account.
 public class LoginActivity extends AppCompatActivity {
 
     public static final String TAG = "LoginActivity";
@@ -57,16 +58,18 @@ public class LoginActivity extends AppCompatActivity {
         });
     }
 
-    protected void loginUser(String username, String password){
+    protected void loginUser(final String username, final String password){
         Log.i(TAG, "Attempting to log");
         ParseUser.logInInBackground(username, password, new LogInCallback() {
             @Override
             public void done(ParseUser user, ParseException e) {
                 if( e!= null){
                     Log.e(TAG, "Issue with login", e);
+                    Toast.makeText(LoginActivity.this, "Login failed. Try again", Toast.LENGTH_LONG).show();
                     return;
                 }
                 goMainActivity();
+                Log.i(TAG, username + " is logged in.");
                 Toast.makeText(LoginActivity.this, "Success!", Toast.LENGTH_SHORT).show();
             }
         });

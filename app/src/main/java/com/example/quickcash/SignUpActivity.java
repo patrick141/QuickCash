@@ -12,6 +12,7 @@ import com.parse.ParseException;
 import com.parse.ParseUser;
 import com.parse.SignUpCallback;
 
+//If user needs to sign up for a new account. They are directed here.
 public class SignUpActivity extends LoginActivity {
     public static final String TAG = "SignUpActivity";
     EditText etNewUsername;
@@ -35,6 +36,7 @@ public class SignUpActivity extends LoginActivity {
                 final String password = etNewPassword.getText().toString();
                 Toast.makeText(SignUpActivity.this, "Signing up " + username, Toast.LENGTH_SHORT).show();
 
+                //We are
                 ParseUser user = new ParseUser();
                 user.setUsername(username);
                 user.setPassword(password);
@@ -42,6 +44,7 @@ public class SignUpActivity extends LoginActivity {
                     @Override
                     public void done(ParseException e) {
                         if(e == null){
+                            Log.e(TAG, "creating new user");
                             loginUser(username, password);
                         }
                         else{
