@@ -97,6 +97,9 @@ https://www.figma.com/file/QbfAQARWlZ9yfjCAmeGdxs/QuickCash?node-id=0%3A1
 Coming Soon!
 https://www.figma.com/embed?embed_host=share&url=https%3A%2F%2Fwww.figma.com%2Ffile%2FQbfAQARWlZ9yfjCAmeGdxs%2FQuickCash%3Fnode-id%3D0%253A1&chrome=DOCUMENTATION
 
+### App Demos (Development Stage)
+<img src="https://github.com/patrick141/QuickCash/raw/master/quickcashtest1.gif" width='' title='Video Walkthrough'>
+
 ## Schema 
 [This section will be completed in Unit 9]
 ### Models
