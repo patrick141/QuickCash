@@ -15,9 +15,10 @@ import com.parse.SignUpCallback;
 //If user needs to sign up for a new account. They are directed here.
 public class SignUpActivity extends LoginActivity {
     public static final String TAG = "SignUpActivity";
-    EditText etNewUsername;
-    EditText etNewPassword;
-    Button btnSignUpNew;
+    private EditText etNewUsername;
+    private EditText etNewPassword;
+    private Button btnSignUpNew;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -36,7 +37,7 @@ public class SignUpActivity extends LoginActivity {
                 final String password = etNewPassword.getText().toString();
                 Toast.makeText(SignUpActivity.this, "Signing up " + username, Toast.LENGTH_SHORT).show();
 
-                //We are
+                //We are creating a new account based off the user's details.
                 ParseUser user = new ParseUser();
                 user.setUsername(username);
                 user.setPassword(password);

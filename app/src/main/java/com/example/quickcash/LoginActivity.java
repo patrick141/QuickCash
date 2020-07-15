@@ -19,10 +19,10 @@ import com.parse.ParseUser;
 public class LoginActivity extends AppCompatActivity {
 
     public static final String TAG = "LoginActivity";
-    EditText etUsername;
-    EditText etPassword;
-    Button btnLogin;
-    Button btnSignup;
+    private EditText etUsername;
+    private EditText etPassword;
+    private Button btnLogin;
+    private Button btnSignup;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

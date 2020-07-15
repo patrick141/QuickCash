@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/RLjobrequest"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <TextView
+        android:id="@+id/JobRequestName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/app_name" />
+
+    <LinearLayout
+        android:id="@+id/LLrequestUserInfo"
+        android:layout_below="@id/JobRequestName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:id="@+id/PostedID"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Posted by"/>
+
+        <TextView
+            android:id="@+id/JobUserName"
+            android:layout_marginStart="5dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Steven"/>
+
+        <TextView
+            android:id="@+id/JobDatePosted"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="4 hr ago"/>
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/DescriptionID"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/JobReward"
+        android:text="Description:" />
+
+    <TextView
+        android:id="@+id/JobDescription"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/DescriptionID"
+        android:text="Here is my description" />
+
+    <TextView
+        android:id="@+id/MoneyID"
+        android:layout_below="@id/LLrequestUserInfo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Amount: "
+        />
+    <TextView
+        android:id="@+id/JobReward"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="$20"
+        android:layout_below="@id/MoneyID"/>
+
+    <ImageView
+        android:id="@+id/JobPic"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:layout_below="@id/JobRequestName"
+        android:layout_alignParentEnd="true"
+        tools:srcCompat="@tools:sample/avatars" />
+
+    <TextView
+        android:id="@+id/JobAddress"
+        android:layout_width="100dp"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/JobRequestName"
+        android:textIsSelectable="true"
+        android:layout_marginRight="11dp"
+        android:layout_toLeftOf="@id/JobPic"
+        android:text="@string/ph_jobAddress" />
+
+
+</RelativeLayout>

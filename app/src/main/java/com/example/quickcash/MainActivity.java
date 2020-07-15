@@ -6,54 +6,64 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
 
+import com.example.quickcash.databinding.ActivityMainBinding;
+import com.example.quickcash.fragments.ComposeFragment;
+import com.example.quickcash.fragments.HomeFragment;
+import com.example.quickcash.fragments.MyJobsFragment;
+import com.example.quickcash.fragments.ProfileFragment;
+import com.example.quickcash.fragments.SearchFragment;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.parse.ParseUser;
 
 public class MainActivity extends AppCompatActivity {
 
     public static final String TAG = "MainActivity";
-    BottomNavigationView bottomNavigationView;
-    Button logOutbutton;
-    TextView hello;
+    private BottomNavigationView bottomNavigationView;
+    private Button logOutbutton;
+    private TextView MAtextView;
+    private final FragmentManager fragmentManager = getSupportFragmentManager();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
-        hello = findViewById(R.id.helloworld);
-        logOutbutton = findViewById(R.id.MAbutton);
-        bottomNavigationView = findViewById(R.id.bottom_navigation);
+        ActivityMainBinding binding = ActivityMainBinding.inflate(getLayoutInflater());
+        View view = binding.getRoot();
+        setContentView(view);
 
-        hello.setText("Hello " + ParseUser.getCurrentUser().getUsername());
+        logOutbutton = binding.MAbutton;
+        bottomNavigationView = binding.bottomNavigation;
+
         bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
                 Fragment fragment;
                 switch(item.getItemId()){
                     case R.id.action_home:
-                        Toast.makeText(MainActivity.this, "Home!", Toast.LENGTH_SHORT).show();
+                        fragment = new HomeFragment();
                         break;
                     case R.id.action_search:
-                        Toast.makeText(MainActivity.this, "Search!", Toast.LENGTH_SHORT).show();
+                        fragment = new SearchFragment();
                         break;
                     case R.id.action_compose:
-                        Toast.makeText(MainActivity.this, "Compose!", Toast.LENGTH_SHORT).show();
+                        fragment = new ComposeFragment();
                         break;
                     case R.id.action_myjobs:
-                        Toast.makeText(MainActivity.this, "My Jobs!", Toast.LENGTH_SHORT).show();
+                        fragment = new MyJobsFragment();
                         break;
                     default:
-                        Toast.makeText(MainActivity.this, "My Profile!", Toast.LENGTH_SHORT).show();
+                        fragment = new ProfileFragment();
                         break;
                 }
+                fragmentManager.beginTransaction().replace(R.id.flContainer, fragment).commit();
                 return true;
             }
         });
+        bottomNavigationView.setSelectedItemId(R.id.action_home);
 
         logOutbutton.setOnClickListener(new View.OnClickListener() {
             @Override
