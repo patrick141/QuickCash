@@ -10,6 +10,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
@@ -72,7 +73,7 @@ public class JobsAdapter extends RecyclerView.Adapter<JobsAdapter.ViewHolder> {
         notifyDataSetChanged();
     }
 
-    public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
+    public class ViewHolder extends RecyclerView.ViewHolder{
         private TextView jobName;
         private TextView jobRequestorName;
         private ImageView jobPicture;
@@ -97,19 +98,7 @@ public class JobsAdapter extends RecyclerView.Adapter<JobsAdapter.ViewHolder> {
             jobPrice = itemView.findViewById(R.id.job_price);
         }
 
-        @Override
-        public void onClick(View view) {
-            int position = getAdapterPosition();
-            if (position != RecyclerView.NO_POSITION) {
-                Job job = jobs.get(position);
-                Log.d("Load job details for ", job.getName());
-                Intent i = new Intent(context, JobDetailsActivity.class);
-                i.putExtra("REQUEST", Parcels.wrap(job));
-                context.startActivity(i);
-            }
-        }
-
-        public void bind(Job job) {
+        public void bind(final Job job) {
             jobName.setText(job.getName());
             jobDate.setText(job.getJobDate().toString());
             jobRequestorName.setText(job.getUser().getUsername());
@@ -124,7 +113,19 @@ public class JobsAdapter extends RecyclerView.Adapter<JobsAdapter.ViewHolder> {
             jobDescription.setText(job.getDescription());
             jobAddress.setText(job.getAddress());
             jobPrice.setText("$" + job.getPrice());
+
+            jobPicture.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    Log.d("Load job details for ", job.getName());
+                    Intent i = new Intent(context, JobDetailsActivity.class);
+                    Toast.makeText(context, job.getName(),  Toast.LENGTH_SHORT).show();
+                    i.putExtra("JOB", Parcels.wrap(job));
+                    context.startActivity(i);
+                }
+            });
         }
+
     }
 
     /**
