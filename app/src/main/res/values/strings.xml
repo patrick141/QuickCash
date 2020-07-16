@@ -12,9 +12,12 @@
     <!-- Item Job sample views -->
     <string name="ij_sampleAddress">123 Apple St, Charlotte NC, 28206</string>
     <string name="ij_postedID">Posted by</string>
+    <string name="ij_sampleDateAgo">4 hr ago</string>
     <string name="ij_amountID">Amount:</string>
     <string name="ij_descriptionID">Description</string>
     <string name="ij_samplePrice">$30</string>
+    <string name="ij_sampleDate">12 Jul 2020</string>
+    <string name="ij_addressID">Address: </string>
     <string name="ij_sampleDescription"> Here is my description</string>
 
     <string name="sign_out">Sign Out</string>
@@ -28,5 +31,11 @@
     <string name="CF_imageID">(Optional)</string>
     <string name="CF_composeJobID">Compose Job</string>
     <string name="CF_takeImageID">Upload Image</string>
+
+    <!-- MyJobs Fragment static strings -->
+
+    <!-- Job Details Activity -->
+    <string name="JDA_requestID">Submit Request Here:</string>
+    <string name="JDA_sendReq">Send Request</string>
 
 </resources>

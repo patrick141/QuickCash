@@ -14,10 +14,10 @@
 
     <TextView
         android:id="@+id/job_date"
-        android:text="3/4/2020"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentEnd="true"/>
+        android:layout_alignParentEnd="true"
+        android:text="@string/ij_sampleDate" />
 
     <LinearLayout
         android:id="@+id/ll_LrequestUserInfo"
@@ -42,7 +42,7 @@
             android:id="@+id/job_Dateposted"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="4 hr ago"/>
+            android:text="@string/ij_sampleDateAgo"/>
     </LinearLayout>
 
     <TextView
