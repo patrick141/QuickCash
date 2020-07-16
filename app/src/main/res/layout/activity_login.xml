@@ -17,28 +17,33 @@
         app:srcCompat="@drawable/logoname" />
 
     <EditText
-        android:id="@+id/LAusername"
+        android:id="@+id/la_username"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="username"
         android:textSize="14sp" />
 
     <EditText
-        android:id="@+id/LApassword"
+        android:id="@+id/la_password"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="password"
+        android:inputType="textPassword"
         android:textSize="14sp" />
 
     <Button
-        android:id="@+id/LAbtnLogin"
+        android:id="@+id/btnLogin"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="LOGIN"/>
+        android:background="#4CAF50"
+        android:text="LOGIN" />
+
     <Button
-        android:id="@+id/LAbtnSignup"
+        android:id="@+id/btnSignup"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Sign Up"/>
+        android:layout_marginTop="10dp"
+        android:background="#00BCD4"
+        android:text="Sign Up" />
 
 </LinearLayout>

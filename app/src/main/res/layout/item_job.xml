@@ -2,87 +2,94 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/RLjobrequest"
+    android:id="@+id/rl_jobrequest"
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
 
     <TextView
-        android:id="@+id/JobRequestName"
+        android:id="@+id/job_request_name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/app_name" />
 
+    <TextView
+        android:id="@+id/job_date"
+        android:text="3/4/2020"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"/>
+
     <LinearLayout
-        android:id="@+id/LLrequestUserInfo"
-        android:layout_below="@id/JobRequestName"
+        android:id="@+id/ll_LrequestUserInfo"
+        android:layout_below="@id/job_request_name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content">
 
         <TextView
-            android:id="@+id/PostedID"
+            android:id="@+id/posted_ID"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Posted by"/>
+            android:text="@string/ij_postedID" />
 
         <TextView
-            android:id="@+id/JobUserName"
+            android:id="@+id/job_Username"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:layout_marginStart="5dp"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Steven"/>
+            android:text="@string/app_name" />
 
         <TextView
-            android:id="@+id/JobDatePosted"
+            android:id="@+id/job_Dateposted"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="4 hr ago"/>
     </LinearLayout>
 
     <TextView
-        android:id="@+id/DescriptionID"
+        android:id="@+id/job_descriptionID"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@id/JobReward"
-        android:text="Description:" />
+        android:layout_below="@id/job_price"
+        android:text="@string/ij_descriptionID" />
 
     <TextView
-        android:id="@+id/JobDescription"
+        android:id="@+id/job_description"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@id/DescriptionID"
-        android:text="Here is my description" />
+        android:layout_below="@id/job_descriptionID"
+        android:text="@string/ij_sampleDescription" />
 
     <TextView
-        android:id="@+id/MoneyID"
-        android:layout_below="@id/LLrequestUserInfo"
+        android:id="@+id/job_moneyID"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Amount: "
-        />
+        android:layout_below="@id/ll_LrequestUserInfo"
+        android:text="@string/ij_amountID" />
+
     <TextView
-        android:id="@+id/JobReward"
+        android:id="@+id/job_price"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="$20"
-        android:layout_below="@id/MoneyID"/>
+        android:layout_below="@id/job_moneyID"
+        android:text="@string/ij_samplePrice" />
 
     <ImageView
-        android:id="@+id/JobPic"
+        android:id="@+id/job_picture"
         android:layout_width="100dp"
         android:layout_height="100dp"
-        android:layout_below="@id/JobRequestName"
+        android:layout_below="@id/job_request_name"
         android:layout_alignParentEnd="true"
         tools:srcCompat="@tools:sample/avatars" />
 
     <TextView
-        android:id="@+id/JobAddress"
-        android:layout_width="100dp"
+        android:id="@+id/job_address"
+        android:layout_width="120dp"
         android:layout_height="wrap_content"
-        android:layout_below="@id/JobRequestName"
-        android:textIsSelectable="true"
-        android:layout_marginRight="11dp"
-        android:layout_toLeftOf="@id/JobPic"
-        android:text="@string/ph_jobAddress" />
+        android:layout_below="@id/job_request_name"
+        android:layout_marginRight="3dp"
+        android:layout_toLeftOf="@id/job_picture"
+        android:text="@string/ij_sampleAddress"
+        android:textIsSelectable="true" />
 
 
 </RelativeLayout>

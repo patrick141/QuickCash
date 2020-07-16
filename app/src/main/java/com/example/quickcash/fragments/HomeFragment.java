@@ -14,10 +14,12 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.quickcash.R;
 import com.example.quickcash.adapters.JobsAdapter;
+import com.example.quickcash.adapters.RequestsAdapter;
 import com.example.quickcash.models.Job;
 import com.parse.FindCallback;
 import com.parse.ParseException;
 import com.parse.ParseQuery;
+import com.parse.ParseUser;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -25,8 +27,10 @@ import java.util.List;
 public class HomeFragment extends Fragment {
 
     public static final String TAG = "HomeFragment";
+
     private RecyclerView rvJobs;
     private JobsAdapter jobsAdapter;
+    private RequestsAdapter requestsAdapter;
     private List<Job> allJobs;
 
     public HomeFragment() {
@@ -47,16 +51,19 @@ public class HomeFragment extends Fragment {
 
         allJobs = new ArrayList<>();
         jobsAdapter = new JobsAdapter(getContext(), allJobs);
+
         rvJobs.setAdapter(jobsAdapter);
         rvJobs.setLayoutManager(new LinearLayoutManager(getContext()));
         queryJobs();
     }
 
-    public void queryJobs(){
+    protected void queryJobs(){
         ParseQuery<Job> query = ParseQuery.getQuery(Job.class);
         query.include(Job.KEY_JOB_USER);
         query.setLimit(20);
         query.addDescendingOrder(Job.KEY_CREATED_AT);
+        query.whereNotEqualTo(Job.KEY_JOB_USER, ParseUser.getCurrentUser());
+        query.whereNotEqualTo(Job.KEY_JOB_ISTAKEN, true);
         query.findInBackground(new FindCallback<Job>() {
             @Override
             public void done(List<Job> jobs, ParseException e) {
@@ -73,4 +80,17 @@ public class HomeFragment extends Fragment {
             }
         });
     }
+
+    public RecyclerView getRvJobs() {
+        return rvJobs;
+    }
+
+    public JobsAdapter getJobsAdapter() {
+        return jobsAdapter;
+    }
+
+    public List<Job> getAllJobs() {
+        return allJobs;
+    }
+
 }

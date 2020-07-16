@@ -1,11 +1,32 @@
 <resources>
     <string name="app_name">QuickCash</string>
-    <!-- TODO: Remove or change this placeholder text -->
+    <string name="fileProviderText">com.codepath.fileprovider.QuickCash</string>
+
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="ComposeFragmentSample">Hello compose fragment </string>
     <string name="HomeFragmentSample">Hello home fragment </string>
     <string name="MyJobsFragmentSample">Hello myjobs fragment </string>
     <string name="ProfileFragmentSample">Hello my profile fragment </string>
     <string name="SearchFragmentSample">Hello search fragment </string>
-    <string name="ph_jobAddress">123 Apple St, Charlotte NC, 28206</string>
+
+    <!-- Item Job sample views -->
+    <string name="ij_sampleAddress">123 Apple St, Charlotte NC, 28206</string>
+    <string name="ij_postedID">Posted by</string>
+    <string name="ij_amountID">Amount:</string>
+    <string name="ij_descriptionID">Description</string>
+    <string name="ij_samplePrice">$30</string>
+    <string name="ij_sampleDescription"> Here is my description</string>
+
+    <string name="sign_out">Sign Out</string>
+
+    <!-- Compose Fragment static strings-->
+    <string name="CF_nameID">Enter Job Name Here:</string>
+    <string name="CF_descriptionID">Enter Job Description Here:</string>
+    <string name="CF_dateID">Enter Job Date Here:</string>
+    <string name="CF_addressID">Enter Job Address Here:</string>
+    <string name="CF_priceID">Enter Job Price Here:</string>
+    <string name="CF_imageID">(Optional)</string>
+    <string name="CF_composeJobID">Compose Job</string>
+    <string name="CF_takeImageID">Upload Image</string>
+
 </resources>

@@ -5,4 +5,5 @@ import com.parse.ParseObject;
 
 @ParseClassName("Request")
 public class Request extends ParseObject {
+
 }

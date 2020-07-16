@@ -31,8 +31,8 @@ import java.util.Locale;
 public class JobsAdapter extends RecyclerView.Adapter<JobsAdapter.ViewHolder> {
 
     public static final String TAG = "JobsAdapter";
-    Context context;
-    List<Job> jobs;
+    private final Context context;
+    private final List<Job> jobs;
     public JobsAdapter(Context context, List<Job> jobs){
         this.context = context;
         this.jobs= jobs;
@@ -68,47 +68,55 @@ public class JobsAdapter extends RecyclerView.Adapter<JobsAdapter.ViewHolder> {
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
-        private TextView JobName;
-        private TextView JobRequestorName;
-        private ImageView JobPicture;
+        private TextView jobName;
+        private TextView jobRequestorName;
+        private ImageView jobPicture;
         private LinearLayout llUserDetails;
-        private TextView JobDatePosted;
-        private TextView JobAddress;
-        private TextView JobDescription;
+        private TextView jobDate;
+        private TextView jobDatePosted;
+        private TextView jobAddress;
+        private TextView jobDescription;
+        private TextView jobPrice;
 
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
-            JobName = itemView.findViewById(R.id.JobRequestName);
-            JobRequestorName = itemView.findViewById(R.id.JobUserName);
-            JobPicture = itemView.findViewById(R.id.JobPic);
-            llUserDetails = itemView.findViewById(R.id.LLrequestUserInfo);
-            JobDatePosted = itemView.findViewById(R.id.JobDatePosted);
-            JobDescription = itemView.findViewById(R.id.JobDescription);
-            JobAddress = itemView.findViewById(R.id.JobAddress);
+            jobName = itemView.findViewById(R.id.job_request_name);
+            jobDate = itemView.findViewById(R.id.job_date);
+            jobRequestorName = itemView.findViewById(R.id.job_Username);
+            jobPicture = itemView.findViewById(R.id.job_picture);
+            llUserDetails = itemView.findViewById(R.id.ll_LrequestUserInfo);
+            jobDatePosted = itemView.findViewById(R.id.job_Dateposted);
+            jobDescription = itemView.findViewById(R.id.job_description);
+            jobAddress = itemView.findViewById(R.id.job_address);
+            jobPrice = itemView.findViewById(R.id.job_price);
         }
 
         @Override
         public void onClick(View view) {
             int position = getAdapterPosition();
-            Job job = jobs.get(position);
-            Log.d("Load job details for ", job.getName());
-            Intent i = new Intent(context, JobDetailsActivity.class);
-            i.putExtra("REQUEST", Parcels.wrap(job));
-            context.startActivity(i);
+            if(position != RecyclerView.NO_POSITION) {
+                Job job = jobs.get(position);
+                Log.d("Load job details for ", job.getName());
+                Intent i = new Intent(context, JobDetailsActivity.class);
+                i.putExtra("REQUEST", Parcels.wrap(job));
+                context.startActivity(i);
+            }
         }
 
-        public void bind(Job request) {
-            JobName.setText(request.getName());
-            JobRequestorName.setText(request.getUser().getUsername());
-            ParseFile image = request.getImage();
+        public void bind(Job job) {
+            jobName.setText(job.getName());
+            jobDate.setText(job.getJobDate().toString());
+            jobRequestorName.setText(job.getUser().getUsername());
+            ParseFile image = job.getImage();
             if(image != null){
-                Log.i(TAG, "This post has " + image);
-                Glide.with(context).load(request.getImage().getUrl()).placeholder(R.drawable.ic_launcher_background).into(JobPicture);
+                Log.i(TAG, "This post has " + image.getUrl());
+                Glide.with(context).load(job.getImage().getUrl()).placeholder(R.drawable.ic_launcher_background).into(jobPicture);
             }
-            JobDatePosted.setText(" " + getRelativeTimeAgo(request.getCreatedAt().toString()));
-            JobDescription.setText(request.getDescription());
-            JobAddress.setText(request.getAddress());
+            jobDatePosted.setText(" " + getRelativeTimeAgo(job.getCreatedAt().toString()));
+            jobDescription.setText(job.getDescription());
+            jobAddress.setText(job.getAddress());
+            jobPrice.setText("$" + job.getPrice());
         }
     }
 

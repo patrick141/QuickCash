@@ -12,7 +12,8 @@
     <ImageView
         android:id="@+id/SAimageView"
         android:layout_width="match_parent"
-        android:layout_height="50dp" />
+        android:layout_height="175dp"
+        app:srcCompat="@drawable/logoname" />
     <TextView
         android:id="@+id/SAusernameID"
         android:layout_width="match_parent"
@@ -35,8 +36,9 @@
 
     <Button
         android:id="@+id/SAbtnSignUp"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:background="#FFEB3B"
         android:text="Sign up" />
 
 

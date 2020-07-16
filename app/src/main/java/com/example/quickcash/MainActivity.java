@@ -5,7 +5,6 @@ import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
-import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -26,8 +25,8 @@ public class MainActivity extends AppCompatActivity {
     public static final String TAG = "MainActivity";
     private BottomNavigationView bottomNavigationView;
     private Button logOutbutton;
-    private TextView MAtextView;
     private final FragmentManager fragmentManager = getSupportFragmentManager();
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -37,6 +36,7 @@ public class MainActivity extends AppCompatActivity {
 
         logOutbutton = binding.MAbutton;
         bottomNavigationView = binding.bottomNavigation;
+        logOutbutton.setVisibility(View.GONE);
 
         bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
             @Override
@@ -57,6 +57,7 @@ public class MainActivity extends AppCompatActivity {
                         break;
                     default:
                         fragment = new ProfileFragment();
+                        logOutbutton.setVisibility(View.VISIBLE);
                         break;
                 }
                 fragmentManager.beginTransaction().replace(R.id.flContainer, fragment).commit();

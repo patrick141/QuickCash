@@ -33,10 +33,10 @@ public class LoginActivity extends AppCompatActivity {
         }
         View view = binding.getRoot();
         setContentView(view);
-        etUsername = binding.LAusername;
-        etPassword = binding.LApassword;
-        btnLogin = binding.LAbtnLogin;
-        btnSignup = binding.LAbtnSignup;
+        etUsername = binding.laUsername;
+        etPassword = binding.laPassword;
+        btnLogin = binding.btnLogin;
+        btnSignup = binding.btnSignup;
 
         btnLogin.setOnClickListener(new View.OnClickListener() {
             @Override

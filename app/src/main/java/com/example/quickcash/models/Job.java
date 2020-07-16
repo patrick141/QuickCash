@@ -6,6 +6,7 @@ import com.parse.ParseObject;
 import com.parse.ParseUser;
 
 import java.util.ArrayList;
+import java.util.Date;
 
 @ParseClassName("Job")
 public class Job extends ParseObject {
@@ -17,7 +18,8 @@ public class Job extends ParseObject {
     public static final String KEY_JOB_PRICE = "price";
     public static final String KEY_JOB_IMAGE = "image";
     public static final String KEY_JOB_REQUESTS = "requests";
-    public static final String KEY_JOB_CREATEDAT = "createdAt";
+    public static final String KEY_JOB_DATE = "dateOfJob";
+    public static final String KEY_JOB_ASSIGNED_USER = "";
 
     public String getName(){
         return getString(KEY_JOB_NAME);
@@ -50,6 +52,10 @@ public class Job extends ParseObject {
     public void setUser(ParseUser user){
         put(KEY_JOB_USER, user);
     }
+
+    public Date getJobDate() {return getDate(KEY_JOB_DATE);}
+
+    public void setJobDate(Date date) {put(KEY_JOB_DATE, date);}
 
     public boolean isTaken(){
         return getBoolean(KEY_JOB_ISTAKEN);
