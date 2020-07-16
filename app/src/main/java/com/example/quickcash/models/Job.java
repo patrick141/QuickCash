@@ -8,6 +8,12 @@ import com.parse.ParseUser;
 import java.util.ArrayList;
 import java.util.Date;
 
+/**
+ * Job class
+ *
+ * This class define our Job class and its attributes.
+ */
+
 @ParseClassName("Job")
 public class Job extends ParseObject {
     public static final String KEY_JOB_NAME = "name";
@@ -53,9 +59,13 @@ public class Job extends ParseObject {
         put(KEY_JOB_USER, user);
     }
 
-    public Date getJobDate() {return getDate(KEY_JOB_DATE);}
+    public Date getJobDate() {
+        return getDate(KEY_JOB_DATE);
+    }
 
-    public void setJobDate(Date date) {put(KEY_JOB_DATE, date);}
+    public void setJobDate(Date date) {
+        put(KEY_JOB_DATE, date);
+    }
 
     public boolean isTaken(){
         return getBoolean(KEY_JOB_ISTAKEN);
@@ -81,13 +91,23 @@ public class Job extends ParseObject {
         put(KEY_JOB_IMAGE, image);
     }
 
-    public ArrayList<Request> getRequests(){ return (ArrayList<Request>) get(KEY_JOB_REQUESTS);}
+    public ArrayList<Request> getRequests(){
+        return (ArrayList<Request>) get(KEY_JOB_REQUESTS);
+    }
 
-    public void setJobRequests(ArrayList<Request> requests) {put(KEY_JOB_REQUESTS, requests);}
+    public void setJobRequests(ArrayList<Request> requests) {
+        put(KEY_JOB_REQUESTS, requests);
+    }
 
-    public void addJobRequest(ParseUser user){ add(KEY_JOB_REQUESTS, user.getObjectId());}
+    public void addJobRequest(ParseUser user){
+        add(KEY_JOB_REQUESTS, user.getObjectId());
+    }
 
-    public ParseUser getAssignedUser() {return getParseUser(KEY_JOB_ASSIGNED_USER);}
+    public ParseUser getAssignedUser() {
+        return getParseUser(KEY_JOB_ASSIGNED_USER);
+    }
 
-    public void setAssignedUser(ParseUser user) { put(KEY_JOB_ASSIGNED_USER, user);}
+    public void setAssignedUser(ParseUser user) {
+        put(KEY_JOB_ASSIGNED_USER, user);
+    }
 }

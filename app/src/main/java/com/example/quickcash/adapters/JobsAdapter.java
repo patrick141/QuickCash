@@ -26,16 +26,19 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.List;
 import java.util.Locale;
-/**
- This class will handle making our job requests into a recycler view.
 
+/**
+ * JobsAdapter Class
+ *
+ * This class will handle making our job requests into a recycler view.
  */
 public class JobsAdapter extends RecyclerView.Adapter<JobsAdapter.ViewHolder> {
 
     public static final String TAG = "JobsAdapter";
     private final Context context;
     private final List<Job> jobs;
-    public JobsAdapter(Context context, List<Job> jobs){
+
+    public JobsAdapter(Context context, List<Job> jobs) {
         this.context = context;
         this.jobs = jobs;
     }
@@ -59,7 +62,7 @@ public class JobsAdapter extends RecyclerView.Adapter<JobsAdapter.ViewHolder> {
         return jobs.size();
     }
 
-    public void addAll(List<Job> jobs){
+    public void addAll(List<Job> jobs) {
         this.jobs.addAll(jobs);
         notifyDataSetChanged();
     }
@@ -97,7 +100,7 @@ public class JobsAdapter extends RecyclerView.Adapter<JobsAdapter.ViewHolder> {
         @Override
         public void onClick(View view) {
             int position = getAdapterPosition();
-            if(position != RecyclerView.NO_POSITION) {
+            if (position != RecyclerView.NO_POSITION) {
                 Job job = jobs.get(position);
                 Log.d("Load job details for ", job.getName());
                 Intent i = new Intent(context, JobDetailsActivity.class);
@@ -111,11 +114,10 @@ public class JobsAdapter extends RecyclerView.Adapter<JobsAdapter.ViewHolder> {
             jobDate.setText(job.getJobDate().toString());
             jobRequestorName.setText(job.getUser().getUsername());
             ParseFile image = job.getImage();
-            if(image != null){
+            if (image != null) {
                 Log.i(TAG, "This post has " + image.getUrl());
                 Glide.with(context).load(job.getImage().getUrl()).placeholder(R.drawable.ic_launcher_background).into(jobPicture);
-            }
-            else{
+            } else {
                 Glide.with(context).load(R.drawable.logo).placeholder(R.drawable.ic_launcher_background).into(jobPicture);
             }
             jobDatePosted.setText(" " + getRelativeTimeAgo(job.getCreatedAt().toString()));
@@ -125,12 +127,10 @@ public class JobsAdapter extends RecyclerView.Adapter<JobsAdapter.ViewHolder> {
         }
     }
 
-
     /**
-     Converts a Date object's string and converts it into a timestamp from the time from that date.
-     Ex: "Thu Jul 16 08:30:00 EDT 2020" -> "3d" if today was Jul 19, 3 days past Jul 16.
-
-    **/
+     * Converts a Date object's string and converts it into a timestamp from the time from that date.
+     * Ex: "Thu Jul 16 08:30:00 EDT 2020" -> "3d" if today was Jul 19, 3 days past Jul 16.
+     **/
     public static String getRelativeTimeAgo(String rawJsonDate) {
         String format = "EEE MMM dd HH:mm:ss ZZZZZ yyyy";
         SimpleDateFormat sf = new SimpleDateFormat(format, Locale.ENGLISH);
@@ -145,10 +145,9 @@ public class JobsAdapter extends RecyclerView.Adapter<JobsAdapter.ViewHolder> {
             e.printStackTrace();
         }
         String[] check = relativeDate.split(" ");
-        if(check.length == 1){
+        if (check.length == 1) {
             return check[0];
-        }
-        else {
+        } else {
             return check[0] + check[1].charAt(0);
         }
     }
