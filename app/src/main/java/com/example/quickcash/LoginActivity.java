@@ -15,7 +15,15 @@ import com.parse.LogInCallback;
 import com.parse.ParseException;
 import com.parse.ParseUser;
 
-//This is where our user signs into their account.
+/**
+ * LoginActivity
+ *
+ * This class creates a login screen for our user to
+ * sign into QuickCash or directs user to sign up
+ * for an account.
+ *
+ * @author Patrick Amaro Rivera
+ */
 public class LoginActivity extends AppCompatActivity {
 
     public static final String TAG = "LoginActivity";
@@ -24,6 +32,9 @@ public class LoginActivity extends AppCompatActivity {
     private Button btnLogin;
     private Button btnSignup;
 
+    /**
+     * This is method calls upon getting the layout items from activity_login.xml.
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -38,6 +49,10 @@ public class LoginActivity extends AppCompatActivity {
         btnLogin = binding.btnLogin;
         btnSignup = binding.btnSignup;
 
+        /**
+         * This methods signs the user into QuickCash by clicking the Login Botton. If the user
+         * does not sign in, they will have a Toast saying sign up failed.
+         */
         btnLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -58,6 +73,12 @@ public class LoginActivity extends AppCompatActivity {
         });
     }
 
+    /**
+     * This method signs our user into the App using Parse.
+     * @param username
+     * @param password
+     * If username and password match an existing account, the user will be signed in.
+     */
     protected void loginUser(final String username, final String password){
         Log.i(TAG, "Attempting to log");
         ParseUser.logInInBackground(username, password, new LogInCallback() {
@@ -75,6 +96,11 @@ public class LoginActivity extends AppCompatActivity {
         });
     }
 
+    /**
+     * Once user is ready to sign in or has signed up for a new account,
+     * this starts the Main Activity class and ends the Login Activity
+     * (or SignUp Activity) class.
+     */
     protected void goMainActivity(){
         Intent i = new Intent(this, MainActivity.class);
         startActivity(i);

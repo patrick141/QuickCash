@@ -27,15 +27,29 @@ import androidx.fragment.app.Fragment;
 
 import com.bumptech.glide.Glide;
 import com.example.quickcash.R;
+import com.example.quickcash.models.Job;
+import com.parse.ParseFile;
 import com.parse.ParseUser;
+import com.parse.SaveCallback;
 
 import java.io.File;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.Locale;
 
 import static android.app.Activity.RESULT_OK;
 
-//This class will handle
+/**
+ * ComposeFragment
+ *
+ * This is our Compose Fragment. In here, the user can compose
+ * a job post into the Parse DB.
+ *
+ * @author Patrick Amaro Rivera
+ */
+
 public class ComposeFragment extends Fragment {
 
     public static final String TAG = "ComposeFragment";
@@ -115,31 +129,63 @@ public class ComposeFragment extends Fragment {
                 launchCamera();
             }
         });
+        /**
+         * This entire method creates a new job post once user has filled all necessary information.
+         * This gets the information provided in the editTexts and sends a request to create a new
+         * Job post into the Parse DB.
+         */
         btnCompose.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 String name = etName.getText().toString();
                 String description = etDescription.getText().toString();
-                String date = etJobDate.getText().toString();
+                Date date = null;
+                try {
+                    date = convertStringtoDate(etJobDate.getText().toString());
+                } catch (ParseException e) {
+                    e.printStackTrace();
+                }
                 String address = etAddress.getText().toString();
-                String price = etPrice.getText().toString();
-                if(name.isEmpty() || description.isEmpty() || date.isEmpty() || address.isEmpty() || price.isEmpty()){
+                Double price = Double.parseDouble(etPrice.getText().toString());
+                if(name.isEmpty() || description.isEmpty() || date.equals(null) || address.isEmpty() || price.equals(null)){
                     Toast.makeText(getContext(), " Missing required parts", Toast.LENGTH_SHORT).show();
                     return;
                 }
                 ParseUser currentUser = ParseUser.getCurrentUser();
-                /*
                 Job job = new Job();
                 job.setName(name);
                 job.setDescription(description);
                 job.setAddress(address);
-                job.setPrice(Double.parseDouble(price));
-                 */
+                job.setPrice(price.doubleValue());
+                job.setJobDate(date);
+                job.setUser(currentUser);
+                if(photoFile != null){
+                    job.setImage(new ParseFile(photoFile));
+                }
+                job.saveInBackground(new SaveCallback() {
+                    @Override
+                    public void done(com.parse.ParseException e) {
+                        if(e!= null){
+                            Log.e(TAG, "Error while saving", e);
+                        }
+                        Log.i(TAG, "Job was successful!");
+                        etName.setText("");
+                        etDescription.setText("");
+                        etAddress.setText("");
+                        etJobDate.setText("");
+                        etPrice.setText("");
+                        ivImage.setImageResource(0);
+                    }
+                });
             }
         });
 
     }
 
+    /**
+     * This methods launches the Android Camera in our application. This is used if the user
+     * wants to a put an optional Image for their Job.
+     */
     public void launchCamera() {
         // create Intent to take a picture and return control to the calling application
         Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
@@ -193,7 +239,15 @@ public class ComposeFragment extends Fragment {
         }
     }
 
-    public Date convertDatetoString(String ex){
-        return null;
+    /**
+     * This method converts a date string of format mm/dd/yyyy to a Date object.
+     * @param stringDate
+     * @return Date
+     * @throws ParseException
+     */
+    public Date convertStringtoDate(String stringDate) throws ParseException {
+        SimpleDateFormat format = new SimpleDateFormat("MM/dd/yyyy", Locale.ENGLISH);
+        Date date= format.parse(stringDate);
+        return date;
     }
 }

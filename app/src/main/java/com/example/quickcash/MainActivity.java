@@ -20,6 +20,15 @@ import com.example.quickcash.fragments.SearchFragment;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.parse.ParseUser;
 
+/**
+ * MainActivity
+ *
+ * This class is the QuickCash Main Activity. This class has our
+ * bottom nav view that switches fragment views.
+ *
+ * @author Patrick Amaro Rivera
+ */
+
 public class MainActivity extends AppCompatActivity {
 
     public static final String TAG = "MainActivity";
@@ -38,6 +47,11 @@ public class MainActivity extends AppCompatActivity {
         bottomNavigationView = binding.bottomNavigation;
         logOutbutton.setVisibility(View.GONE);
 
+        /**
+         *  This method handles switching between fragments. When ever a item is clicked, we create
+         *  a Fragment based upon the selection. The Fragment manager that replaces the old(current)
+         *  fragment with the new fragment created.
+         */
         bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
@@ -64,8 +78,12 @@ public class MainActivity extends AppCompatActivity {
                 return true;
             }
         });
+        // Default fragment when user signs is in the Home Fragment
         bottomNavigationView.setSelectedItemId(R.id.action_home);
 
+        /**
+         * This method logs the users out of QuickCash. They return to the login Screen.
+         */
         logOutbutton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

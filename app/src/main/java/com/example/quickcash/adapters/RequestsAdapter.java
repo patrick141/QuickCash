@@ -14,8 +14,8 @@ import com.example.quickcash.models.Request;
 import java.util.List;
 
 public class RequestsAdapter extends RecyclerView.Adapter<RequestsAdapter.ViewHolder> {
-    Context context;
-    List<Request> requests;
+    private final Context context;
+    private final List<Request> requests;
 
     public RequestsAdapter(Context context, List<Request> requests){
         this.context = context;

@@ -10,6 +10,15 @@ import com.parse.ParseUser;
 
 import java.util.List;
 
+/**
+ * ProfileFragment
+ *
+ * This is the ProfileFragment. In here, the user can see job
+ * postings that they have submitted and view requests.
+ *
+ * @author Patrick Amaro Rivera
+ */
+
 
 public class ProfileFragment extends HomeFragment {
 
@@ -43,6 +52,10 @@ public class ProfileFragment extends HomeFragment {
                     Log.i(TAG, "Job: " + job.getName() + ", username" + job.getUser().getUsername());
                 }
                 getAllJobs().addAll(jobs);
+                getJobsAdapter().notifyDataSetChanged();
+                getJobsAdapter().clear();
+                getJobsAdapter().addAll(jobs);
+                getSwipeContainer().setRefreshing(false);
                 getJobsAdapter().notifyDataSetChanged();
             }
         });

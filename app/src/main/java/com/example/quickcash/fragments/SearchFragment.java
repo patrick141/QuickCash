@@ -21,6 +21,15 @@ import com.parse.ParseQuery;
 import com.parse.ParseUser;
 
 import java.util.List;
+/**
+ * SearchFragment
+ *
+ * This is the Search Fragment. In here, the user can search for
+ * specific job postings.
+ *
+ * @author Patrick Amaro Rivera
+ */
+
 
 public class SearchFragment extends Fragment {
 
@@ -47,6 +56,9 @@ public class SearchFragment extends Fragment {
 
         ivSample.setVisibility(View.GONE);
         searchView.setQueryHint(" Search here ");
+        /**
+         * This handles what is being searched in the search view.
+         */
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String myText) {
@@ -62,7 +74,11 @@ public class SearchFragment extends Fragment {
         });
     }
 
-
+    /**
+     * This method types the enteredText in the searchView and
+     * looks up job postings name that match the text.
+     * @param enteredText
+     */
     protected void querySearchJobs(String enteredText){
         ParseQuery<Job> query = ParseQuery.getQuery(Job.class);
         query.include(Job.KEY_JOB_USER);

@@ -19,7 +19,7 @@ public class Job extends ParseObject {
     public static final String KEY_JOB_IMAGE = "image";
     public static final String KEY_JOB_REQUESTS = "requests";
     public static final String KEY_JOB_DATE = "dateOfJob";
-    public static final String KEY_JOB_ASSIGNED_USER = "";
+    public static final String KEY_JOB_ASSIGNED_USER = "assignedUser";
 
     public String getName(){
         return getString(KEY_JOB_NAME);
@@ -86,4 +86,8 @@ public class Job extends ParseObject {
     public void setJobRequests(ArrayList<Request> requests) {put(KEY_JOB_REQUESTS, requests);}
 
     public void addJobRequest(ParseUser user){ add(KEY_JOB_REQUESTS, user.getObjectId());}
+
+    public ParseUser getAssignedUser() {return getParseUser(KEY_JOB_ASSIGNED_USER);}
+
+    public void setAssignedUser(ParseUser user) { put(KEY_JOB_ASSIGNED_USER, user);}
 }

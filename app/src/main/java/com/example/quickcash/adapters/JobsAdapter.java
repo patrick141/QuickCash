@@ -26,8 +26,10 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.List;
 import java.util.Locale;
+/**
+ This class will handle making our job requests into a recycler view.
 
-//This class will handle making our job requests into a recycler view.
+ */
 public class JobsAdapter extends RecyclerView.Adapter<JobsAdapter.ViewHolder> {
 
     public static final String TAG = "JobsAdapter";
@@ -35,7 +37,7 @@ public class JobsAdapter extends RecyclerView.Adapter<JobsAdapter.ViewHolder> {
     private final List<Job> jobs;
     public JobsAdapter(Context context, List<Job> jobs){
         this.context = context;
-        this.jobs= jobs;
+        this.jobs = jobs;
     }
 
     @NonNull
@@ -58,7 +60,7 @@ public class JobsAdapter extends RecyclerView.Adapter<JobsAdapter.ViewHolder> {
     }
 
     public void addAll(List<Job> jobs){
-        jobs.addAll(jobs);
+        this.jobs.addAll(jobs);
         notifyDataSetChanged();
     }
 
@@ -113,6 +115,9 @@ public class JobsAdapter extends RecyclerView.Adapter<JobsAdapter.ViewHolder> {
                 Log.i(TAG, "This post has " + image.getUrl());
                 Glide.with(context).load(job.getImage().getUrl()).placeholder(R.drawable.ic_launcher_background).into(jobPicture);
             }
+            else{
+                Glide.with(context).load(R.drawable.logo).placeholder(R.drawable.ic_launcher_background).into(jobPicture);
+            }
             jobDatePosted.setText(" " + getRelativeTimeAgo(job.getCreatedAt().toString()));
             jobDescription.setText(job.getDescription());
             jobAddress.setText(job.getAddress());
@@ -120,22 +125,32 @@ public class JobsAdapter extends RecyclerView.Adapter<JobsAdapter.ViewHolder> {
         }
     }
 
+
+    /**
+     Converts a Date object's string and converts it into a timestamp from the time from that date.
+     Ex: "Thu Jul 16 08:30:00 EDT 2020" -> "3d" if today was Jul 19, 3 days past Jul 16.
+
+    **/
     public static String getRelativeTimeAgo(String rawJsonDate) {
-        String instaFormat = "EEE MMM dd HH:mm:ss ZZZZZ yyyy";
-        SimpleDateFormat sf = new SimpleDateFormat(instaFormat, Locale.ENGLISH);
+        String format = "EEE MMM dd HH:mm:ss ZZZZZ yyyy";
+        SimpleDateFormat sf = new SimpleDateFormat(format, Locale.ENGLISH);
         sf.setLenient(true);
 
         String relativeDate = "";
         try {
             long dateMillis = sf.parse(rawJsonDate).getTime();
             relativeDate = DateUtils.getRelativeTimeSpanString(dateMillis,
-                    System.currentTimeMillis(), DateUtils.SECOND_IN_MILLIS).toString();
+                    System.currentTimeMillis(), DateUtils.SECOND_IN_MILLIS, DateUtils.FORMAT_ABBREV_RELATIVE).toString();
         } catch (ParseException e) {
             e.printStackTrace();
         }
-
         String[] check = relativeDate.split(" ");
-        return check[0] + check[1].charAt(0);
+        if(check.length == 1){
+            return check[0];
+        }
+        else {
+            return check[0] + check[1].charAt(0);
+        }
     }
 
 

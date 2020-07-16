@@ -12,13 +12,23 @@ import com.parse.ParseException;
 import com.parse.ParseUser;
 import com.parse.SignUpCallback;
 
-//If user needs to sign up for a new account. They are directed here.
+/**
+ * SignUpActivity
+ *
+ * This class creates a new account for the user if they wish
+ * to create one.
+ *
+ * @author Patrick Amaro Rivera
+ */
 public class SignUpActivity extends LoginActivity {
     public static final String TAG = "SignUpActivity";
     private EditText etNewUsername;
     private EditText etNewPassword;
     private Button btnSignUpNew;
 
+    /**
+     * This is method calls upon getting the layout items from activity_sign_up.xml.
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -30,6 +40,9 @@ public class SignUpActivity extends LoginActivity {
         etNewPassword = binding.SApassword;
         btnSignUpNew = binding.SAbtnSignUp;
 
+        /**
+         * Clicking on sign up button should create a new account into the Parse DB.
+         */
         btnSignUpNew.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

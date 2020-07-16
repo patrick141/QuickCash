@@ -11,6 +11,7 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import com.example.quickcash.R;
 import com.example.quickcash.adapters.JobsAdapter;
@@ -23,6 +24,14 @@ import com.parse.ParseUser;
 
 import java.util.ArrayList;
 import java.util.List;
+/**
+ * HomeFragment
+ *
+ * This is the Home Fragment. In here, the user can see job
+ * postings from other users.
+ *
+ * @author Patrick Amaro Rivera
+ */
 
 public class HomeFragment extends Fragment {
 
@@ -32,6 +41,7 @@ public class HomeFragment extends Fragment {
     private JobsAdapter jobsAdapter;
     private RequestsAdapter requestsAdapter;
     private List<Job> allJobs;
+    private SwipeRefreshLayout swipeContainer;
 
     public HomeFragment() {
         // Required empty public constructor
@@ -47,13 +57,29 @@ public class HomeFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        rvJobs = view.findViewById(R.id.rvJobs);
-
+        rvJobs = view.findViewById(R.id.rv_Jobs);
         allJobs = new ArrayList<>();
-        jobsAdapter = new JobsAdapter(getContext(), allJobs);
 
+        jobsAdapter = new JobsAdapter(getContext(), allJobs);
         rvJobs.setAdapter(jobsAdapter);
-        rvJobs.setLayoutManager(new LinearLayoutManager(getContext()));
+
+        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext());
+        rvJobs.setLayoutManager(linearLayoutManager);
+
+        swipeContainer = view.findViewById(R.id.swipe_Container);
+
+        swipeContainer.setColorSchemeResources(android.R.color.holo_blue_bright,
+                android.R.color.holo_green_light,
+                android.R.color.holo_orange_light,
+                android.R.color.holo_red_light);
+
+        swipeContainer.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                Log.i(TAG, "fetching more data");
+                queryJobs();
+            }
+        });
         queryJobs();
     }
 
@@ -63,7 +89,7 @@ public class HomeFragment extends Fragment {
         query.setLimit(20);
         query.addDescendingOrder(Job.KEY_CREATED_AT);
         query.whereNotEqualTo(Job.KEY_JOB_USER, ParseUser.getCurrentUser());
-        query.whereNotEqualTo(Job.KEY_JOB_ISTAKEN, true);
+        query.whereEqualTo(Job.KEY_JOB_ISTAKEN, false);
         query.findInBackground(new FindCallback<Job>() {
             @Override
             public void done(List<Job> jobs, ParseException e) {
@@ -74,23 +100,20 @@ public class HomeFragment extends Fragment {
                 for(Job job: jobs){
                     Log.i(TAG, "Job: " + job.getName() + ", username" + job.getUser().getUsername());
                 }
-
-                allJobs.addAll(jobs);
+                jobsAdapter.clear();
+                jobsAdapter.addAll(jobs);
+                swipeContainer.setRefreshing(false);
                 jobsAdapter.notifyDataSetChanged();
             }
         });
     }
 
-    public RecyclerView getRvJobs() {
-        return rvJobs;
-    }
+    public RecyclerView getRvJobs() { return rvJobs; }
 
-    public JobsAdapter getJobsAdapter() {
-        return jobsAdapter;
-    }
+    public JobsAdapter getJobsAdapter() { return jobsAdapter; }
 
-    public List<Job> getAllJobs() {
-        return allJobs;
-    }
+    public List<Job> getAllJobs() { return allJobs; }
+
+    public SwipeRefreshLayout getSwipeContainer() { return swipeContainer; }
 
 }

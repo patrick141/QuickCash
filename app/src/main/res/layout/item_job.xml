@@ -49,7 +49,7 @@
         android:id="@+id/job_descriptionID"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@id/job_price"
+        android:layout_below="@id/job_picture"
         android:text="@string/ij_descriptionID" />
 
     <TextView
@@ -64,6 +64,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@id/ll_LrequestUserInfo"
+        android:layout_marginTop="20dp"
         android:text="@string/ij_amountID" />
 
     <TextView
@@ -86,10 +87,12 @@
         android:layout_width="120dp"
         android:layout_height="wrap_content"
         android:layout_below="@id/job_request_name"
-        android:layout_marginRight="3dp"
+        android:layout_marginStart="5dp"
         android:layout_toLeftOf="@id/job_picture"
+        android:layout_toRightOf="@id/ll_LrequestUserInfo"
         android:text="@string/ij_sampleAddress"
-        android:textIsSelectable="true" />
+        android:textIsSelectable="true"
+        android:textStyle="bold" />
 
 
 </RelativeLayout>
