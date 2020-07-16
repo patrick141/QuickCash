@@ -73,7 +73,7 @@ public class JobsAdapter extends RecyclerView.Adapter<JobsAdapter.ViewHolder> {
         notifyDataSetChanged();
     }
 
-    public class ViewHolder extends RecyclerView.ViewHolder{
+    public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
         private TextView jobName;
         private TextView jobRequestorName;
         private ImageView jobPicture;
@@ -96,6 +96,7 @@ public class JobsAdapter extends RecyclerView.Adapter<JobsAdapter.ViewHolder> {
             jobDescription = itemView.findViewById(R.id.job_description);
             jobAddress = itemView.findViewById(R.id.job_address);
             jobPrice = itemView.findViewById(R.id.job_price);
+            itemView.setOnClickListener(this);
         }
 
         public void bind(final Job job) {
@@ -113,19 +114,20 @@ public class JobsAdapter extends RecyclerView.Adapter<JobsAdapter.ViewHolder> {
             jobDescription.setText(job.getDescription());
             jobAddress.setText(job.getAddress());
             jobPrice.setText("$" + job.getPrice());
-
-            jobPicture.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    Log.d("Load job details for ", job.getName());
-                    Intent i = new Intent(context, JobDetailsActivity.class);
-                    Toast.makeText(context, job.getName(),  Toast.LENGTH_SHORT).show();
-                    i.putExtra("JOB", Parcels.wrap(job));
-                    context.startActivity(i);
-                }
-            });
         }
 
+        @Override
+        public void onClick(View view) {
+            int position = getAdapterPosition();
+            if(position != RecyclerView.NO_POSITION) {
+                Job job = jobs.get(position);
+                Log.d("Load job details for ", job.getName());
+                Intent i = new Intent(context, JobDetailsActivity.class);
+                Toast.makeText(context, job.getName(), Toast.LENGTH_SHORT).show();
+                i.putExtra("JOB", Parcels.wrap(job));
+                context.startActivity(i);
+            }
+        }
     }
 
     /**
