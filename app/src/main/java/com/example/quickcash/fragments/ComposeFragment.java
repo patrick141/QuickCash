@@ -201,6 +201,16 @@ public class ComposeFragment extends Fragment {
                         ivImage.setImageResource(0);
                     }
                 });
+                currentUser.add("myJobs", job);
+                currentUser.saveInBackground(new SaveCallback() {
+                    @Override
+                    public void done(com.parse.ParseException e) {
+                        if(e!= null){
+                            Log.e(TAG, "Error adding job to user", e);
+                        }
+                        Log.i(TAG, "User has this job");
+                    }
+                });
             }
         });
 

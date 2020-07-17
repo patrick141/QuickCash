@@ -90,7 +90,7 @@ public class JobDetailsActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 String comment = etRequestJDA.getText().toString();
-                Request request = new Request();
+                final Request request = new Request();
                 ParseUser currentUser = ParseUser.getCurrentUser();
                 request.setUser(currentUser);
                 request.setComment(comment);
@@ -99,11 +99,21 @@ public class JobDetailsActivity extends AppCompatActivity {
                     @Override
                     public void done(ParseException e) {
                         if(e !=null){
-                            Log.e(TAG, "Error while creating job request");
+                            Log.e(TAG, "Error while creating job request", e);
                             return;
                         }
                         Log.i(TAG, "Request was successful");
                         etRequestJDA.setText("");
+                    }
+                });
+                job.addJobRequest(request);
+                job.saveInBackground(new SaveCallback() {
+                    @Override
+                    public void done(ParseException e) {
+                        if(e!= null){
+                            Log.e(TAG, "Error while adding job request", e);
+                        }
+                        Log.i(TAG, "It's now in DB");
                     }
                 });
             }

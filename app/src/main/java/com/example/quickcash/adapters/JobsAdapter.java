@@ -54,7 +54,6 @@ public class JobsAdapter extends RecyclerView.Adapter<JobsAdapter.ViewHolder> {
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         Job job = jobs.get(position);
-        Log.e(TAG, "isTaken: " + job.isTaken());
         holder.bind(job);
     }
 
