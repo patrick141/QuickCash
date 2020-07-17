@@ -55,7 +55,6 @@ public class SearchFragment extends HomeFragment {
         /**
          * This handles what is being searched in the search view.
          */
-
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String myText) {
