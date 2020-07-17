@@ -38,5 +38,7 @@
     <!-- Job Details Activity -->
     <string name="JDA_requestID">Submit Request Here:</string>
     <string name="JDA_sendReq">Send Request</string>
+    <string name="JDA_sampleReq">I would be happy to do this job.</string>
+    <string name="JDA_reqIsSent">Request has been submitted</string>
 
 </resources>

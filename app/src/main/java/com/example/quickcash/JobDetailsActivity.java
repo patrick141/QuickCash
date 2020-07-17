@@ -7,6 +7,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -35,9 +36,10 @@ public class JobDetailsActivity extends AppCompatActivity {
     private TextView jobPriceJDA;
     private TextView jobAddressJDA;
     private ImageView jobImageJDA;
-
+    private LinearLayout llJobRequest;
     private EditText etRequestJDA;
     private Button btnSubmitRequest;
+    private TextView sentReq;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -60,8 +62,13 @@ public class JobDetailsActivity extends AppCompatActivity {
         jobAddressJDA = binding.jdaJobAddress;
         jobImageJDA = binding.jdaJobImage;
 
+        llJobRequest = binding.llJdaRequest;
         etRequestJDA = binding.jdaEtRequest;
         btnSubmitRequest = binding.jdaButtonRequest;
+        sentReq = binding.sentView;
+
+        sentReq.setVisibility(View.GONE);
+        llJobRequest.setVisibility(View.VISIBLE);
 
         jobNameJDA.setText(job.getName());
         jobDateJDA.setText(job.getJobDate().toString());
@@ -104,6 +111,8 @@ public class JobDetailsActivity extends AppCompatActivity {
                         }
                         Log.i(TAG, "Request was successful");
                         etRequestJDA.setText("");
+                        llJobRequest.setVisibility(View.GONE);
+                        sentReq.setVisibility(View.VISIBLE);
                     }
                 });
                 job.addJobRequest(request);

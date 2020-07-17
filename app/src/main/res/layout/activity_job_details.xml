@@ -113,11 +113,12 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/JDA_requestID"/>
+
         <EditText
             android:id="@+id/jda_et_Request"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/JDA_requestID"/>
+            android:hint="@string/JDA_sampleReq" />
 
         <Button
             android:id="@+id/jda_button_request"
@@ -126,5 +127,15 @@
             android:text="@string/JDA_sendReq" />
 
     </LinearLayout>
+
+    <TextView
+        android:id="@+id/sentView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/ll_jda_request"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="30dp"
+        android:text="@string/JDA_reqIsSent"
+        android:textSize="30sp" />
 
 </RelativeLayout>
