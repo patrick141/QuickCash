@@ -4,22 +4,29 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bumptech.glide.Glide;
 import com.example.quickcash.R;
+import com.example.quickcash.models.Job;
 import com.example.quickcash.models.Request;
+import com.parse.ParseFile;
 
 import java.util.List;
 
 public class RequestsAdapter extends RecyclerView.Adapter<RequestsAdapter.ViewHolder> {
     private final Context context;
     private final List<Request> requests;
+    private final List<Job> jobs;
 
-    public RequestsAdapter(Context context, List<Request> requests){
+    public RequestsAdapter(Context context, List<Request> requests, List<Job> jobs){
         this.context = context;
         this.requests = requests;
+        this.jobs = jobs;
     }
 
     @NonNull
@@ -41,7 +48,7 @@ public class RequestsAdapter extends RecyclerView.Adapter<RequestsAdapter.ViewHo
     }
 
     public void addAll(List<Request> requests){
-        requests.addAll(requests);
+        this.requests.addAll(requests);
         notifyDataSetChanged();
     }
 
@@ -52,11 +59,27 @@ public class RequestsAdapter extends RecyclerView.Adapter<RequestsAdapter.ViewHo
 
 
     public class ViewHolder extends RecyclerView.ViewHolder{
+        private ImageView ivRequest;
+        private TextView tvRequestUsername;
+        private TextView tvRequestComment;
+
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
+            ivRequest = itemView.findViewById(R.id.iv_request_User);
+            tvRequestUsername = itemView.findViewById(R.id.request_user);
+            tvRequestComment = itemView.findViewById(R.id.request_comment);
         }
 
         public void bind(Request request) {
+            tvRequestUsername.setText(request.getUser().getUsername());
+            tvRequestComment.setText(request.getComment());
+            ParseFile userImage = (ParseFile) request.getUser().get("profilePic");
+            if(userImage == null){
+                Glide.with(context).load(R.drawable.logo).into(ivRequest);
+            }
+            else{
+                Glide.with(context).load(userImage.getUrl()).into(ivRequest);
+            }
         }
     }
 }
