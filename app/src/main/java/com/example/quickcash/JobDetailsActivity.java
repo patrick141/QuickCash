@@ -2,6 +2,7 @@ package com.example.quickcash;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -13,7 +14,11 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.bumptech.glide.Glide;
 import com.example.quickcash.databinding.ActivityJobDetailsBinding;
 import com.example.quickcash.models.Job;
+import com.example.quickcash.models.Request;
+import com.parse.ParseException;
 import com.parse.ParseFile;
+import com.parse.ParseUser;
+import com.parse.SaveCallback;
 
 import org.parceler.Parcels;
 
@@ -78,6 +83,29 @@ public class JobDetailsActivity extends AppCompatActivity {
                 Intent i = new Intent(JobDetailsActivity.this, ProfileActivity.class);
                 i.putExtra("PROFILE", Parcels.wrap(job));
                 JobDetailsActivity.this.startActivity(i);
+            }
+        });
+
+        btnSubmitRequest.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                String comment = etRequestJDA.getText().toString();
+                Request request = new Request();
+                ParseUser currentUser = ParseUser.getCurrentUser();
+                request.setUser(currentUser);
+                request.setComment(comment);
+                request.setJob(job);
+                request.saveInBackground(new SaveCallback() {
+                    @Override
+                    public void done(ParseException e) {
+                        if(e !=null){
+                            Log.e(TAG, "Error while creating job request");
+                            return;
+                        }
+                        Log.i(TAG, "Request was successful");
+                        etRequestJDA.setText("");
+                    }
+                });
             }
         });
     }

@@ -13,7 +13,7 @@ import com.parse.ParseUser;
 public class Request extends ParseObject {
     public static final String KEY_REQUEST_USER = "user";
     public static final String KEY_REQUEST_COMMENT = "comment";
-    public static final String KEY_REQUEST_POST = "jobPost";
+    public static final String KEY_REQUEST_JOB = "jobPost";
 
     public ParseUser getUser() {
         return getParseUser(KEY_REQUEST_USER);
@@ -31,11 +31,11 @@ public class Request extends ParseObject {
         put(KEY_REQUEST_COMMENT, comment);
     }
 
-    public ParseObject getPost(){
-        return getParseObject(KEY_REQUEST_POST);
+    public ParseObject getJob(){
+        return getParseObject(KEY_REQUEST_JOB);
     }
 
-    public void setPost(ParseObject post){
-        put(KEY_REQUEST_POST, post);
+    public void setJob(ParseObject job){
+        put(KEY_REQUEST_JOB, job);
     }
 }
