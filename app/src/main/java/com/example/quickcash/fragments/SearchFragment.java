@@ -10,9 +10,7 @@ import android.widget.SearchView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.fragment.app.Fragment;
 
-import com.bumptech.glide.Glide;
 import com.example.quickcash.R;
 import com.example.quickcash.models.Job;
 import com.parse.FindCallback;
@@ -31,7 +29,7 @@ import java.util.List;
  */
 
 
-public class SearchFragment extends Fragment {
+public class SearchFragment extends HomeFragment {
 
     public static final String TAG = "SearchFragment";
     private SearchView searchView;
@@ -52,18 +50,16 @@ public class SearchFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         searchView = view.findViewById(R.id.search_bar);
-        ivSample = view.findViewById(R.id.ivSample);
 
-        ivSample.setVisibility(View.GONE);
         searchView.setQueryHint(" Search here ");
         /**
          * This handles what is being searched in the search view.
          */
+
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String myText) {
-                ivSample.setVisibility(View.VISIBLE);
-                Glide.with(getContext()).load("").placeholder(R.drawable.ic_launcher_foreground).into(ivSample);
+                querySearchJobs(myText);
                 return true;
             }
 
@@ -97,9 +93,10 @@ public class SearchFragment extends Fragment {
                 for(Job job: jobs){
                     Log.i(TAG, "Job: " + job.getName() + ", username" + job.getUser().getUsername());
                 }
-
-                //allJobs.addAll(jobs);
-                //jobsAdapter.notifyDataSetChanged();
+                getJobsAdapter().clear();
+                getJobsAdapter().addAll(jobs);
+                getSwipeContainer().setRefreshing(false);
+                getJobsAdapter().notifyDataSetChanged();
             }
         });
     }
