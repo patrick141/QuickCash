@@ -113,7 +113,7 @@ public class JobsAdapter extends RecyclerView.Adapter<JobsAdapter.ViewHolder> {
             jobDatePosted.setText(" " + getRelativeTimeAgo(job.getCreatedAt().toString()));
             jobDescription.setText(job.getDescription());
             jobAddress.setText(job.getAddress());
-            jobPrice.setText("$" + job.getPrice());
+            jobPrice.setText("$" + String.format("%.2f", job.getPrice()));
         }
 
         @Override

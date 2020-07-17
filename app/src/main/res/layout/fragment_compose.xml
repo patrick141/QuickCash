@@ -60,21 +60,21 @@
         android:id="@+id/cf_dateID"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginStart="60dp"
         android:layout_marginTop="8dp"
         android:text="@string/CF_dateID"
         android:textSize="12sp"
-        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/et_description" />
 
     <EditText
         android:id="@+id/et_date"
-        android:layout_width="193dp"
+        android:layout_width="125dp"
         android:layout_height="wrap_content"
-        android:textSize="12sp"
+        android:layout_marginStart="55dp"
         android:clickable="true"
         android:editable="false"
-        app:layout_constraintEnd_toEndOf="parent"
+        android:textSize="12sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/cf_dateID" />
 
@@ -158,5 +158,27 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/cf_imageID" />
+
+    <TextView
+        android:id="@+id/cd_timeID"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="60dp"
+        android:text="@string/CF_timeID"
+        android:textSize="12sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/et_description" />
+
+    <EditText
+        android:id="@+id/et_time"
+        android:layout_width="125dp"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="55dp"
+        android:clickable="true"
+        android:editable="false"
+        android:textSize="12sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/cd_timeID" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,5 +1,6 @@
 package com.example.quickcash;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -67,5 +68,13 @@ public class JobDetailsActivity extends AppCompatActivity {
         jobPriceJDA.setText("$" + job.getPrice().toString());
         jobAddressJDA.setText(job.getAddress());
 
+        jobUserJDA.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent i = new Intent(JobDetailsActivity.this, ProfileActivity.class);
+                i.putExtra("PROFILE", Parcels.wrap(job));
+                JobDetailsActivity.this.startActivity(i);
+            }
+        });
     }
 }

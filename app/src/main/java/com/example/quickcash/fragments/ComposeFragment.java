@@ -1,6 +1,7 @@
 package com.example.quickcash.fragments;
 
 import android.app.DatePickerDialog;
+import android.app.TimePickerDialog;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -18,6 +19,7 @@ import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.TimePicker;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -60,6 +62,7 @@ public class ComposeFragment extends Fragment {
     private EditText etAddress;
     private EditText etPrice;
     private EditText etJobDate;
+    private EditText etJobTime;
     private Button btnCompose;
     private Button btnTakeImage;
     private ImageView ivImage;
@@ -68,6 +71,7 @@ public class ComposeFragment extends Fragment {
     public static final int CAPTURE_IMAGE_ACTIVITY_REQUEST_CODE = 42;
 
     private DatePickerDialog.OnDateSetListener mDateSetListener;
+    private TimePickerDialog.OnTimeSetListener mTimeSetListener;
 
 
     public ComposeFragment() {
@@ -88,6 +92,7 @@ public class ComposeFragment extends Fragment {
         etName = view.findViewById(R.id.et_name);
         etDescription = view.findViewById(R.id.et_description);
         etJobDate = view.findViewById(R.id.et_date);
+        etJobTime = view.findViewById(R.id.et_time);
         etAddress = view.findViewById(R.id.et_address);
         etPrice = view.findViewById(R.id.et_price);
         btnCompose = view.findViewById(R.id.btn_composeJob);
@@ -114,6 +119,24 @@ public class ComposeFragment extends Fragment {
             }
         });
 
+        etJobTime.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Calendar cal = Calendar.getInstance();
+                int hourOfDay = cal.get(Calendar.HOUR_OF_DAY);
+                int minute = cal.get(Calendar.MINUTE);
+                TimePickerDialog dialog = new TimePickerDialog(getContext(),
+                        new TimePickerDialog.OnTimeSetListener() {
+                            @Override
+                            public void onTimeSet(TimePicker timePicker, int hourOfDay, int minute) {
+                                etJobTime.setText(hourOfDay + ":" + minute);
+                            }
+                        }, hourOfDay, minute, true);
+                dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+                dialog.show();
+            }
+        });
+
         mDateSetListener = new DatePickerDialog.OnDateSetListener() {
             @Override
             public void onDateSet(DatePicker datePicker, int year, int month, int day) {
@@ -122,6 +145,7 @@ public class ComposeFragment extends Fragment {
                 etJobDate.setText(date);
             }
         };
+
 
         btnTakeImage.setOnClickListener(new View.OnClickListener() {
             @Override
