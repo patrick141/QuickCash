@@ -35,9 +35,10 @@ Need to make money fast? QuickCash is an app that allows people to find easy-qui
 **Optional Nice-to-have (Stretch) Stories**
 * Users can pay person via cash or online.
 * Users can add and remove friends.
-* Users can have Endless Scrolling Feature.
-* Users can comment on posts and interact with users.
+* Users can comment on Job posts and interact with users.
 * Users can recieve notifications.
+* Users can make approve specific when creating a job post.
+* Users can change account settings.
 
 ### 2. Screen Archetypes
 
@@ -45,18 +46,15 @@ Need to make money fast? QuickCash is an app that allows people to find easy-qui
    * User can log into their account.
    * If user does not have an account, it can sign up for one.
 * Detail/Home Activity
-   * User can see posts of job tasks.
-   * User can submit request to complete job task.
+   * User can see job posts.
+   * User can submit request to complete job.
 * Creation (Fragment)
-   * User can compose job task.
+   * User can compose a job post.
 * Profile (Fragment)
    * User can view public account information.
    * User can view job tasks that they requested and approve users.
-* MyTasks (Fragment)
+* MyJobs (Fragment)
    * User can view job tasks that they want to do and check approval status.
-* Settings (Fragment)
-   * User can view private account information. 
-   * User can change account settings. 
 
 ### 3. Navigation (NEED TO UPDATE)
 
@@ -96,9 +94,6 @@ https://www.figma.com/file/QbfAQARWlZ9yfjCAmeGdxs/QuickCash?node-id=0%3A1
 ### [BONUS] Interactive Prototype
 Coming Soon!
 https://www.figma.com/embed?embed_host=share&url=https%3A%2F%2Fwww.figma.com%2Ffile%2FQbfAQARWlZ9yfjCAmeGdxs%2FQuickCash%3Fnode-id%3D0%253A1&chrome=DOCUMENTATION
-
-### App Demos (Development Stage)
-<img src="https://github.com/patrick141/QuickCash/raw/master/quickcashtest1.gif" width='' title='Video Walkthrough'>
 
 ## Schema 
 [This section will be completed in Unit 9]
