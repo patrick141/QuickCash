@@ -5,7 +5,6 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 import android.widget.SearchView;
 
 import androidx.annotation.NonNull;
@@ -33,7 +32,6 @@ public class SearchFragment extends HomeFragment {
 
     public static final String TAG = "SearchFragment";
     private SearchView searchView;
-    private ImageView ivSample;
 
     public SearchFragment() {
         // Required empty public constructor

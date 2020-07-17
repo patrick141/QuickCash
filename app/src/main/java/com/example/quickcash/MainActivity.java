@@ -36,6 +36,7 @@ public class MainActivity extends AppCompatActivity {
     private Button logOutbutton;
     private final FragmentManager fragmentManager = getSupportFragmentManager();
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -95,6 +96,4 @@ public class MainActivity extends AppCompatActivity {
             }
         });
     }
-
-
 }
