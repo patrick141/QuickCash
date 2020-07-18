@@ -1,6 +1,7 @@
 package com.example.quickcash.adapters;
 
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,6 +13,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.example.quickcash.R;
+import com.example.quickcash.RequestDetailsActivity;
 import com.example.quickcash.models.Job;
 import com.example.quickcash.models.Request;
 import com.parse.ParseFile;
@@ -58,7 +60,7 @@ public class RequestsAdapter extends RecyclerView.Adapter<RequestsAdapter.ViewHo
     }
 
 
-    public class ViewHolder extends RecyclerView.ViewHolder{
+    public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
         private ImageView ivRequest;
         private TextView tvRequestUsername;
         private TextView tvRequestComment;
@@ -80,6 +82,11 @@ public class RequestsAdapter extends RecyclerView.Adapter<RequestsAdapter.ViewHo
             else{
                 Glide.with(context).load(userImage.getUrl()).into(ivRequest);
             }
+        }
+
+        @Override
+        public void onClick(View view) {
+            Intent i = new Intent(context, RequestDetailsActivity.class);
         }
     }
 }

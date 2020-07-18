@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.quickcash">
+
     <uses-permission android:name="android.permission.INTERNET" />
 
     <application
@@ -12,6 +13,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
+        <activity android:name=".RequestDetailsActivity"></activity>
 
         <provider
             android:name="androidx.core.content.FileProvider"
@@ -23,7 +25,7 @@
                 android:resource="@xml/fileprovider" />
         </provider>
 
-        <activity android:name=".ProfileActivity"></activity>
+        <activity android:name=".ProfileActivity" />
         <activity android:name=".JobDetailsActivity" />
         <activity android:name=".SignUpActivity" />
         <activity android:name=".LoginActivity">
