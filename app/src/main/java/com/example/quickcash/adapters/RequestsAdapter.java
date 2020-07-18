@@ -12,23 +12,23 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
+import com.example.quickcash.JobDetailsActivity;
 import com.example.quickcash.R;
-import com.example.quickcash.RequestDetailsActivity;
 import com.example.quickcash.models.Job;
 import com.example.quickcash.models.Request;
 import com.parse.ParseFile;
+
+import org.parceler.Parcels;
 
 import java.util.List;
 
 public class RequestsAdapter extends RecyclerView.Adapter<RequestsAdapter.ViewHolder> {
     private final Context context;
     private final List<Request> requests;
-    private final List<Job> jobs;
 
     public RequestsAdapter(Context context, List<Request> requests, List<Job> jobs){
         this.context = context;
         this.requests = requests;
-        this.jobs = jobs;
     }
 
     @NonNull
@@ -86,7 +86,13 @@ public class RequestsAdapter extends RecyclerView.Adapter<RequestsAdapter.ViewHo
 
         @Override
         public void onClick(View view) {
-            Intent i = new Intent(context, RequestDetailsActivity.class);
+            int position = getAdapterPosition();
+            if(position != RecyclerView.NO_POSITION){
+                Request request = requests.get(position);
+                Intent i = new Intent(context, JobDetailsActivity.class);
+                i.putExtra("REQUEST", Parcels.wrap(request));
+                context.startActivity(i);
+            }
         }
     }
 }
