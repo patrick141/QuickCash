@@ -69,9 +69,9 @@ public class ComposeFragment extends Fragment {
     private File photoFile;
     private String photoFileName = "photo.jpg";
     public static final int CAPTURE_IMAGE_ACTIVITY_REQUEST_CODE = 42;
+    public final static int PICK_PHOTO_CODE = 1046;
 
     private DatePickerDialog.OnDateSetListener mDateSetListener;
-    private TimePickerDialog.OnTimeSetListener mTimeSetListener;
 
 
     public ComposeFragment() {
@@ -165,7 +165,7 @@ public class ComposeFragment extends Fragment {
                 String description = etDescription.getText().toString();
                 Date date = null;
                 try {
-                    date = convertStringtoDate(etJobDate.getText().toString());
+                    date = convertStringtoDate(etJobDate.getText().toString(), etJobTime.getText().toString());
                 } catch (ParseException e) {
                     e.printStackTrace();
                 }
@@ -197,6 +197,7 @@ public class ComposeFragment extends Fragment {
                         etDescription.setText("");
                         etAddress.setText("");
                         etJobDate.setText("");
+                        etJobTime.setText("");
                         etPrice.setText("");
                         ivImage.setImageResource(0);
                     }
@@ -279,8 +280,9 @@ public class ComposeFragment extends Fragment {
      * @return Date
      * @throws ParseException
      */
-    public Date convertStringtoDate(String stringDate) throws ParseException {
-        SimpleDateFormat format = new SimpleDateFormat("MM/dd/yyyy", Locale.ENGLISH);
+    public Date convertStringtoDate(String stringDate, String stringTime) throws ParseException {
+        stringDate = stringDate + " " + stringTime;
+        SimpleDateFormat format = new SimpleDateFormat("MM/dd/yyyy HH:mm", Locale.ENGLISH);
         Date date= format.parse(stringDate);
         return date;
     }
