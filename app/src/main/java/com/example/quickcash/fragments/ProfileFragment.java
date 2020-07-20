@@ -10,16 +10,21 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.example.quickcash.R;
+import com.example.quickcash.adapters.RequestsAdapter;
 import com.example.quickcash.models.Job;
+import com.example.quickcash.models.Request;
 import com.parse.FindCallback;
 import com.parse.ParseException;
 import com.parse.ParseFile;
 import com.parse.ParseQuery;
 import com.parse.ParseUser;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -34,9 +39,14 @@ import java.util.List;
 
 public class ProfileFragment extends HomeFragment {
 
+    public static String TAG = "ProfileFragment";
     private ImageView ivProfilePic;
     private TextView tvUsername;
     private TextView tvUserSince;
+
+    private RecyclerView rvRequests;
+    private RequestsAdapter requestsAdapter;
+    private List<Request> requests;
 
     public ProfileFragment() {
         // Required empty public constructor
@@ -52,6 +62,12 @@ public class ProfileFragment extends HomeFragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        rvRequests = view.findViewById(R.id.rvRequests);
+        requests = new ArrayList<>();
+        requestsAdapter = new RequestsAdapter(getContext(), requests);
+        rvRequests.setAdapter(requestsAdapter);
+        rvRequests.setLayoutManager(new LinearLayoutManager(getContext()));
+
         ivProfilePic = view.findViewById(R.id.iv_profliePic);
         tvUsername = view.findViewById(R.id.tv_Username);
         tvUserSince = view.findViewById(R.id.tv_UserSince);
@@ -66,7 +82,9 @@ public class ProfileFragment extends HomeFragment {
         else{
             Glide.with(getContext()).load(userImage.getUrl()).into(ivProfilePic);
         }
+        queryRequests();
     }
+
 
     @Override
     protected void queryJobs() {
@@ -91,6 +109,28 @@ public class ProfileFragment extends HomeFragment {
                 getJobsAdapter().addAll(jobs);
                 getSwipeContainer().setRefreshing(false);
                 getJobsAdapter().notifyDataSetChanged();
+            }
+        });
+    }
+
+    protected void queryRequests() {
+        ParseQuery<Request> query = ParseQuery.getQuery(Request.class);
+        query.include(Request.KEY_REQUEST_USER);
+        query.setLimit(20);
+        query.addDescendingOrder(Request.KEY_CREATED_AT);
+        query.findInBackground(new FindCallback<Request>() {
+            @Override
+            public void done(List<Request> requests, ParseException e) {
+                if(e != null){
+                    Log.e(TAG, "Issues with getting requests", e);
+                    return;
+                }
+                for(Request request: requests){
+                    Log.i(TAG, "Request User: " + request.getUser().getUsername() + " Comment: " + request.getComment() + " Post: " + request.getJob());
+                }
+                requestsAdapter.clear();
+                requestsAdapter.addAll(requests);
+                requestsAdapter.notifyDataSetChanged();
             }
         });
     }

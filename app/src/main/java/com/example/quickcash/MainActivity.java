@@ -85,6 +85,8 @@ public class MainActivity extends AppCompatActivity {
         /**
          * This method logs the users out of QuickCash. They return to the login Screen.
          */
+
+
         logOutbutton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

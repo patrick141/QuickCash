@@ -14,7 +14,6 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.bumptech.glide.Glide;
 import com.example.quickcash.JobDetailsActivity;
 import com.example.quickcash.R;
-import com.example.quickcash.models.Job;
 import com.example.quickcash.models.Request;
 import com.parse.ParseFile;
 
@@ -26,7 +25,7 @@ public class RequestsAdapter extends RecyclerView.Adapter<RequestsAdapter.ViewHo
     private final Context context;
     private final List<Request> requests;
 
-    public RequestsAdapter(Context context, List<Request> requests, List<Job> jobs){
+    public RequestsAdapter(Context context, List<Request> requests){
         this.context = context;
         this.requests = requests;
     }
@@ -70,6 +69,7 @@ public class RequestsAdapter extends RecyclerView.Adapter<RequestsAdapter.ViewHo
             ivRequest = itemView.findViewById(R.id.iv_request_User);
             tvRequestUsername = itemView.findViewById(R.id.request_user);
             tvRequestComment = itemView.findViewById(R.id.request_comment);
+            itemView.setOnClickListener(this);
         }
 
         public void bind(Request request) {

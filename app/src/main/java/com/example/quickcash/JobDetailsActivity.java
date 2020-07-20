@@ -47,8 +47,6 @@ public class JobDetailsActivity extends AppCompatActivity {
         ActivityJobDetailsBinding binding = ActivityJobDetailsBinding.inflate(getLayoutInflater());
         View view = binding.getRoot();
         setContentView(view);
-
-        //Unwrap the job we clicked
         job = (Job) Parcels.unwrap(getIntent().getParcelableExtra("JOB"));
 
         /**This sets our activity_job_details layout based off the job information.
