@@ -8,6 +8,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 
 import com.bumptech.glide.Glide;
 import com.example.quickcash.databinding.ActivityRequestDetailsBinding;
@@ -31,6 +32,7 @@ public class RequestDetailsActivity extends AppCompatActivity {
     private Button btnAcceptUser;
     private Button btnDenyUser;
     private Button btnContactUser;
+    private Toolbar toolbar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,6 +40,9 @@ public class RequestDetailsActivity extends AppCompatActivity {
         ActivityRequestDetailsBinding binding = ActivityRequestDetailsBinding.inflate(getLayoutInflater());
         View view = binding.getRoot();
         setContentView(view);
+
+        toolbar = (Toolbar) findViewById(R.id.toolbar_Home);
+        setSupportActionBar(toolbar);
 
         request = (Request) Parcels.unwrap(getIntent().getParcelableExtra("REQUEST"));
         ivRequestor = binding.ivRequestorPP;

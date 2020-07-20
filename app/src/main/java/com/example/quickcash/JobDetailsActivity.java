@@ -11,6 +11,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -48,6 +49,7 @@ public class JobDetailsActivity extends AppCompatActivity {
     private EditText etRequestJDA;
     private Button btnSubmitRequest;
     private TextView sentReq;
+    private Toolbar toolbar;
 
     private RecyclerView rvRequests;
     private RequestsAdapter requestsAdapter;
@@ -59,6 +61,9 @@ public class JobDetailsActivity extends AppCompatActivity {
         ActivityJobDetailsBinding binding = ActivityJobDetailsBinding.inflate(getLayoutInflater());
         View view = binding.getRoot();
         setContentView(view);
+
+        toolbar = (Toolbar) findViewById(R.id.toolbar_Home);
+        setSupportActionBar(toolbar);
         job = (Job) Parcels.unwrap(getIntent().getParcelableExtra("JOB"));
 
         /**This sets our activity_job_details layout based off the job information.

@@ -7,10 +7,17 @@
     android:layout_height="match_parent"
     tools:context=".JobDetailsActivity">
 
+    <include
+        android:id="@+id/toolbar_JDA"
+        layout="@layout/toolbar_main"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+
     <TextView
         android:id="@+id/jda_job_name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_below="@id/toolbar_JDA"
         android:text="@string/app_name" />
 
     <TextView
@@ -18,6 +25,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentEnd="true"
+        android:layout_below="@id/toolbar_JDA"
         android:text="@string/ij_sampleDate" />
 
     <LinearLayout
