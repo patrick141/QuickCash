@@ -7,6 +7,8 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import androidx.appcompat.widget.Toolbar;
+
 import com.example.quickcash.databinding.ActivitySignUpBinding;
 import com.parse.ParseException;
 import com.parse.ParseUser;
@@ -25,6 +27,7 @@ public class SignUpActivity extends LoginActivity {
     private EditText etNewUsername;
     private EditText etNewPassword;
     private Button btnSignUpNew;
+    private Toolbar toolbar;
 
     /**
      * This is method calls upon getting the layout items from activity_sign_up.xml.
@@ -39,6 +42,8 @@ public class SignUpActivity extends LoginActivity {
         etNewUsername = binding.SAusername;
         etNewPassword = binding.SApassword;
         btnSignUpNew = binding.SAbtnSignUp;
+        toolbar = (Toolbar) binding.toolbarSu;
+        setSupportActionBar(toolbar);
 
         /**
          * Clicking on sign up button should create a new account into the Parse DB.

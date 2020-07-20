@@ -9,6 +9,7 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 
 import com.example.quickcash.databinding.ActivityLoginBinding;
 import com.parse.LogInCallback;
@@ -31,7 +32,7 @@ public class LoginActivity extends AppCompatActivity {
     private EditText etPassword;
     private Button btnLogin;
     private Button btnSignup;
-
+    private Toolbar toolbar;
     /**
      * This is method calls upon getting the layout items from activity_login.xml.
      */
@@ -48,6 +49,8 @@ public class LoginActivity extends AppCompatActivity {
         etPassword = binding.laPassword;
         btnLogin = binding.btnLogin;
         btnSignup = binding.btnSignup;
+        toolbar = (Toolbar) binding.toolbarLi;
+        setSupportActionBar(toolbar);
 
         /**
          * This methods signs the user into QuickCash by clicking the Login Botton. If the user
@@ -106,4 +109,5 @@ public class LoginActivity extends AppCompatActivity {
         startActivity(i);
         finish();
     }
+
 }
