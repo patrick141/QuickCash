@@ -91,15 +91,15 @@ public class Job extends ParseObject {
         put(KEY_JOB_IMAGE, image);
     }
 
-    public ArrayList<ParseObject> getRequests(){
-        return (ArrayList<ParseObject>) get(KEY_JOB_REQUESTS);
+    public ArrayList<Request> getRequests(){
+        return (ArrayList<Request>) get(KEY_JOB_REQUESTS);
     }
 
-    public void setJobRequests(ArrayList<ParseObject> requests) {
+    public void setJobRequests(ArrayList<Request> requests) {
         put(KEY_JOB_REQUESTS, requests);
     }
 
-    public void addJobRequest(ParseObject request){
+    public void addJobRequest(Request request){
         add(KEY_JOB_REQUESTS, request);
     }
 

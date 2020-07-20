@@ -1,6 +1,7 @@
 package com.example.quickcash.models;
 
 import com.parse.ParseClassName;
+import com.parse.ParseException;
 import com.parse.ParseObject;
 import com.parse.ParseUser;
 
@@ -16,7 +17,13 @@ public class Request extends ParseObject {
     public static final String KEY_REQUEST_JOB = "jobPost";
 
     public ParseUser getUser() {
-        return getParseUser(KEY_REQUEST_USER);
+        try{
+            return fetchIfNeeded().getParseUser(KEY_REQUEST_USER);
+        }
+        catch(ParseException e){
+            e.printStackTrace();
+        }
+        return null;
     }
 
     public void setUser(ParseUser user) {

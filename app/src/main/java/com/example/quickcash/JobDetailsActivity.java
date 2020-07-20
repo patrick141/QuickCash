@@ -1,6 +1,5 @@
 package com.example.quickcash;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -90,7 +89,7 @@ public class JobDetailsActivity extends AppCompatActivity {
         requestsAdapter = new RequestsAdapter(JobDetailsActivity.this, requests);
 
         sentReq.setVisibility(View.GONE);
-        if(job.getUser().getObjectId().equals(ParseUser.getCurrentUser().getObjectId())){
+        if(job.getUser().hasSameId(ParseUser.getCurrentUser())){
             llJobRequest.setVisibility(View.GONE);
             rvRequests.setVisibility(View.VISIBLE);
             rvRequests.setAdapter(requestsAdapter);
@@ -100,6 +99,13 @@ public class JobDetailsActivity extends AppCompatActivity {
         else{
             llJobRequest.setVisibility(View.VISIBLE);
             rvRequests.setVisibility(View.GONE);
+
+            if(job.getRequests() != null){
+                if(checkME(job.getRequests(), ParseUser.getCurrentUser())){
+                    llJobRequest.setVisibility(View.GONE);
+                    sentReq.setVisibility(View.VISIBLE);
+                }
+            }
         }
 
         jobNameJDA.setText(job.getName());
@@ -117,6 +123,7 @@ public class JobDetailsActivity extends AppCompatActivity {
         jobPriceJDA.setText("$" + String.format("%.2f", job.getPrice()));
         jobAddressJDA.setText(job.getAddress());
 
+        /*
         jobUserJDA.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -124,7 +131,8 @@ public class JobDetailsActivity extends AppCompatActivity {
                 i.putExtra("PROFILE", Parcels.wrap(job));
                 JobDetailsActivity.this.startActivity(i);
             }
-        });
+        });*/
+
 
         btnSubmitRequest.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -158,6 +166,7 @@ public class JobDetailsActivity extends AppCompatActivity {
                         Log.i(TAG, "It's now in DB");
                     }
                 });
+                finish();
             }
         });
     }
@@ -182,5 +191,24 @@ public class JobDetailsActivity extends AppCompatActivity {
                 requestsAdapter.notifyDataSetChanged();
             }
         });
+    }
+
+    /**
+     * This function checks to see if a user have already submitted a request for the job.
+     * @param requests
+     * @param user
+     * @return
+     */
+    public boolean checkME(List<Request> requests, ParseUser user){
+        List<ParseUser> users = new ArrayList<>();
+        for (Request request: requests){
+            users.add(request.getUser());
+        }
+        for(ParseUser parseUser: users){
+            if(parseUser.hasSameId(user)){
+                return true;
+            }
+        }
+        return false;
     }
 }
