@@ -282,7 +282,7 @@ public class ComposeFragment extends Fragment {
      */
     public Date convertStringtoDate(String stringDate, String stringTime) throws ParseException {
         stringDate = stringDate + " " + stringTime;
-        SimpleDateFormat format = new SimpleDateFormat("MM/dd/yyyy HH:mm", Locale.ENGLISH);
+        SimpleDateFormat format = new SimpleDateFormat("MM/DD/yyyy HH:mm", Locale.ENGLISH);
         Date date= format.parse(stringDate);
         return date;
     }

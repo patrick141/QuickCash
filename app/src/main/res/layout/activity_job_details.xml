@@ -18,7 +18,10 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@id/toolbar_JDA"
-        android:text="@string/app_name" />
+        android:text="@string/app_name"
+        android:textSize="24dp"
+        android:layout_marginStart="5dp"
+        android:textStyle="bold" />
 
     <TextView
         android:id="@+id/jda_job_date"
@@ -26,6 +29,7 @@
         android:layout_height="wrap_content"
         android:layout_alignParentEnd="true"
         android:layout_below="@id/toolbar_JDA"
+        android:layout_marginEnd="5dp"
         android:text="@string/ij_sampleDate" />
 
     <LinearLayout
@@ -39,6 +43,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginStart="5dp"
             android:text="@string/ij_postedID" />
 
         <TextView
@@ -46,7 +51,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="5dp"
-            android:text="@string/app_name" />
+            android:text="@string/app_name"
+            android:textStyle="bold|italic" />
 
         <TextView
             android:id="@+id/jda_job_created_date"
@@ -61,20 +67,24 @@
         android:layout_height="100dp"
         android:layout_below="@id/jda_job_date"
         android:layout_alignParentEnd="true"
+        android:layout_marginEnd="5dp"
         tools:srcCompat="@tools:sample/avatars" />
 
     <TextView
         android:id="@+id/jda_amountID"
-        android:layout_marginTop="20dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@id/ll_jda_info"
-        android:text="@string/ij_amountID"/>
+        android:layout_marginTop="20dp"
+        android:text="@string/ij_amountID"
+        android:layout_marginStart="5dp"
+        android:textStyle="bold" />
 
     <TextView
         android:id="@+id/jda_job_price"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginStart="5dp"
         android:layout_below="@id/jda_amountID"
         android:text="@string/ij_samplePrice"/>
 
@@ -82,15 +92,18 @@
         android:id="@+id/jda_desID"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
         android:layout_below="@id/jda_job_price"
-        android:text="@string/ij_descriptionID"/>
+        android:layout_marginTop="20dp"
+        android:text="@string/ij_descriptionID"
+        android:layout_marginStart="5dp"
+        android:textStyle="bold" />
 
     <TextView
         android:id="@+id/jda_job_description"
         android:layout_below="@id/jda_desID"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginStart="5dp"
         android:text="@string/ij_sampleDescription"/>
 
     <TextView
@@ -98,12 +111,16 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@id/jda_job_description"
-        android:text="@string/ij_addressID"/>
+        android:text="@string/ij_addressID"
+        android:layout_marginStart="5dp"
+        android:layout_marginTop="10dp"
+        android:textStyle="bold" />
 
     <TextView
         android:id="@+id/jda_job_address"
         android:layout_width="match_parent"
         android:layout_below="@id/jda_job_description"
+        android:layout_marginTop="10dp"
         android:layout_height="wrap_content"
         android:layout_toRightOf="@id/jda_addressID"
         android:text="@string/ij_sampleAddress"/>
@@ -112,15 +129,17 @@
         android:id="@+id/ll_jda_request"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="100dp"
         android:layout_below="@id/jda_job_address"
+        android:layout_marginTop="20dp"
+        android:layout_marginStart="5dp"
+        android:layout_marginEnd="5dp"
         android:orientation="vertical">
 
         <TextView
             android:id="@+id/jda_requestID"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/JDA_requestID"/>
+            android:text="@string/JDA_requestID" />
 
         <EditText
             android:id="@+id/jda_et_Request"
@@ -148,6 +167,8 @@
 
     <androidx.recyclerview.widget.RecyclerView
         android:layout_marginTop="10dp"
+        android:layout_marginStart="5dp"
+        android:layout_marginEnd="5dp"
         android:id="@+id/rv_View_Requests"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

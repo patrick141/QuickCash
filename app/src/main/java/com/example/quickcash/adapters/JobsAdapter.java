@@ -25,6 +25,7 @@ import org.parceler.Parcels;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 
@@ -100,7 +101,7 @@ public class JobsAdapter extends RecyclerView.Adapter<JobsAdapter.ViewHolder> {
 
         public void bind(final Job job) {
             jobName.setText(job.getName());
-            jobDate.setText(job.getJobDate().toString());
+            jobDate.setText(timeNeed(job.getJobDate()));
             jobRequestorName.setText(job.getUser().getUsername());
             ParseFile image = job.getImage();
             if (image != null) {
@@ -154,5 +155,10 @@ public class JobsAdapter extends RecyclerView.Adapter<JobsAdapter.ViewHolder> {
         }
     }
 
+
+    public static String timeNeed(Date date){
+        SimpleDateFormat nf = new SimpleDateFormat("MM/dd/yyyy HH:mm zzz");
+        return nf.format(date);
+    }
 
 }

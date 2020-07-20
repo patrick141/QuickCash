@@ -33,6 +33,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static com.example.quickcash.adapters.JobsAdapter.getRelativeTimeAgo;
+import static com.example.quickcash.adapters.JobsAdapter.timeNeed;
 
 public class JobDetailsActivity extends AppCompatActivity {
 
@@ -41,6 +42,7 @@ public class JobDetailsActivity extends AppCompatActivity {
     private TextView jobNameJDA;
     private TextView jobDateJDA;
     private TextView jobDateCreatedJDA;
+    private TextView jobDescriptionJDA;
     private TextView jobUserJDA;
     private TextView jobPriceJDA;
     private TextView jobAddressJDA;
@@ -75,6 +77,7 @@ public class JobDetailsActivity extends AppCompatActivity {
         jobUserJDA = binding.jdaJobUser;
         jobPriceJDA = binding.jdaJobPrice;
         jobAddressJDA = binding.jdaJobAddress;
+        jobDescriptionJDA = binding.jdaJobDescription;
         jobImageJDA = binding.jdaJobImage;
 
         llJobRequest = binding.llJdaRequest;
@@ -100,8 +103,9 @@ public class JobDetailsActivity extends AppCompatActivity {
         }
 
         jobNameJDA.setText(job.getName());
-        jobDateJDA.setText(job.getJobDate().toString());
-        jobDateCreatedJDA.setText(getRelativeTimeAgo(job.getCreatedAt().toString()));
+        jobDateJDA.setText(timeNeed(job.getJobDate()));
+        jobDescriptionJDA.setText(job.getDescription());
+        jobDateCreatedJDA.setText(" " + getRelativeTimeAgo(job.getCreatedAt().toString()));
         ParseFile jobImage = job.getImage();
         if(jobImage == null){
             Glide.with(this).load(R.drawable.logo).into(jobImageJDA);
@@ -110,7 +114,7 @@ public class JobDetailsActivity extends AppCompatActivity {
             Glide.with(this).load(job.getImage().getUrl()).into(jobImageJDA);
         }
         jobUserJDA.setText(job.getUser().getUsername());
-        jobPriceJDA.setText("$" + job.getPrice().toString());
+        jobPriceJDA.setText("$" + String.format("%.2f", job.getPrice()));
         jobAddressJDA.setText(job.getAddress());
 
         jobUserJDA.setOnClickListener(new View.OnClickListener() {
