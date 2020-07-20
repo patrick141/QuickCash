@@ -11,6 +11,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.example.quickcash.databinding.ActivityJobDetailsBinding;
@@ -40,6 +41,7 @@ public class JobDetailsActivity extends AppCompatActivity {
     private EditText etRequestJDA;
     private Button btnSubmitRequest;
     private TextView sentReq;
+    private RecyclerView rvRequests;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -64,9 +66,17 @@ public class JobDetailsActivity extends AppCompatActivity {
         etRequestJDA = binding.jdaEtRequest;
         btnSubmitRequest = binding.jdaButtonRequest;
         sentReq = binding.sentView;
+        rvRequests = binding.rvViewRequests;
 
         sentReq.setVisibility(View.GONE);
-        llJobRequest.setVisibility(View.VISIBLE);
+        if(job.getUser().getObjectId().equals(ParseUser.getCurrentUser().getObjectId())){
+            llJobRequest.setVisibility(View.GONE);
+            rvRequests.setVisibility(View.VISIBLE);
+        }
+        else{
+            llJobRequest.setVisibility(View.VISIBLE);
+            rvRequests.setVisibility(View.GONE);
+        }
 
         jobNameJDA.setText(job.getName());
         jobDateJDA.setText(job.getJobDate().toString());
