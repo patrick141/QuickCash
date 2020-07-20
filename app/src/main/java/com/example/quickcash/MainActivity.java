@@ -8,6 +8,7 @@ import android.widget.Button;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 
@@ -32,6 +33,7 @@ import com.parse.ParseUser;
 public class MainActivity extends AppCompatActivity {
 
     public static final String TAG = "MainActivity";
+    private Toolbar toolbar;
     private BottomNavigationView bottomNavigationView;
     private Button logOutbutton;
     private final FragmentManager fragmentManager = getSupportFragmentManager();
@@ -46,6 +48,8 @@ public class MainActivity extends AppCompatActivity {
 
         logOutbutton = binding.MAbutton;
         bottomNavigationView = binding.bottomNavigation;
+        toolbar = (Toolbar) findViewById(R.id.toolbar_Home);
+        setSupportActionBar(toolbar);
         logOutbutton.setVisibility(View.GONE);
 
         /**

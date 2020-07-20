@@ -11,12 +11,12 @@
 
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/toolbar_su"
-        android:minHeight="?attr/actionBarSize"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:titleTextColor="@android:color/white"
-        android:background="?attr/colorPrimary">
-    </androidx.appcompat.widget.Toolbar>
+        android:background="@color/myAppColor"
+        android:minHeight="?attr/actionBarSize"
+        app:titleTextAppearance="@style/Toolbar.TitleText"
+        app:titleTextColor="@android:color/white"></androidx.appcompat.widget.Toolbar>
 
     <ImageView
         android:id="@+id/SAimageView"

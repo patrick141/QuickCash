@@ -13,11 +13,14 @@
 
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/toolbar_li"
-        android:minHeight="?attr/actionBarSize"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:titleTextColor="@android:color/white"
-        android:background="?attr/colorPrimary">
+        android:background="@color/myAppColor"
+        android:minHeight="?attr/actionBarSize"
+        app:titleTextAppearance="@style/Toolbar.TitleText"
+        android:theme="@style/ToolbarTheme"
+        app:popupTheme="@style/ThemeOverlay.AppCompat.Light">
+
     </androidx.appcompat.widget.Toolbar>
 
     <ImageView
