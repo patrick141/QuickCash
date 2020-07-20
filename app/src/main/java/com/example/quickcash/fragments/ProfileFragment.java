@@ -82,7 +82,7 @@ public class ProfileFragment extends HomeFragment {
         else{
             Glide.with(getContext()).load(userImage.getUrl()).into(ivProfilePic);
         }
-        queryRequests();
+        queryJobs();
     }
 
 
@@ -113,25 +113,4 @@ public class ProfileFragment extends HomeFragment {
         });
     }
 
-    protected void queryRequests() {
-        ParseQuery<Request> query = ParseQuery.getQuery(Request.class);
-        query.include(Request.KEY_REQUEST_USER);
-        query.setLimit(20);
-        query.addDescendingOrder(Request.KEY_CREATED_AT);
-        query.findInBackground(new FindCallback<Request>() {
-            @Override
-            public void done(List<Request> requests, ParseException e) {
-                if(e != null){
-                    Log.e(TAG, "Issues with getting requests", e);
-                    return;
-                }
-                for(Request request: requests){
-                    Log.i(TAG, "Request User: " + request.getUser().getUsername() + " Comment: " + request.getComment() + " Post: " + request.getJob());
-                }
-                requestsAdapter.clear();
-                requestsAdapter.addAll(requests);
-                requestsAdapter.notifyDataSetChanged();
-            }
-        });
-    }
 }
