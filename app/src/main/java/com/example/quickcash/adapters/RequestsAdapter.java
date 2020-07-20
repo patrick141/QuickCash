@@ -12,8 +12,8 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
-import com.example.quickcash.JobDetailsActivity;
 import com.example.quickcash.R;
+import com.example.quickcash.RequestDetailsActivity;
 import com.example.quickcash.models.Request;
 import com.parse.ParseFile;
 
@@ -89,7 +89,7 @@ public class RequestsAdapter extends RecyclerView.Adapter<RequestsAdapter.ViewHo
             int position = getAdapterPosition();
             if(position != RecyclerView.NO_POSITION){
                 Request request = requests.get(position);
-                Intent i = new Intent(context, JobDetailsActivity.class);
+                Intent i = new Intent(context, RequestDetailsActivity.class);
                 i.putExtra("REQUEST", Parcels.wrap(request));
                 context.startActivity(i);
             }
