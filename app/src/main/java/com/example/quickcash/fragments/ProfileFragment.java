@@ -6,6 +6,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.RatingBar;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -27,6 +28,8 @@ import com.parse.ParseUser;
 import java.util.ArrayList;
 import java.util.List;
 
+import static com.example.quickcash.adapters.JobsAdapter.timeNeed;
+
 /**
  * ProfileFragment
  *
@@ -43,6 +46,7 @@ public class ProfileFragment extends HomeFragment {
     private ImageView ivProfilePic;
     private TextView tvUsername;
     private TextView tvUserSince;
+    private RatingBar rbUserRating;
 
     private RecyclerView rvRequests;
     private RequestsAdapter requestsAdapter;
@@ -71,10 +75,11 @@ public class ProfileFragment extends HomeFragment {
         ivProfilePic = view.findViewById(R.id.iv_profliePic);
         tvUsername = view.findViewById(R.id.tv_Username);
         tvUserSince = view.findViewById(R.id.tv_UserSince);
+        rbUserRating = view.findViewById(R.id.rb_user_rating);
 
         ParseUser user = ParseUser.getCurrentUser();
         tvUsername.setText(user.getUsername());
-        tvUserSince.setText("User since " + user.getCreatedAt().toString());
+        tvUserSince.setText("User since " + timeNeed(user.getCreatedAt()));
         ParseFile userImage = (ParseFile) user.get("profilePic");
         if(userImage == null){
             Glide.with(getContext()).load(R.drawable.logo).into(ivProfilePic);
@@ -82,6 +87,8 @@ public class ProfileFragment extends HomeFragment {
         else{
             Glide.with(getContext()).load(userImage.getUrl()).into(ivProfilePic);
         }
+        rbUserRating.setRating((float) user.getDouble("userRating"));
+
         queryJobs();
     }
 

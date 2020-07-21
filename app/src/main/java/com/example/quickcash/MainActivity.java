@@ -64,15 +64,19 @@ public class MainActivity extends AppCompatActivity {
                 switch(item.getItemId()){
                     case R.id.action_home:
                         fragment = new HomeFragment();
+                        logOutbutton.setVisibility(View.GONE);
                         break;
                     case R.id.action_search:
                         fragment = new SearchFragment();
+                        logOutbutton.setVisibility(View.GONE);
                         break;
                     case R.id.action_compose:
                         fragment = new ComposeFragment();
+                        logOutbutton.setVisibility(View.GONE);
                         break;
                     case R.id.action_myjobs:
                         fragment = new MyJobsFragment();
+                        logOutbutton.setVisibility(View.GONE);
                         break;
                     default:
                         fragment = new ProfileFragment();
