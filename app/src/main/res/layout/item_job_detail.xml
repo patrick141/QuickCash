@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/rl_jobsDA"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    tools:context=".JobDetailsActivity">
+
+    <TextView
+        android:id="@+id/jda_job_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/app_name"
+        android:textSize="24dp"
+        android:layout_marginStart="5dp"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/jda_job_date"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_marginEnd="5dp"
+        android:text="@string/ij_sampleDate" />
+
+    <LinearLayout
+        android:id="@+id/ll_jda_info"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
+        android:layout_below="@id/jda_job_name"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="5dp"
+            android:text="@string/ij_postedID" />
+
+        <TextView
+            android:id="@+id/jda_job_user"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="5dp"
+            android:text="@string/app_name"
+            android:textStyle="bold|italic" />
+
+        <TextView
+            android:id="@+id/jda_job_created_date"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:text="@string/ij_sampleDateAgo" />
+    </LinearLayout>
+
+    <ImageView
+        android:id="@+id/jda_job_image"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:layout_below="@id/jda_job_date"
+        android:layout_alignParentEnd="true"
+        android:layout_marginEnd="5dp"
+        android:transitionName="@string/tr_job_image"
+        tools:srcCompat="@tools:sample/avatars" />
+
+    <fragment
+        android:id="@+id/map_demo"
+        android:name="com.google.android.gms.maps.SupportMapFragment"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:layout_below="@id/jda_job_date"
+        android:layout_marginStart="4dp"
+        android:layout_marginTop="47dp"
+        android:layout_marginRight="62dp"
+        android:layout_toLeftOf="@id/jda_job_image"
+        android:layout_toEndOf="@+id/ll_jda_info" />
+
+    <TextView
+        android:id="@+id/jda_amountID"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/ll_jda_info"
+        android:layout_marginTop="20dp"
+        android:text="@string/ij_amountID"
+        android:layout_marginStart="5dp"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/jda_job_price"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="5dp"
+        android:layout_below="@id/jda_amountID"
+        android:text="@string/ij_samplePrice"/>
+
+    <TextView
+        android:id="@+id/jda_desID"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/jda_job_price"
+        android:layout_marginTop="20dp"
+        android:text="@string/ij_descriptionID"
+        android:layout_marginStart="5dp"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/jda_job_description"
+        android:layout_below="@id/jda_desID"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="5dp"
+        android:text="@string/ij_sampleDescription"/>
+
+    <TextView
+        android:id="@+id/jda_addressID"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/jda_job_description"
+        android:text="@string/ij_addressID"
+        android:layout_marginStart="5dp"
+        android:layout_marginTop="10dp"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/jda_job_address"
+        android:layout_width="match_parent"
+        android:layout_below="@id/jda_job_description"
+        android:layout_marginTop="10dp"
+        android:layout_height="wrap_content"
+        android:layout_toRightOf="@id/jda_addressID"
+        android:text="@string/ij_sampleAddress"/>
+</RelativeLayout>

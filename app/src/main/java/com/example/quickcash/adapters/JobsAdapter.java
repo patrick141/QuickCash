@@ -18,9 +18,11 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.example.quickcash.JobDetailsActivity;
+import com.example.quickcash.MyJobsDetailsActivity;
 import com.example.quickcash.R;
 import com.example.quickcash.models.Job;
 import com.parse.ParseFile;
+import com.parse.ParseUser;
 
 import org.parceler.Parcels;
 
@@ -128,15 +130,25 @@ public class JobsAdapter extends RecyclerView.Adapter<JobsAdapter.ViewHolder> {
             if(position != RecyclerView.NO_POSITION) {
                 Job job = jobs.get(position);
                 Log.d("Load job details for ", job.getName());
-                Intent i = new Intent(context, JobDetailsActivity.class);
-                Toast.makeText(context, job.getName(), Toast.LENGTH_SHORT).show();
-                i.putExtra("JOB", Parcels.wrap(job));
                 ActivityOptionsCompat options = ActivityOptionsCompat.
                         makeSceneTransitionAnimation((Activity) context, (View) jobPicture, context.getResources().getString(R.string.tr_job_image));
-                context.startActivity(i, options.toBundle());
+                Toast.makeText(context, job.getName(), Toast.LENGTH_SHORT).show();
+                Intent intent;
+                if(job.getUser().hasSameId(ParseUser.getCurrentUser())){
+                    intent = new Intent(context, MyJobsDetailsActivity.class);
+                    intent.putExtra("JOB", Parcels.wrap(job));
+                    context.startActivity(intent, options.toBundle());
+                }
+                else {
+                    intent = new Intent(context, JobDetailsActivity.class);
+                    intent.putExtra("JOB", Parcels.wrap(job));
+                    context.startActivity(intent, options.toBundle());
+                }
             }
         }
     }
+
+
 
     /**
      * Converts a Date object's string and converts it into a timestamp from the time from that date.

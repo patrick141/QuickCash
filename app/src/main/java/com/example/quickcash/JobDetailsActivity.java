@@ -1,5 +1,6 @@
 package com.example.quickcash;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -11,18 +12,19 @@ import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
-import com.example.quickcash.adapters.RequestsAdapter;
 import com.example.quickcash.databinding.ActivityJobDetailsBinding;
 import com.example.quickcash.models.Job;
 import com.example.quickcash.models.Request;
-import com.parse.FindCallback;
+import com.google.android.gms.maps.CameraUpdateFactory;
+import com.google.android.gms.maps.GoogleMap;
+import com.google.android.gms.maps.OnMapReadyCallback;
+import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.MarkerOptions;
 import com.parse.ParseException;
 import com.parse.ParseFile;
-import com.parse.ParseQuery;
 import com.parse.ParseUser;
 import com.parse.SaveCallback;
 
@@ -40,7 +42,7 @@ import static com.example.quickcash.adapters.JobsAdapter.timeNeed;
  *  This class handles viewing details of jobs. The Activity changes based off if the user is click-
  *  ing on their own job or if they are viewing other job posts and want to submit a request.
  */
-public class JobDetailsActivity extends AppCompatActivity {
+public class JobDetailsActivity extends AppCompatActivity implements OnMapReadyCallback {
 
     public static final String TAG = "JobDetailsActivity";
     private Job job;
@@ -57,10 +59,7 @@ public class JobDetailsActivity extends AppCompatActivity {
     private Button btnSubmitRequest;
     private TextView sentReq;
     private Toolbar toolbar;
-
-    private RecyclerView rvRequests;
-    private RequestsAdapter requestsAdapter;
-    private List<Request> requests;
+    private GoogleMap map;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -72,60 +71,39 @@ public class JobDetailsActivity extends AppCompatActivity {
         toolbar = (Toolbar) findViewById(R.id.toolbar_Home);
         setSupportActionBar(toolbar);
         job = (Job) Parcels.unwrap(getIntent().getParcelableExtra("JOB"));
-
         /**This sets our activity_job_details layout based off the job information.
          * We are also adding a request option.
          */
-        jobNameJDA = binding.jdaJobName;
-        jobDateJDA = binding.jdaJobDate;
-        jobDateCreatedJDA = binding.jdaJobCreatedDate;
-        jobUserJDA = binding.jdaJobUser;
-        jobPriceJDA = binding.jdaJobPrice;
-        jobAddressJDA = binding.jdaJobAddress;
-        jobDescriptionJDA = binding.jdaJobDescription;
-        jobImageJDA = binding.jdaJobImage;
+        jobNameJDA = findViewById(R.id.jda_job_name);
+        jobDateJDA = findViewById(R.id.jda_job_date);
+        jobDateCreatedJDA = findViewById(R.id.jda_job_created_date);
+        jobUserJDA = findViewById(R.id.jda_job_user);
+        jobPriceJDA = findViewById(R.id.jda_job_price);
+        jobAddressJDA = findViewById(R.id.jda_job_address);
+        jobDescriptionJDA = findViewById(R.id.jda_job_description);
+        jobImageJDA = findViewById(R.id.jda_job_image);
 
         llJobRequest = binding.llJdaRequest;
         etRequestJDA = binding.jdaEtRequest;
         btnSubmitRequest = binding.jdaButtonRequest;
         sentReq = binding.sentView;
-        rvRequests = binding.rvViewRequests;
-
-        requests = new ArrayList<>();
-        requestsAdapter = new RequestsAdapter(JobDetailsActivity.this, requests);
         sentReq.setVisibility(View.GONE);
 
-        /**
-         * This function checks to see if a user job he viewing is his job postings.
-         * If it is, a different layout appears showing the requests of that job.
-         * Only the job creator can view the requests and approve or deny.
-         */
-        if(job.getUser().hasSameId(ParseUser.getCurrentUser())){
-            llJobRequest.setVisibility(View.GONE);
-            rvRequests.setVisibility(View.VISIBLE);
-            rvRequests.setAdapter(requestsAdapter);
-            rvRequests.setLayoutManager(new LinearLayoutManager(JobDetailsActivity.this));
-            queryRequests();
-        }
-        else{
             /**
              *  Assuming the user is clicking on another user's job. They will go to the default
              *  layout where they can submit a job request.
              */
-            llJobRequest.setVisibility(View.VISIBLE);
-            rvRequests.setVisibility(View.GONE);
+        llJobRequest.setVisibility(View.VISIBLE);
 
-            /**
-             * If the user has already submitted a job, to prevent the user from sending multiple jobs
-             * They are given an alternative layout that shows that they have already submitted a job request.
-             */
-            if(job.getRequests() != null){
-                if(checkME(job.getRequests(), ParseUser.getCurrentUser())){
-                    llJobRequest.setVisibility(View.GONE);
-                    sentReq.setVisibility(View.VISIBLE);
-                }
+        /**
+         * If the user has already submitted a job, to prevent the user from sending multiple jobs
+         * They are given an alternative layout that shows that they have already submitted a job request.
+         */
+        if(job.getRequests() != null){
+            if(checkME(job.getRequests(), ParseUser.getCurrentUser())){
+                llJobRequest.setVisibility(View.GONE);
+                sentReq.setVisibility(View.VISIBLE);
             }
-
         }
 
         jobNameJDA.setText(job.getName());
@@ -143,7 +121,7 @@ public class JobDetailsActivity extends AppCompatActivity {
         jobPriceJDA.setText("$" + String.format("%.2f", job.getPrice()));
         jobAddressJDA.setText(job.getAddress());
 
-        /*
+
         jobUserJDA.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -151,7 +129,11 @@ public class JobDetailsActivity extends AppCompatActivity {
                 i.putExtra("PROFILE", Parcels.wrap(job));
                 JobDetailsActivity.this.startActivity(i);
             }
-        });*/
+        });
+
+        SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
+                .findFragmentById(R.id.map_demo);
+        mapFragment.getMapAsync(this);
 
 
         btnSubmitRequest.setOnClickListener(new View.OnClickListener() {
@@ -195,6 +177,7 @@ public class JobDetailsActivity extends AppCompatActivity {
      * This method queries our requests into our rvRequests. If finds Requests that point to the job.
      * It shows up to 20 results.
      */
+    /*
     protected void queryRequests() {
         ParseQuery<Request> query = ParseQuery.getQuery(Request.class);
         query.include(Request.KEY_REQUEST_USER);
@@ -215,7 +198,7 @@ public class JobDetailsActivity extends AppCompatActivity {
                 requestsAdapter.notifyDataSetChanged();
             }
         });
-    }
+    }*/
 
     /**
      * This function checks to see if a user have already submitted a request for the job. If a request matches the user id,
@@ -235,5 +218,13 @@ public class JobDetailsActivity extends AppCompatActivity {
             }
         }
         return false;
+    }
+
+    @Override
+    public void onMapReady(GoogleMap googleMap) {
+        map = googleMap;
+        LatLng mySchool = new LatLng(19.169257, 73.341601);
+        map.addMarker(new MarkerOptions().position(mySchool).title("From Video"));
+        map.moveCamera(CameraUpdateFactory.newLatLng(mySchool));
     }
 }
