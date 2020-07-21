@@ -24,6 +24,9 @@ import com.parse.ParseUser;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import jp.wasabeef.recyclerview.animators.SlideInUpAnimator;
+
 /**
  * HomeFragment
  *
@@ -65,6 +68,7 @@ public class HomeFragment extends Fragment {
 
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext());
         rvJobs.setLayoutManager(linearLayoutManager);
+        rvJobs.setItemAnimator(new SlideInUpAnimator());
 
         swipeContainer = view.findViewById(R.id.swipe_Container);
 

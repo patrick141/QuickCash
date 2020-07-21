@@ -87,6 +87,7 @@
             android:layout_height="100dp"
             android:layout_below="@id/job_request_name"
             android:layout_alignParentEnd="true"
+            android:transitionName="@string/tr_job_image"
             tools:srcCompat="@tools:sample/avatars" />
 
         <TextView

@@ -1,5 +1,6 @@
 package com.example.quickcash.adapters;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.text.format.DateUtils;
@@ -12,6 +13,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.core.app.ActivityOptionsCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
@@ -129,7 +131,9 @@ public class JobsAdapter extends RecyclerView.Adapter<JobsAdapter.ViewHolder> {
                 Intent i = new Intent(context, JobDetailsActivity.class);
                 Toast.makeText(context, job.getName(), Toast.LENGTH_SHORT).show();
                 i.putExtra("JOB", Parcels.wrap(job));
-                context.startActivity(i);
+                ActivityOptionsCompat options = ActivityOptionsCompat.
+                        makeSceneTransitionAnimation((Activity) context, (View) jobPicture, context.getResources().getString(R.string.tr_job_image));
+                context.startActivity(i, options.toBundle());
             }
         }
     }

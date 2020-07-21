@@ -46,4 +46,7 @@
     <string name="RDA_approve">Approve</string>
     <string name="RDA_deny">Deny</string>
 
+    <!-- transition names -->
+    <string name="tr_request_image">request_image</string>
+    <string name="tr_job_image">job_image</string>
 </resources>

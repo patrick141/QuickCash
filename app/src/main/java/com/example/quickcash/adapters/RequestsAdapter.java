@@ -1,5 +1,6 @@
 package com.example.quickcash.adapters;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.view.LayoutInflater;
@@ -9,6 +10,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.core.app.ActivityOptionsCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
@@ -84,6 +86,10 @@ public class RequestsAdapter extends RecyclerView.Adapter<RequestsAdapter.ViewHo
             }
         }
 
+        /**
+         * Added a transition animation that switches between a requestor image into RDA.
+         * @param view
+         */
         @Override
         public void onClick(View view) {
             int position = getAdapterPosition();
@@ -91,7 +97,9 @@ public class RequestsAdapter extends RecyclerView.Adapter<RequestsAdapter.ViewHo
                 Request request = requests.get(position);
                 Intent i = new Intent(context, RequestDetailsActivity.class);
                 i.putExtra("REQUEST", Parcels.wrap(request));
-                context.startActivity(i);
+                ActivityOptionsCompat options = ActivityOptionsCompat.
+                        makeSceneTransitionAnimation((Activity) context, (View) ivRequest, context.getResources().getString(R.string.tr_request_image));
+                context.startActivity(i, options.toBundle());
             }
         }
     }
