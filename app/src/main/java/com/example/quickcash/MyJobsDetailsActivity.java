@@ -14,7 +14,12 @@ import com.bumptech.glide.Glide;
 import com.example.quickcash.adapters.RequestsAdapter;
 import com.example.quickcash.models.Job;
 import com.example.quickcash.models.Request;
+import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
+import com.google.android.gms.maps.OnMapReadyCallback;
+import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.MarkerOptions;
 import com.parse.FindCallback;
 import com.parse.ParseException;
 import com.parse.ParseFile;
@@ -30,7 +35,7 @@ import jp.wasabeef.recyclerview.animators.SlideInUpAnimator;
 import static com.example.quickcash.adapters.JobsAdapter.getRelativeTimeAgo;
 import static com.example.quickcash.adapters.JobsAdapter.timeNeed;
 
-public class MyJobsDetailsActivity extends AppCompatActivity {
+public class MyJobsDetailsActivity extends AppCompatActivity implements OnMapReadyCallback {
     public static final String TAG = "MyJobsDetailsActivity";
     private Job job;
 
@@ -66,6 +71,10 @@ public class MyJobsDetailsActivity extends AppCompatActivity {
         jobDescriptionJDA = findViewById(R.id.jda_job_description);
         jobImageJDA = findViewById(R.id.jda_job_image);
         rvRequests = findViewById(R.id.rv_View_Requests);
+
+        SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
+                .findFragmentById(R.id.map_demo);
+        mapFragment.getMapAsync(this);
 
         requests = new ArrayList<>();
         requestsAdapter = new RequestsAdapter(this, requests);
@@ -113,5 +122,13 @@ public class MyJobsDetailsActivity extends AppCompatActivity {
                 requestsAdapter.notifyDataSetChanged();
             }
         });
+    }
+
+    @Override
+    public void onMapReady(GoogleMap googleMap) {
+        map = googleMap;
+        LatLng myPlace = new LatLng(35.258599, -80.836403);
+        map.addMarker(new MarkerOptions().position(myPlace).title("My Location"));
+        map.moveCamera(CameraUpdateFactory.newLatLng(myPlace));
     }
 }

@@ -223,8 +223,8 @@ public class JobDetailsActivity extends AppCompatActivity implements OnMapReadyC
     @Override
     public void onMapReady(GoogleMap googleMap) {
         map = googleMap;
-        LatLng mySchool = new LatLng(19.169257, 73.341601);
-        map.addMarker(new MarkerOptions().position(mySchool).title("From Video"));
-        map.moveCamera(CameraUpdateFactory.newLatLng(mySchool));
+        LatLng myPlace = new LatLng(35.258599, -80.836403);
+        map.addMarker(new MarkerOptions().position(myPlace).title("My Location"));
+        map.moveCamera(CameraUpdateFactory.newLatLng(myPlace));
     }
 }
