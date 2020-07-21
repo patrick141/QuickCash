@@ -21,6 +21,13 @@ import com.parse.SaveCallback;
 
 import org.parceler.Parcels;
 
+/**
+ * RequestDetailsActivity
+ *
+ * This class handles how the user reacts to job requests sent by other users.
+ */
+
+
 public class RequestDetailsActivity extends AppCompatActivity {
 
     private static final String TAG = "RequestDetailsActivity";

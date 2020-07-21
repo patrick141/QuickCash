@@ -72,6 +72,10 @@ public class JobsAdapter extends RecyclerView.Adapter<JobsAdapter.ViewHolder> {
         notifyDataSetChanged();
     }
 
+    /**
+     * The ViewHolder class handles making our job views.
+     */
+
     public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
         private TextView jobName;
         private TextView jobRequestorName;
@@ -81,7 +85,6 @@ public class JobsAdapter extends RecyclerView.Adapter<JobsAdapter.ViewHolder> {
         private TextView jobAddress;
         private TextView jobDescription;
         private TextView jobPrice;
-
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -113,6 +116,10 @@ public class JobsAdapter extends RecyclerView.Adapter<JobsAdapter.ViewHolder> {
             jobPrice.setText("$" + String.format("%.2f", job.getPrice()));
         }
 
+        /**
+         * When user clicks on a job, they are sent to the JobDetailsActivity class.
+         * @param view
+         */
         @Override
         public void onClick(View view) {
             int position = getAdapterPosition();
@@ -153,6 +160,11 @@ public class JobsAdapter extends RecyclerView.Adapter<JobsAdapter.ViewHolder> {
     }
 
 
+    /**
+     * This methods converts the date class to a String. This is for the job's requested date and time.
+     * @param date
+     * @return
+     */
     public static String timeNeed(Date date){
         SimpleDateFormat nf = new SimpleDateFormat("MM/dd/yyyy HH:mm zzz");
         return nf.format(date);

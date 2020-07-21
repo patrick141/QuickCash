@@ -34,6 +34,12 @@ import java.util.List;
 import static com.example.quickcash.adapters.JobsAdapter.getRelativeTimeAgo;
 import static com.example.quickcash.adapters.JobsAdapter.timeNeed;
 
+/**
+ *  JobDetailsActivity
+ *
+ *  This class handles viewing details of jobs. The Activity changes based off if the user is click-
+ *  ing on their own job or if they are viewing other job posts and want to submit a request.
+ */
 public class JobDetailsActivity extends AppCompatActivity {
 
     public static final String TAG = "JobDetailsActivity";
@@ -87,8 +93,13 @@ public class JobDetailsActivity extends AppCompatActivity {
 
         requests = new ArrayList<>();
         requestsAdapter = new RequestsAdapter(JobDetailsActivity.this, requests);
-
         sentReq.setVisibility(View.GONE);
+
+        /**
+         * This function checks to see if a user job he viewing is his job postings.
+         * If it is, a different layout appears showing the requests of that job.
+         * Only the job creator can view the requests and approve or deny.
+         */
         if(job.getUser().hasSameId(ParseUser.getCurrentUser())){
             llJobRequest.setVisibility(View.GONE);
             rvRequests.setVisibility(View.VISIBLE);
@@ -97,15 +108,24 @@ public class JobDetailsActivity extends AppCompatActivity {
             queryRequests();
         }
         else{
+            /**
+             *  Assuming the user is clicking on another user's job. They will go to the default
+             *  layout where they can submit a job request.
+             */
             llJobRequest.setVisibility(View.VISIBLE);
             rvRequests.setVisibility(View.GONE);
 
+            /**
+             * If the user has already submitted a job, to prevent the user from sending multiple jobs
+             * They are given an alternative layout that shows that they have already submitted a job request.
+             */
             if(job.getRequests() != null){
                 if(checkME(job.getRequests(), ParseUser.getCurrentUser())){
                     llJobRequest.setVisibility(View.GONE);
                     sentReq.setVisibility(View.VISIBLE);
                 }
             }
+
         }
 
         jobNameJDA.setText(job.getName());
@@ -171,6 +191,10 @@ public class JobDetailsActivity extends AppCompatActivity {
         });
     }
 
+    /**
+     * This method queries our requests into our rvRequests. If finds Requests that point to the job.
+     * It shows up to 20 results.
+     */
     protected void queryRequests() {
         ParseQuery<Request> query = ParseQuery.getQuery(Request.class);
         query.include(Request.KEY_REQUEST_USER);
@@ -194,7 +218,8 @@ public class JobDetailsActivity extends AppCompatActivity {
     }
 
     /**
-     * This function checks to see if a user have already submitted a request for the job.
+     * This function checks to see if a user have already submitted a request for the job. If a request matches the user id,
+     * it returns true or false if user's id is not there, meaning they haven't sent a request yet.
      * @param requests
      * @param user
      * @return
