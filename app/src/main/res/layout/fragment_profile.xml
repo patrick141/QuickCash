@@ -59,11 +59,16 @@
             app:layout_constraintTop_toTopOf="parent" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
-    <include layout="@layout/fragment_home"></include>
+    <include layout="@layout/fragment_home"
+        android:layout_height="465dp"
+        android:layout_width="match_parent"></include>
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/rvRequests"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"/>
+
+    <Button
+        android:id="@+id/btn_sign_out"
+        android:background="@color/myAppAltColor"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/sign_out"/>
 
 </LinearLayout>

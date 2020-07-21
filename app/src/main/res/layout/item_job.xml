@@ -8,98 +8,99 @@
     android:padding="10dp"
     android:background="?android:attr/selectableItemBackground">
 
-    <TextView
-        android:id="@+id/job_request_name"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/app_name"
-        android:textStyle="bold" />
-
-    <TextView
-        android:id="@+id/job_date"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentEnd="true"
-        android:text="@string/ij_sampleDate" />
-
-    <LinearLayout
-        android:id="@+id/ll_LrequestUserInfo"
-        android:layout_below="@id/job_request_name"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content">
-
         <TextView
-            android:id="@+id/posted_ID"
+            android:id="@+id/job_request_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/ij_postedID" />
-
-        <TextView
-            android:id="@+id/job_Username"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="5dp"
             android:text="@string/app_name"
-            android:textStyle="bold|italic" />
+            android:textStyle="bold" />
 
         <TextView
-            android:id="@+id/job_Dateposted"
+            android:id="@+id/job_date"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="2dp"
-            android:text="@string/ij_sampleDateAgo" />
-    </LinearLayout>
+            android:layout_alignParentEnd="true"
+            android:text="@string/ij_sampleDate" />
 
-    <TextView
-        android:id="@+id/job_descriptionID"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/job_picture"
-        android:text="@string/ij_descriptionID"
-        android:textStyle="bold" />
+        <LinearLayout
+            android:id="@+id/ll_LrequestUserInfo"
+            android:layout_below="@id/job_request_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
 
-    <TextView
-        android:id="@+id/job_description"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/job_descriptionID"
-        android:text="@string/ij_sampleDescription" />
+            <TextView
+                android:id="@+id/posted_ID"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/ij_postedID" />
 
-    <TextView
-        android:id="@+id/job_moneyID"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/ll_LrequestUserInfo"
-        android:layout_marginTop="20dp"
-        android:text="@string/ij_amountID"
-        android:textStyle="bold" />
+            <TextView
+                android:id="@+id/job_Username"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="5dp"
+                android:text="@string/app_name"
+                android:textStyle="bold|italic" />
 
-    <TextView
-        android:id="@+id/job_price"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/job_moneyID"
-        android:text="@string/ij_samplePrice" />
+            <TextView
+                android:id="@+id/job_Dateposted"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="2dp"
+                android:text="@string/ij_sampleDateAgo" />
+        </LinearLayout>
 
-    <ImageView
-        android:id="@+id/job_picture"
-        android:layout_width="100dp"
-        android:layout_height="100dp"
-        android:layout_below="@id/job_request_name"
-        android:layout_alignParentEnd="true"
-        tools:srcCompat="@tools:sample/avatars" />
+        <TextView
+            android:id="@+id/job_descriptionID"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/job_picture"
+            android:text="@string/ij_descriptionID"
+            android:textStyle="bold" />
 
-    <TextView
-        android:id="@+id/job_address"
-        android:layout_width="120dp"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/job_request_name"
-        android:layout_marginStart="5dp"
-        android:layout_toLeftOf="@id/job_picture"
-        android:layout_toRightOf="@id/ll_LrequestUserInfo"
-        android:text="@string/ij_sampleAddress"
-        android:textIsSelectable="true"
-        android:textStyle="bold" />
+        <TextView
+            android:id="@+id/job_description"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/job_descriptionID"
+            android:text="@string/ij_sampleDescription" />
+
+        <TextView
+            android:id="@+id/job_moneyID"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/ll_LrequestUserInfo"
+            android:layout_marginTop="20dp"
+            android:text="@string/ij_amountID"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/job_price"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/job_moneyID"
+            android:text="@string/ij_samplePrice" />
+
+        <ImageView
+            android:id="@+id/job_picture"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:layout_below="@id/job_request_name"
+            android:layout_alignParentEnd="true"
+            tools:srcCompat="@tools:sample/avatars" />
+
+        <TextView
+            android:id="@+id/job_address"
+            android:layout_width="120dp"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/job_request_name"
+            android:layout_marginStart="5dp"
+            android:layout_toLeftOf="@id/job_picture"
+            android:layout_toRightOf="@id/ll_LrequestUserInfo"
+            android:text="@string/ij_sampleAddress"
+            android:textIsSelectable="true"
+            android:textStyle="bold" />
+
 
 
 </RelativeLayout>

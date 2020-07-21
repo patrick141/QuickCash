@@ -8,7 +8,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -77,7 +76,6 @@ public class JobsAdapter extends RecyclerView.Adapter<JobsAdapter.ViewHolder> {
         private TextView jobName;
         private TextView jobRequestorName;
         private ImageView jobPicture;
-        private LinearLayout llUserDetails;
         private TextView jobDate;
         private TextView jobDatePosted;
         private TextView jobAddress;
@@ -91,7 +89,6 @@ public class JobsAdapter extends RecyclerView.Adapter<JobsAdapter.ViewHolder> {
             jobDate = itemView.findViewById(R.id.job_date);
             jobRequestorName = itemView.findViewById(R.id.job_Username);
             jobPicture = itemView.findViewById(R.id.job_picture);
-            llUserDetails = itemView.findViewById(R.id.ll_LrequestUserInfo);
             jobDatePosted = itemView.findViewById(R.id.job_Dateposted);
             jobDescription = itemView.findViewById(R.id.job_description);
             jobAddress = itemView.findViewById(R.id.job_address);
