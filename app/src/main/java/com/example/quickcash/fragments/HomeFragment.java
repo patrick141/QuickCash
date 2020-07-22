@@ -91,7 +91,8 @@ public class HomeFragment extends Fragment {
         ParseQuery<Job> query = ParseQuery.getQuery(Job.class);
         query.include(Job.KEY_JOB_USER);
         query.setLimit(20);
-        query.addDescendingOrder(Job.KEY_CREATED_AT);
+        //query.addDescendingOrder(Job.KEY_CREATED_AT);
+        query.addAscendingOrder(Job.KEY_JOB_DATE);
         query.whereNotEqualTo(Job.KEY_JOB_USER, ParseUser.getCurrentUser());
         query.whereEqualTo(Job.KEY_JOB_ISTAKEN, false);
         query.findInBackground(new FindCallback<Job>() {

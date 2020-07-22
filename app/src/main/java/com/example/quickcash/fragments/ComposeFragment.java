@@ -139,7 +139,7 @@ public class ComposeFragment extends Fragment {
             public void onDateSet(DatePicker datePicker, int year, int month, int day) {
                 Log.d(TAG, "onDateSet date: mm/dd/yyyy: " + month + "/" +day + "/" + year);
                 month+= 1;
-                String date = day + "/" + month + "/" + year;
+                String date = month + "/" + day + "/" + year;
                 etJobDate.setText(date);
             }
         };
@@ -285,9 +285,8 @@ public class ComposeFragment extends Fragment {
      * @throws ParseException
      */
     public Date convertStringtoDate(String stringDate, String stringTime) throws ParseException {
-        stringDate = stringDate + " " + stringTime;
-        SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy HH:mm", Locale.ENGLISH);
-        Date date= format.parse(stringDate);
-        return date;
+        String newDate = stringDate + " " + stringTime;
+        SimpleDateFormat format = new SimpleDateFormat("MM/dd/yyyy HH:mm", Locale.ENGLISH);
+        return (format.parse(newDate));
     }
 }

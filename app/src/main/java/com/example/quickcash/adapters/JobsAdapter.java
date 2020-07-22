@@ -176,7 +176,7 @@ public class JobsAdapter extends RecyclerView.Adapter<JobsAdapter.ViewHolder> {
      * @return
      */
     public static String timeNeed(Date date){
-        return new SimpleDateFormat("MMM dd, YYYY HH:mm zzz").format(date);
+        return new SimpleDateFormat("MMM dd, YYYY hh:mm a zzz").format(date);
     }
 
 }
