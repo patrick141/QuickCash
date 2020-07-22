@@ -1,8 +1,11 @@
 package com.example.quickcash;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -17,6 +20,7 @@ import com.example.quickcash.fragments.MyJobsFragment;
 import com.example.quickcash.fragments.ProfileFragment;
 import com.example.quickcash.fragments.SearchFragment;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.parse.ParseUser;
 
 /**
  * MainActivity
@@ -82,5 +86,35 @@ public class MainActivity extends AppCompatActivity {
         /**
          * This method logs the users out of QuickCash. They return to the login Screen.
          */
+    }
+
+    /**
+     * Add the menu items from menu_main into our toolbar.
+     * @param menu
+     * @return
+     */
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu_main, menu);
+        return true;
+    }
+
+    /**
+     * When user clicks on sign out menu item on toolbar, they sign out of Quickcash.
+     * @param item
+     * @return
+     */
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        if(item.getItemId() == R.id.sign_out_main){
+            ParseUser.logOut();
+            ParseUser currentUser = ParseUser.getCurrentUser(); // this will now be null
+            Intent i = new Intent(this, LoginActivity.class);
+            Toast.makeText(this, "You have signed out.", Toast.LENGTH_SHORT).show();
+            startActivity(i);
+            finish();
+        }
+
+        return super.onOptionsItemSelected(item);
     }
 }

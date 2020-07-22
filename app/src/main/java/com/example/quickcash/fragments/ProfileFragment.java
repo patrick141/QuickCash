@@ -1,22 +1,18 @@
 package com.example.quickcash.fragments;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.RatingBar;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
 import com.bumptech.glide.Glide;
-import com.example.quickcash.LoginActivity;
 import com.example.quickcash.R;
 import com.example.quickcash.models.Job;
 import com.parse.FindCallback;
@@ -46,7 +42,6 @@ public class ProfileFragment extends HomeFragment {
     private TextView tvUsername;
     private TextView tvUserSince;
     private RatingBar rbUserRating;
-    private Button btnSignOut;
 
     public ProfileFragment() {
         // Required empty public constructor
@@ -67,7 +62,6 @@ public class ProfileFragment extends HomeFragment {
         tvUsername = view.findViewById(R.id.tv_Username);
         tvUserSince = view.findViewById(R.id.tv_UserSince);
         rbUserRating = view.findViewById(R.id.rb_user_rating);
-        btnSignOut = view.findViewById(R.id.btn_sign_out);
 
 
         ParseUser user = ParseUser.getCurrentUser();
@@ -82,18 +76,6 @@ public class ProfileFragment extends HomeFragment {
         }
         rbUserRating.setRating((float) user.getDouble("userRating"));
         queryJobs();
-
-        btnSignOut.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                ParseUser.logOut();
-                ParseUser currentUser = ParseUser.getCurrentUser(); // this will now be null
-                Intent i = new Intent(getContext(), LoginActivity.class);
-                Toast.makeText(getContext(), "You have signed out.", Toast.LENGTH_SHORT).show();
-                startActivity(i);
-                getActivity().finish();
-            }
-        });
     }
 
     @Override

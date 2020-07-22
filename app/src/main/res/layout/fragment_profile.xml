@@ -66,12 +66,4 @@
         android:layout_below="@id/cl_profile"></include>
 
 
-    <Button
-        android:id="@+id/btn_sign_out"
-        android:background="@color/myAppAltColor"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/rv_myPosts"
-        android:text="@string/sign_out"/>
-
 </RelativeLayout>
