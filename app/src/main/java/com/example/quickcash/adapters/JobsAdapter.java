@@ -135,8 +135,7 @@ public class JobsAdapter extends RecyclerView.Adapter<JobsAdapter.ViewHolder> {
                     intent = new Intent(context, MyJobsDetailsActivity.class);
                     intent.putExtra("JOB", Parcels.wrap(job));
                     context.startActivity(intent, options.toBundle());
-                }
-                else {
+                } else {
                     intent = new Intent(context, JobDetailsActivity.class);
                     intent.putExtra("JOB", Parcels.wrap(job));
                     context.startActivity(intent, options.toBundle());
@@ -144,8 +143,6 @@ public class JobsAdapter extends RecyclerView.Adapter<JobsAdapter.ViewHolder> {
             }
         }
     }
-
-
 
     /**
      * Converts a Date object's string and converts it into a timestamp from the time from that date.
@@ -179,8 +176,7 @@ public class JobsAdapter extends RecyclerView.Adapter<JobsAdapter.ViewHolder> {
      * @return
      */
     public static String timeNeed(Date date){
-        SimpleDateFormat nf = new SimpleDateFormat("MM/dd/yyyy HH:mm zzz");
-        return nf.format(date);
+        return new SimpleDateFormat("MMM dd, YYYY HH:mm zzz").format(date);
     }
 
 }

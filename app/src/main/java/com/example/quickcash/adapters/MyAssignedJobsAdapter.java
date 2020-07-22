@@ -29,25 +29,25 @@ import static com.example.quickcash.adapters.JobsAdapter.getRelativeTimeAgo;
  * This class will be used to modify the Jobs RV in our profile activity
  */
 
-public class MyJobsSentAdapter extends RecyclerView.Adapter<MyJobsSentAdapter.ViewHolder> {
-    public static final String TAG = "MyJobsSentAdapter";
+public class MyAssignedJobsAdapter extends RecyclerView.Adapter<MyAssignedJobsAdapter.ViewHolder> {
+    public static final String TAG = "MyAssignedJobsAdapter";
     private final Context context;
     private final List<Job> jobs;
 
-    public MyJobsSentAdapter(Context context, List<Job> jobs) {
+    public MyAssignedJobsAdapter(Context context, List<Job> jobs) {
         this.context = context;
         this.jobs = jobs;
     }
 
     @NonNull
     @Override
-    public MyJobsSentAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public MyAssignedJobsAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(context).inflate(R.layout.item_job, parent, false);
-        return new MyJobsSentAdapter.ViewHolder(view);
+        return new MyAssignedJobsAdapter.ViewHolder(view);
     }
 
     @Override
-    public void onBindViewHolder(@NonNull MyJobsSentAdapter.ViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull MyAssignedJobsAdapter.ViewHolder holder, int position) {
         Job job = jobs.get(position);
         holder.bind(job);
     }

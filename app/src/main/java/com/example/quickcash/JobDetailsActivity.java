@@ -9,6 +9,7 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
@@ -30,7 +31,6 @@ import com.parse.SaveCallback;
 
 import org.parceler.Parcels;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import static com.example.quickcash.adapters.JobsAdapter.getRelativeTimeAgo;
@@ -100,7 +100,7 @@ public class JobDetailsActivity extends AppCompatActivity implements OnMapReadyC
          * They are given an alternative layout that shows that they have already submitted a job request.
          */
         if(job.getRequests() != null){
-            if(checkME(job.getRequests(), ParseUser.getCurrentUser())){
+            if(submittedRequest(job.getRequests())){
                 llJobRequest.setVisibility(View.GONE);
                 sentReq.setVisibility(View.VISIBLE);
             }
@@ -113,8 +113,7 @@ public class JobDetailsActivity extends AppCompatActivity implements OnMapReadyC
         ParseFile jobImage = job.getImage();
         if(jobImage == null){
             Glide.with(this).load(R.drawable.logo).into(jobImageJDA);
-        }
-        else{
+        } else{
             Glide.with(this).load(job.getImage().getUrl()).into(jobImageJDA);
         }
         jobUserJDA.setText(job.getUser().getUsername());
@@ -136,12 +135,22 @@ public class JobDetailsActivity extends AppCompatActivity implements OnMapReadyC
         mapFragment.getMapAsync(this);
 
 
+        /**
+         *  User can submit request by filling out the editText and clicking on the submit button.
+         */
         btnSubmitRequest.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 String comment = etRequestJDA.getText().toString();
-                final Request request = new Request();
                 ParseUser currentUser = ParseUser.getCurrentUser();
+                /**
+                 * The user cannot submit a request if they do not fill out the editText.
+                 */
+                if(comment.isEmpty()){
+                    Toast.makeText(JobDetailsActivity.this, "Please fill in request comment", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+                final Request request = new Request();
                 request.setUser(currentUser);
                 request.setComment(comment);
                 request.setJob(job);
@@ -174,46 +183,14 @@ public class JobDetailsActivity extends AppCompatActivity implements OnMapReadyC
     }
 
     /**
-     * This method queries our requests into our rvRequests. If finds Requests that point to the job.
-     * It shows up to 20 results.
-     */
-    /*
-    protected void queryRequests() {
-        ParseQuery<Request> query = ParseQuery.getQuery(Request.class);
-        query.include(Request.KEY_REQUEST_USER);
-        query.setLimit(20);
-        query.addDescendingOrder(Request.KEY_CREATED_AT);
-        query.whereEqualTo(Request.KEY_REQUEST_JOB, job);
-        query.findInBackground(new FindCallback<Request>() {
-            @Override
-            public void done(List<Request> requests, ParseException e) {
-                if(e != null){
-                    Log.e(TAG, "Issues with getting requests", e);
-                    return;
-                }
-                for(Request request: requests){
-                    Log.i(TAG, "Request User: " + request.getUser().getUsername() + " Comment: " + request.getComment() + " Post: " + request.getJob());
-                }
-                requestsAdapter.addAll(requests);
-                requestsAdapter.notifyDataSetChanged();
-            }
-        });
-    }*/
-
-    /**
-     * This function checks to see if a user have already submitted a request for the job. If a request matches the user id,
-     * it returns true or false if user's id is not there, meaning they haven't sent a request yet.
+     * This function checks to see if the current user has already submitted a request for the job. This iterates through the array
+     * and returns true if it finds the matching user id.
      * @param requests
-     * @param user
      * @return
      */
-    public boolean checkME(List<Request> requests, ParseUser user){
-        List<ParseUser> users = new ArrayList<>();
+    public boolean submittedRequest(List<Request> requests){
         for (Request request: requests){
-            users.add(request.getUser());
-        }
-        for(ParseUser parseUser: users){
-            if(parseUser.hasSameId(user)){
+            if(request.getUser().hasSameId(ParseUser.getCurrentUser())){
                 return true;
             }
         }

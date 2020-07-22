@@ -80,8 +80,7 @@ public class RequestsAdapter extends RecyclerView.Adapter<RequestsAdapter.ViewHo
             ParseFile userImage = (ParseFile) request.getUser().get("profilePic");
             if(userImage == null){
                 Glide.with(context).load(R.drawable.logo).into(ivRequest);
-            }
-            else{
+            } else{
                 Glide.with(context).load(userImage.getUrl()).into(ivRequest);
             }
         }
