@@ -87,7 +87,6 @@ public class JobsAdapter extends RecyclerView.Adapter<JobsAdapter.ViewHolder> {
         private TextView jobDate;
         private TextView jobDatePosted;
         private TextView jobAddress;
-        private TextView jobDescription;
         private TextView jobPrice;
 
         public ViewHolder(@NonNull View itemView) {
@@ -97,7 +96,6 @@ public class JobsAdapter extends RecyclerView.Adapter<JobsAdapter.ViewHolder> {
             jobRequestorName = itemView.findViewById(R.id.job_username);
             jobPicture = itemView.findViewById(R.id.job_picture);
             jobDatePosted = itemView.findViewById(R.id.job_date_posted);
-            jobDescription = itemView.findViewById(R.id.job_description);
             jobAddress = itemView.findViewById(R.id.job_address);
             jobPrice = itemView.findViewById(R.id.job_price);
             itemView.setOnClickListener(this);
@@ -115,7 +113,6 @@ public class JobsAdapter extends RecyclerView.Adapter<JobsAdapter.ViewHolder> {
                 Glide.with(context).load(R.drawable.logo).placeholder(R.drawable.ic_launcher_background).into(jobPicture);
             }
             jobDatePosted.setText(" " + getRelativeTimeAgo(job.getCreatedAt().toString()));
-            jobDescription.setText(job.getDescription());
             jobAddress.setText(job.getAddress());
             jobPrice.setText("$" + String.format("%.2f", job.getPrice()));
         }
