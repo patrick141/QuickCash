@@ -69,6 +69,7 @@ public class ProfileFragment extends HomeFragment {
         rbUserRating = view.findViewById(R.id.rb_user_rating);
         btnSignOut = view.findViewById(R.id.btn_sign_out);
 
+
         ParseUser user = ParseUser.getCurrentUser();
         tvUsername.setText(user.getUsername());
         tvUserSince.setText("User since " + timeNeed(user.getCreatedAt()));

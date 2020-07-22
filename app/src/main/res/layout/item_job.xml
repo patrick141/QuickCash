@@ -5,8 +5,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/cl_job"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:padding="10dp"
+    android:layout_height="wrap_content"
     android:background="?android:attr/selectableItemBackground">
 
     <androidx.cardview.widget.CardView
@@ -41,7 +40,7 @@
             android:text="@string/ij_sampleDate" />
 
         <LinearLayout
-            android:id="@+id/ll_LrequestUserInfo"
+            android:id="@+id/ll_requestUserInfo"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@id/job_request_name">
@@ -53,7 +52,7 @@
                 android:text="@string/ij_postedID" />
 
             <TextView
-                android:id="@+id/job_Username"
+                android:id="@+id/job_username"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="5dp"
@@ -61,7 +60,7 @@
                 android:textStyle="bold|italic" />
 
             <TextView
-                android:id="@+id/job_Dateposted"
+                android:id="@+id/job_date_posted"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="2dp"
@@ -87,7 +86,7 @@
             android:id="@+id/job_moneyID"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@id/ll_LrequestUserInfo"
+            android:layout_below="@id/ll_requestUserInfo"
             android:layout_marginTop="20dp"
             android:text="@string/ij_amountID"
             android:textStyle="bold" />
@@ -112,7 +111,7 @@
             android:id="@+id/job_address"
             android:layout_width="120dp"
             android:layout_height="wrap_content"
-            android:layout_below="@id/ll_LrequestUserInfo"
+            android:layout_below="@id/ll_requestUserInfo"
             android:layout_toLeftOf="@id/job_picture"
             android:layout_marginTop="5dp"
             android:layout_marginStart="5dp"

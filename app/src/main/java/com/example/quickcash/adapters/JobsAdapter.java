@@ -94,9 +94,9 @@ public class JobsAdapter extends RecyclerView.Adapter<JobsAdapter.ViewHolder> {
             super(itemView);
             jobName = itemView.findViewById(R.id.job_request_name);
             jobDate = itemView.findViewById(R.id.job_date);
-            jobRequestorName = itemView.findViewById(R.id.job_Username);
+            jobRequestorName = itemView.findViewById(R.id.job_username);
             jobPicture = itemView.findViewById(R.id.job_picture);
-            jobDatePosted = itemView.findViewById(R.id.job_Dateposted);
+            jobDatePosted = itemView.findViewById(R.id.job_date_posted);
             jobDescription = itemView.findViewById(R.id.job_description);
             jobAddress = itemView.findViewById(R.id.job_address);
             jobPrice = itemView.findViewById(R.id.job_price);
