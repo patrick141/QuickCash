@@ -9,6 +9,7 @@
     <string name="MyJobsFragmentSample">Hello myjobs fragment </string>
     <string name="ProfileFragmentSample">Hello my profile fragment </string>
     <string name="SearchFragmentSample">Hello search fragment </string>
+    <string name="ComposeTitle">Compose Job</string>
 
     <!-- Item Job sample views -->
     <string name="ij_sampleAddress">123 Apple St, Charlotte NC, 28206</string>

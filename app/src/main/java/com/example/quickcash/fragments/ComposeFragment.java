@@ -19,6 +19,7 @@ import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.TimePicker;
 import android.widget.Toast;
 
@@ -27,7 +28,6 @@ import androidx.annotation.Nullable;
 import androidx.core.content.FileProvider;
 import androidx.fragment.app.Fragment;
 
-import com.bumptech.glide.Glide;
 import com.example.quickcash.R;
 import com.example.quickcash.models.Job;
 import com.parse.ParseFile;
@@ -56,7 +56,7 @@ public class ComposeFragment extends Fragment {
 
     public static final String TAG = "ComposeFragment";
 
-    private ImageView homeImage;
+    private TextView composeTitle;
     private EditText etName;
     private EditText etDescription;
     private EditText etAddress;
@@ -88,7 +88,7 @@ public class ComposeFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        homeImage = view.findViewById(R.id.cf_homeImage);
+        composeTitle = view.findViewById(R.id.cf_composeID);
         etName = view.findViewById(R.id.et_name);
         etDescription = view.findViewById(R.id.et_description);
         etJobDate = view.findViewById(R.id.et_date);
@@ -98,8 +98,6 @@ public class ComposeFragment extends Fragment {
         btnCompose = view.findViewById(R.id.btn_composeJob);
         btnTakeImage = view.findViewById(R.id.btn_takeJobPic);
         ivImage = view.findViewById(R.id.iv_optionImage);
-
-        Glide.with(getContext()).load(R.drawable.logo).placeholder(R.drawable.ic_launcher_foreground).into(homeImage);
 
         etJobDate.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -111,10 +109,9 @@ public class ComposeFragment extends Fragment {
 
                 DatePickerDialog dialog = new DatePickerDialog(
                         getContext(),
-                        android.R.style.Theme_Holo_Light_Dialog_MinWidth,
                         mDateSetListener,
                         year,month,day);
-                dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+                //dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
                 dialog.show();
             }
         });
@@ -141,7 +138,8 @@ public class ComposeFragment extends Fragment {
             @Override
             public void onDateSet(DatePicker datePicker, int year, int month, int day) {
                 Log.d(TAG, "onDateSet date: mm/dd/yyyy: " + month + "/" +day + "/" + year);
-                String date = month + "/" + day + "/" + year;
+                month+= 1;
+                String date = day + "/" + month + "/" + year;
                 etJobDate.setText(date);
             }
         };
@@ -163,15 +161,12 @@ public class ComposeFragment extends Fragment {
             public void onClick(View view) {
                 String name = etName.getText().toString();
                 String description = etDescription.getText().toString();
-                Date date = null;
-                try {
-                    date = convertStringtoDate(etJobDate.getText().toString(), etJobTime.getText().toString());
-                } catch (ParseException e) {
-                    e.printStackTrace();
-                }
+                String date = etJobDate.getText().toString();
+                String time = etJobTime.getText().toString();
                 String address = etAddress.getText().toString();
-                Double price = Double.parseDouble(etPrice.getText().toString());
-                if(name.isEmpty() || description.isEmpty() || date.equals(null) || address.isEmpty() || price.equals(null)){
+                String amount = etPrice.getText().toString();
+                if(name.isEmpty() || description.isEmpty() || date.isEmpty() ||
+                        time.isEmpty() || address.isEmpty() || amount.isEmpty()){
                     Toast.makeText(getContext(), " Missing required parts", Toast.LENGTH_SHORT).show();
                     return;
                 }
@@ -180,8 +175,16 @@ public class ComposeFragment extends Fragment {
                 job.setName(name);
                 job.setDescription(description);
                 job.setAddress(address);
+                Double price = Double.parseDouble(etPrice.getText().toString());
+
                 job.setPrice(price.doubleValue());
-                job.setJobDate(date);
+                Date jobDate = null;
+                try {
+                    jobDate = convertStringtoDate(date, time);
+                } catch (ParseException e) {
+                    e.printStackTrace();
+                }
+                job.setJobDate(jobDate);
                 job.setUser(currentUser);
                 if(photoFile != null){
                     job.setImage(new ParseFile(photoFile));
@@ -200,6 +203,7 @@ public class ComposeFragment extends Fragment {
                         etJobTime.setText("");
                         etPrice.setText("");
                         ivImage.setImageResource(0);
+                        Toast.makeText(getContext(), "Job has been posted", Toast.LENGTH_LONG).show();
                     }
                 });
                 currentUser.add("myJobs", job);
@@ -282,7 +286,7 @@ public class ComposeFragment extends Fragment {
      */
     public Date convertStringtoDate(String stringDate, String stringTime) throws ParseException {
         stringDate = stringDate + " " + stringTime;
-        SimpleDateFormat format = new SimpleDateFormat("MM/DD/yyyy HH:mm", Locale.ENGLISH);
+        SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy HH:mm", Locale.ENGLISH);
         Date date= format.parse(stringDate);
         return date;
     }
