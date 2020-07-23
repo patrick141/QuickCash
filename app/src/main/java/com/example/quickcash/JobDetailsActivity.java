@@ -2,6 +2,7 @@ package com.example.quickcash;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -177,7 +178,16 @@ public class JobDetailsActivity extends AppCompatActivity implements OnMapReadyC
                         Log.i(TAG, "It's now in DB");
                     }
                 });
-                finish();
+                Toast.makeText(JobDetailsActivity.this, "Request has been submitted", Toast.LENGTH_SHORT).show();
+                Intent i = new Intent();
+                i.putExtra("MINE", 21);
+                setResult(RESULT_OK, i);
+                new Handler().postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        finish();
+                    }
+                },2000);
             }
         });
     }

@@ -14,6 +14,7 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.core.app.ActivityOptionsCompat;
+import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
@@ -40,12 +41,20 @@ import java.util.Locale;
 public class JobsAdapter extends RecyclerView.Adapter<JobsAdapter.ViewHolder> {
 
     public static final String TAG = "JobsAdapter";
+    public static final int JOB_SEND_REQUEST_CODE = 1001;
     private final Context context;
     private final List<Job> jobs;
+    private Fragment fragment;
 
     public JobsAdapter(Context context, List<Job> jobs) {
         this.context = context;
         this.jobs = jobs;
+    }
+
+    public JobsAdapter(Context context, List<Job> jobs, Fragment fragment){
+        this.context = context;
+        this.jobs = jobs;
+        this.fragment = fragment;
     }
 
     @NonNull
@@ -138,7 +147,11 @@ public class JobsAdapter extends RecyclerView.Adapter<JobsAdapter.ViewHolder> {
                 } else {
                     intent = new Intent(context, JobDetailsActivity.class);
                     intent.putExtra("JOB", Parcels.wrap(job));
-                    context.startActivity(intent, options.toBundle());
+                    if(fragment != null) {
+                        fragment.startActivityForResult(intent, JOB_SEND_REQUEST_CODE, options.toBundle());
+                    } else {
+                        ((Activity) context).startActivityForResult(intent, JOB_SEND_REQUEST_CODE, options.toBundle());
+                    }
                 }
             }
         }

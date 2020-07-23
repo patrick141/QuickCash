@@ -1,7 +1,8 @@
 package com.example.quickcash;
 
-import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
+
+import androidx.appcompat.app.AppCompatActivity;
 
 public class BaseJobDetailsActivity extends AppCompatActivity {
 

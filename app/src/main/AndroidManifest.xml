@@ -17,7 +17,8 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
-        <activity android:name=".MyJobsDetailsActivity"></activity>
+        <activity android:name=".BaseJobDetailsActivity"></activity>
+        <activity android:name=".MyJobsDetailsActivity" />
         <activity android:name=".RequestDetailsActivity" />
 
         <provider

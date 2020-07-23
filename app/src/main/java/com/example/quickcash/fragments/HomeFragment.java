@@ -1,5 +1,6 @@
 package com.example.quickcash.fragments;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -26,6 +27,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 import jp.wasabeef.recyclerview.animators.SlideInUpAnimator;
+
+import static android.app.Activity.RESULT_OK;
+import static com.example.quickcash.adapters.JobsAdapter.JOB_SEND_REQUEST_CODE;
 
 /**
  * HomeFragment
@@ -63,7 +67,7 @@ public class HomeFragment extends Fragment {
         rvJobs = view.findViewById(R.id.rv_Jobs);
         allJobs = new ArrayList<>();
 
-        jobsAdapter = new JobsAdapter(getContext(), allJobs);
+        jobsAdapter = new JobsAdapter(getContext(), allJobs, this);
         rvJobs.setAdapter(jobsAdapter);
 
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext());
@@ -111,6 +115,15 @@ public class HomeFragment extends Fragment {
                 jobsAdapter.notifyDataSetChanged();
             }
         });
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if(requestCode == JOB_SEND_REQUEST_CODE && resultCode == RESULT_OK){
+                jobsAdapter.clear();
+                queryJobs();
+        }
     }
 
     public RecyclerView getRvJobs() { return rvJobs; }
