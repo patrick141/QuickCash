@@ -134,7 +134,7 @@ public class JobsAdapter extends RecyclerView.Adapter<JobsAdapter.ViewHolder> {
                 if(job.getUser().hasSameId(ParseUser.getCurrentUser())){
                     intent = new Intent(context, MyJobsDetailsActivity.class);
                     intent.putExtra("JOB", Parcels.wrap(job));
-                    context.startActivity(intent, options.toBundle());
+                    context.startActivity(intent);
                 } else {
                     intent = new Intent(context, JobDetailsActivity.class);
                     intent.putExtra("JOB", Parcels.wrap(job));

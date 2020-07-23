@@ -59,7 +59,12 @@ public class RequestDetailsActivity extends AppCompatActivity {
         btnDenyUser = binding.btnRequestDeny;
         btnContactUser = binding.btnContact;
 
-        ParseFile userImage = (ParseFile) request.getUser().get("profilePic");
+        ParseFile userImage = null;
+        try {
+            userImage = (ParseFile) request.getUser().fetchIfNeeded().getParseFile("profilePic");
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
         if(userImage == null){
             Glide.with(this).load(R.drawable.logo).into(ivRequestor);
         }

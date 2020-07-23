@@ -38,11 +38,11 @@ public class Request extends ParseObject {
         put(KEY_REQUEST_COMMENT, comment);
     }
 
-    public ParseObject getJob(){
-        return getParseObject(KEY_REQUEST_JOB);
+    public Job getJob(){
+        return (Job) getParseObject(KEY_REQUEST_JOB);
     }
 
-    public void setJob(ParseObject job){
+    public void setJob(Job job){
         put(KEY_REQUEST_JOB, job);
     }
 }

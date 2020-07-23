@@ -14,7 +14,6 @@ public class ProfileActivity extends AppCompatActivity {
         setContentView(R.layout.activity_profile);
         toolbar = (Toolbar) findViewById(R.id.toolbar_Home);
         setSupportActionBar(toolbar);
-
     }
 
 }

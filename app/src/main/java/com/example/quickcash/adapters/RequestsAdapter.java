@@ -16,12 +16,17 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.bumptech.glide.Glide;
 import com.example.quickcash.R;
 import com.example.quickcash.RequestDetailsActivity;
+import com.example.quickcash.models.Job;
 import com.example.quickcash.models.Request;
+import com.parse.ParseException;
 import com.parse.ParseFile;
+import com.parse.ParseUser;
 
 import org.parceler.Parcels;
 
 import java.util.List;
+
+import static com.example.quickcash.adapters.JobsAdapter.getRelativeTimeAgo;
 
 public class RequestsAdapter extends RecyclerView.Adapter<RequestsAdapter.ViewHolder> {
     private final Context context;
@@ -63,26 +68,42 @@ public class RequestsAdapter extends RecyclerView.Adapter<RequestsAdapter.ViewHo
 
     public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
         private ImageView ivRequest;
+        private ImageView ivStar;
         private TextView tvRequestUsername;
         private TextView tvRequestComment;
+        private TextView tvRequestCreatedAt;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
             ivRequest = itemView.findViewById(R.id.iv_request_User);
             tvRequestUsername = itemView.findViewById(R.id.request_user);
             tvRequestComment = itemView.findViewById(R.id.request_comment);
+            tvRequestCreatedAt = itemView.findViewById(R.id.request_createdAt);
+            ivStar = itemView.findViewById(R.id.iv_assigned);
             itemView.setOnClickListener(this);
         }
 
         public void bind(Request request) {
-            tvRequestUsername.setText(request.getUser().getUsername());
+            ParseUser user = request.getUser();
+            tvRequestUsername.setText(user.getUsername());
             tvRequestComment.setText(request.getComment());
-            ParseFile userImage = (ParseFile) request.getUser().get("profilePic");
+            ParseFile userImage = null;
+            try {
+                userImage = (ParseFile) user.fetchIfNeeded().getParseFile("profilePic");
+            } catch (ParseException e) {
+                e.printStackTrace();
+            }
+            ivStar.setVisibility(View.GONE);
             if(userImage == null){
                 Glide.with(context).load(R.drawable.logo).into(ivRequest);
             } else{
                 Glide.with(context).load(userImage.getUrl()).into(ivRequest);
             }
+            if(userAssigned(request.getUser(), request)){
+                ivStar.setVisibility(View.VISIBLE);
+                Glide.with(context).load(R.drawable.star_user).into(ivStar);
+            }
+            tvRequestCreatedAt.setText(getRelativeTimeAgo(request.getCreatedAt().toString()));
         }
 
         /**
@@ -101,5 +122,13 @@ public class RequestsAdapter extends RecyclerView.Adapter<RequestsAdapter.ViewHo
                 context.startActivity(i, options.toBundle());
             }
         }
+    }
+
+    public static boolean userAssigned(ParseUser user, Request request){
+        Job job = request.getJob();
+        if(job.getAssignedUser() == null){
+            return false;
+        }
+        return user.hasSameId(job.getAssignedUser());
     }
 }

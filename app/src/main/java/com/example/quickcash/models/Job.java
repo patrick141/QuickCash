@@ -1,6 +1,7 @@
 package com.example.quickcash.models;
 
 import com.parse.ParseClassName;
+import com.parse.ParseException;
 import com.parse.ParseFile;
 import com.parse.ParseObject;
 import com.parse.ParseUser;
@@ -104,7 +105,12 @@ public class Job extends ParseObject {
     }
 
     public ParseUser getAssignedUser() {
-        return getParseUser(KEY_JOB_ASSIGNED_USER);
+        try {
+            return fetchIfNeeded().getParseUser(KEY_JOB_ASSIGNED_USER);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        return null;
     }
 
     public void setAssignedUser(ParseUser user) {
