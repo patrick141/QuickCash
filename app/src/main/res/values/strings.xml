@@ -22,7 +22,9 @@
     <string name="ij_addressID">Address: </string>
     <string name="ij_sampleDescription"> Here is my description</string>
 
+    <string name="return_now">return</string>
     <string name="sign_out">Sign Out</string>
+    <string name="sign_out_text">Are you sure you want to log out?</string>
 
     <!-- Compose Fragment static strings-->
     <string name="CF_nameID">Enter Job Name Here:</string>

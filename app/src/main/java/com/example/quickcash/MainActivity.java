@@ -1,5 +1,6 @@
 package com.example.quickcash;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
@@ -8,6 +9,7 @@ import android.view.View;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
@@ -107,14 +109,44 @@ public class MainActivity extends AppCompatActivity {
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         if(item.getItemId() == R.id.sign_out_main){
-            ParseUser.logOut();
-            ParseUser currentUser = ParseUser.getCurrentUser(); // this will now be null
-            Intent i = new Intent(this, LoginActivity.class);
-            Toast.makeText(this, "You have signed out.", Toast.LENGTH_SHORT).show();
-            startActivity(i);
-            finish();
+            playSignOutAD();
         }
-
         return super.onOptionsItemSelected(item);
+    }
+
+    /**
+     * This method opens an Alert Dialog and makes the user double confirm that they want to sign out.
+     */
+    private void playSignOutAD(){
+        AlertDialog logOutDialog = new AlertDialog.Builder(this)
+                .setTitle(getResources().getString(R.string.sign_out))
+                .setMessage(getResources().getString(R.string.sign_out_text))
+                .setIcon(R.drawable.logo)
+
+                .setPositiveButton(getResources().getString(R.string.sign_out), new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int whichButton) {
+                        dialog.dismiss();
+                        signOut();
+                    }
+                })
+                .setNegativeButton(getResources().getString(R.string.return_now), new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.dismiss();
+                    }
+                })
+                .create();
+        logOutDialog.show();
+    }
+
+    /**
+     * This method signs the user out of QuickCash.
+     */
+    private void signOut(){
+        ParseUser.logOut();
+        ParseUser currentUser = ParseUser.getCurrentUser(); // this will now be null
+        Intent i = new Intent(this, LoginActivity.class);
+        Toast.makeText(this, "You have signed out.", Toast.LENGTH_SHORT).show();
+        startActivity(i);
+        finish();
     }
 }
