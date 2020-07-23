@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:padding="@dimen/cf_padding"
     tools:context=".fragments.ComposeFragment">
 
     <TextView
@@ -12,125 +13,118 @@
         android:layout_height="wrap_content"
         android:text="@string/ComposeTitle"
         android:textColor="@color/myAppAltColor"
-        android:textSize="36sp"
+        android:textSize="@dimen/compose_fragment_title"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/cf_nameTIL"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="@string/CF_nameID"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/cf_composeID">
 
-    <TextView
-        android:id="@+id/cf_nameID"
+        <EditText
+            android:id="@+id/et_name"
+            android:layout_width="@dimen/cf_name_width"
+            android:layout_height="wrap_content"
+            android:textSize="@dimen/cf_et_text_size"/>
+
+    </com.google.android.material.textfield.TextInputLayout>
+
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/cf_descriptionTIL"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="@string/CF_descriptionID"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/cf_nameTIL" >
+
+        <EditText
+            android:id="@+id/et_description"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="@dimen/cf_et_text_size" />
+
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/cf_dateTIL"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        android:text="@string/CF_nameID"
-        android:textSize="12sp"
-        app:layout_constraintEnd_toEndOf="parent"
+        android:hint="@string/CF_dateID"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/cf_composeID" />
+        app:layout_constraintTop_toBottomOf="@+id/cf_descriptionTIL" >
 
-    <EditText
-        android:id="@+id/et_name"
-        android:layout_width="133dp"
-        android:layout_height="wrap_content"
-        android:textSize="12sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/cf_nameID" />
+        <EditText
+            android:id="@+id/et_date"
+            android:layout_width="@dimen/cf_picker_width"
+            android:layout_height="wrap_content"
+            android:clickable="true"
+            android:editable="false"
+            android:textSize="@dimen/cf_et_text_size" />
+    </com.google.android.material.textfield.TextInputLayout>
 
-
-    <TextView
-        android:id="@+id/cf_descriptionID"
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/cf_timeTIL"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        android:text="@string/CF_descriptionID"
-        android:textSize="12sp"
+        android:hint="@string/CF_timeID"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/et_name" />
+        app:layout_constraintTop_toBottomOf="@+id/cf_descriptionTIL" >
 
-    <EditText
-        android:id="@+id/et_description"
-        android:layout_width="250dp"
-        android:layout_height="wrap_content"
-        android:textSize="12sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/cf_descriptionID" />
+        <EditText
+            android:id="@+id/et_time"
+            android:layout_width="@dimen/cf_picker_width"
+            android:layout_height="wrap_content"
+            android:clickable="true"
+            android:editable="false"
+            android:textSize="@dimen/cf_et_text_size" />
+    </com.google.android.material.textfield.TextInputLayout>
 
-    <TextView
-        android:id="@+id/cf_dateID"
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/cf_addressTIL"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="60dp"
-        android:layout_marginTop="8dp"
-        android:text="@string/CF_dateID"
-        android:textSize="12sp"
+        android:hint="@string/CF_addressID"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/et_description" />
+        app:layout_constraintTop_toBottomOf="@+id/cf_dateTIL" >
 
-    <EditText
-        android:id="@+id/et_date"
-        android:layout_width="125dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="55dp"
-        android:clickable="true"
-        android:editable="false"
-        android:textSize="12sp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/cf_dateID" />
+        <EditText
+            android:id="@+id/et_address"
+            android:layout_width="@dimen/cf_address_width"
+            android:layout_height="wrap_content"
+            android:textSize="@dimen/cf_et_text_size" />
+    </com.google.android.material.textfield.TextInputLayout>
 
-    <TextView
-        android:id="@+id/cf_addressID"
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/cf_priceTIL"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        android:text="Enter Job address here"
-        android:textSize="12sp"
-        app:layout_constraintEnd_toEndOf="parent"
+        android:hint="@string/CF_priceID"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/et_date" />
+        app:layout_constraintTop_toBottomOf="@+id/cf_addressTIL" >
 
-    <EditText
-        android:id="@+id/et_address"
-        android:layout_width="193dp"
-        android:layout_height="wrap_content"
-        android:textSize="12sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/cf_addressID" />
+        <EditText
+            android:id="@+id/et_price"
+            android:layout_width="@dimen/cf_other_width"
+            android:layout_height="wrap_content"
+            android:textSize="@dimen/cf_et_text_size"
+            android:inputType="numberDecimal" />
 
-
-    <TextView
-        android:id="@+id/cf_priceID"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        android:text="@string/CF_priceID"
-        android:textSize="12sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/et_address" />
-
-    <EditText
-        android:id="@+id/et_price"
-        android:layout_width="193dp"
-        android:layout_height="wrap_content"
-        android:textSize="12sp"
-        android:inputType="numberDecimal"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/cf_priceID" />
+    </com.google.android.material.textfield.TextInputLayout>
 
     <Button
         android:id="@+id/btn_composeJob"
-        android:layout_width="wrap_content"
+        android:layout_width="@dimen/compose_button_width"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="80dp"
+        android:background="@android:color/holo_green_light"
         android:text="@string/CF_composeJobID"
-        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/iv_optionImage" />
@@ -139,17 +133,16 @@
         android:id="@+id/cf_imageID"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
+        android:layout_marginTop="@dimen/cf_padding"
         android:text="@string/CF_imageID"
-        android:textSize="12sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/et_price" />
+        app:layout_constraintTop_toBottomOf="@+id/cf_priceTIL" />
 
     <ImageView
         android:id="@+id/iv_optionImage"
-        android:layout_width="80dp"
-        android:layout_height="112dp"
+        android:layout_width="@dimen/cf_iv_width"
+        android:layout_height="@dimen/cf_iv_height"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/btn_takeJobPic"
@@ -157,33 +150,11 @@
 
     <Button
         android:id="@+id/btn_takeJobPic"
-        android:layout_width="130dp"
-        android:layout_height="40dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:text="@string/CF_takeImageID"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/cf_imageID" />
-
-    <TextView
-        android:id="@+id/cd_timeID"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="60dp"
-        android:text="@string/CF_timeID"
-        android:textSize="12sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/et_description" />
-
-    <EditText
-        android:id="@+id/et_time"
-        android:layout_width="125dp"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="55dp"
-        android:clickable="true"
-        android:editable="false"
-        android:textSize="12sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/cd_timeID" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

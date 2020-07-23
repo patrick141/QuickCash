@@ -1,2 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+
+    <!-- Dimensions for Compose Fragment -->
+    <dimen name="cf_padding">5dp</dimen>
+    <dimen name="compose_fragment_title">36sp</dimen>
+    <dimen name="cf_et_text_size">14sp</dimen>
+    <dimen name="cf_name_width">150dp</dimen>
+    <dimen name="cf_address_width">250dp</dimen>
+    <dimen name="cf_picker_width">175dp</dimen>
+    <dimen name="cf_other_width">200dp</dimen>
+    <dimen name="cf_iv_height">100dp</dimen>
+    <dimen name="cf_iv_width">80dp</dimen>
+    <dimen name="compose_button_width">125dp</dimen>
+</resources>
