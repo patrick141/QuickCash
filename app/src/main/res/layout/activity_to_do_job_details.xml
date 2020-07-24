@@ -8,4 +8,14 @@
     android:layout_height="match_parent"
     tools:context=".detailactivities.ToDoJobDetailsActivity">
 
+    <include layout="@layout/toolbar_main"
+        android:id="@+id/toolbar_TODO"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"></include>
+
+    <include layout="@layout/item_job_detail"
+        android:layout_height="wrap_content"
+        android:layout_width="wrap_content"
+        android:layout_below="@id/toolbar_TODO"></include>
+
 </RelativeLayout>

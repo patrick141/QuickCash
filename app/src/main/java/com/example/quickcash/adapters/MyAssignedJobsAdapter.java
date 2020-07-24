@@ -8,14 +8,13 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
-import com.example.quickcash.detailactivities.JobDetailsActivity;
 import com.example.quickcash.R;
+import com.example.quickcash.detailactivities.ToDoJobDetailsActivity;
 import com.example.quickcash.models.Job;
 import com.parse.ParseFile;
 
@@ -108,10 +107,9 @@ public class MyAssignedJobsAdapter extends RecyclerView.Adapter<MyAssignedJobsAd
             if(position != RecyclerView.NO_POSITION) {
                 Job job = jobs.get(position);
                 Log.d("Load job details for ", job.getName());
-                Intent i = new Intent(context, JobDetailsActivity.class);
-                Toast.makeText(context, " THIS MINE " +job.getName(), Toast.LENGTH_SHORT).show();
+                Intent i = new Intent(context, ToDoJobDetailsActivity.class);
                 i.putExtra("JOB", Parcels.wrap(job));
-                //context.startActivity(i);
+                context.startActivity(i);
             }
         }
     }

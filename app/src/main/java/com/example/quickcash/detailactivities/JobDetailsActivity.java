@@ -7,15 +7,10 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
-
-import com.bumptech.glide.Glide;
 import com.example.quickcash.ProfileActivity;
 import com.example.quickcash.R;
 import com.example.quickcash.databinding.ActivityJobDetailsBinding;
@@ -28,7 +23,6 @@ import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.parse.ParseException;
-import com.parse.ParseFile;
 import com.parse.ParseUser;
 import com.parse.SaveCallback;
 
@@ -36,62 +30,42 @@ import org.parceler.Parcels;
 
 import java.util.List;
 
-import static com.example.quickcash.adapters.JobsAdapter.getRelativeTimeAgo;
-import static com.example.quickcash.adapters.JobsAdapter.timeNeed;
-
 /**
  *  JobDetailsActivity
  *
  *  This class handles viewing details of jobs. The Activity changes based off if the user is click-
  *  ing on their own job or if they are viewing other job posts and want to submit a request.
  */
-public class JobDetailsActivity extends AppCompatActivity implements OnMapReadyCallback {
+public class JobDetailsActivity extends BaseJobDetailsActivity implements OnMapReadyCallback {
 
     public static final String TAG = "JobDetailsActivity";
     private Job job;
-    private TextView jobNameJDA;
-    private TextView jobDateJDA;
-    private TextView jobDateCreatedJDA;
-    private TextView jobDescriptionJDA;
-    private TextView jobUserJDA;
-    private TextView jobPriceJDA;
-    private TextView jobAddressJDA;
-    private ImageView jobImageJDA;
     private LinearLayout llJobRequest;
     private EditText etRequestJDA;
     private Button btnSubmitRequest;
     private TextView sentReq;
-    private Toolbar toolbar;
     private GoogleMap map;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
         ActivityJobDetailsBinding binding = ActivityJobDetailsBinding.inflate(getLayoutInflater());
         View view = binding.getRoot();
         setContentView(view);
-
-        toolbar = (Toolbar) findViewById(R.id.toolbar_Home);
-        setSupportActionBar(toolbar);
+        runToolbar();
         job = (Job) Parcels.unwrap(getIntent().getParcelableExtra("JOB"));
-        /**This sets our activity_job_details layout based off the job information.
-         * We are also adding a request option.
+        /**
+         * The follow methods get our
          */
-        jobNameJDA = findViewById(R.id.jda_job_name);
-        jobDateJDA = findViewById(R.id.jda_job_date);
-        jobDateCreatedJDA = findViewById(R.id.jda_job_created_date);
-        jobUserJDA = findViewById(R.id.jda_job_user);
-        jobPriceJDA = findViewById(R.id.jda_job_price);
-        jobAddressJDA = findViewById(R.id.jda_job_address);
-        jobDescriptionJDA = findViewById(R.id.jda_job_description);
-        jobImageJDA = findViewById(R.id.jda_job_image);
+        findtheViews();
+        setJobContents(job);
 
         llJobRequest = binding.llJdaRequest;
         etRequestJDA = binding.jdaEtRequest;
         btnSubmitRequest = binding.jdaButtonRequest;
         sentReq = binding.sentView;
         sentReq.setVisibility(View.GONE);
-
             /**
              *  Assuming the user is clicking on another user's job. They will go to the default
              *  layout where they can submit a job request.
@@ -110,22 +84,7 @@ public class JobDetailsActivity extends AppCompatActivity implements OnMapReadyC
             }
         }
 
-        jobNameJDA.setText(job.getName());
-        jobDateJDA.setText(timeNeed(job.getJobDate()));
-        jobDescriptionJDA.setText(job.getDescription());
-        jobDateCreatedJDA.setText(" " + getRelativeTimeAgo(job.getCreatedAt().toString()));
-        ParseFile jobImage = job.getImage();
-        if(jobImage == null){
-            Glide.with(this).load(R.drawable.logo).into(jobImageJDA);
-        } else{
-            Glide.with(this).load(job.getImage().getUrl()).into(jobImageJDA);
-        }
-        jobUserJDA.setText(job.getUser().getUsername());
-        jobPriceJDA.setText("$" + String.format("%.2f", job.getPrice()));
-        jobAddressJDA.setText(job.getAddress());
-
-
-        jobUserJDA.setOnClickListener(new View.OnClickListener() {
+        getJobUserJDA().setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent i = new Intent(JobDetailsActivity.this, ProfileActivity.class);

@@ -6,4 +6,17 @@
     android:layout_height="match_parent"
     tools:context=".detailactivities.BaseJobDetailsActivity">
 
+    <include layout="@layout/toolbar_main"
+        android:id="@+id/toolbar__based"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <include
+        android:id="@+id/item_job_detail_view"
+        layout="@layout/item_job_detail"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/toolbar__based" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>
