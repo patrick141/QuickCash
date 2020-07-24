@@ -1,10 +1,12 @@
 package com.example.quickcash;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -55,6 +57,8 @@ public class MyJobsDetailsActivity extends AppCompatActivity implements OnMapRea
     private RecyclerView rvRequests;
     private List<Request> requests;
 
+    public static final int REQUEST_CODE_MYDA_RDA = 190;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -100,7 +104,7 @@ public class MyJobsDetailsActivity extends AppCompatActivity implements OnMapRea
         jobUserJDA.setText(job.getUser().getUsername());
         jobPriceJDA.setText("$" + String.format("%.2f", job.getPrice()));
         jobAddressJDA.setText(job.getAddress());
-        numReqs.setText(job.getJobRequestCount() + " Requests");
+        numReqs.setText(getRequestCount() + " Requests");
         queryRequests();
     }
 
@@ -132,5 +136,25 @@ public class MyJobsDetailsActivity extends AppCompatActivity implements OnMapRea
         LatLng myPlace = new LatLng(35.258599, -80.836403);
         map.addMarker(new MarkerOptions().position(myPlace).title("My Location"));
         map.moveCamera(CameraUpdateFactory.newLatLng(myPlace));
+    }
+
+    public int getRequestCount(){
+        ParseQuery<Request> query = ParseQuery.getQuery(Request.class);
+        query.whereEqualTo(Request.KEY_REQUEST_JOB, job);
+        try {
+            return query.count();
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        return 0;
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if(requestCode == REQUEST_CODE_MYDA_RDA && resultCode == RESULT_OK){
+            requestsAdapter.clear();
+            queryRequests();
+        }
     }
 }

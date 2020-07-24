@@ -52,6 +52,9 @@
     <string name="RDA_moreinfo">Want to chat?</string>
     <string name="RDA_approve">Approve</string>
     <string name="RDA_deny">Deny</string>
+    <string name="rda_deny_con">Are you sure you want to deny </string>
+    <string name="rda_yes">Yes</string>
+    <string name="rda_no">No</string>
 
     <!-- transition names -->
     <string name="tr_request_image">request_image</string>

@@ -26,6 +26,7 @@ import org.parceler.Parcels;
 
 import java.util.List;
 
+import static com.example.quickcash.MyJobsDetailsActivity.REQUEST_CODE_MYDA_RDA;
 import static com.example.quickcash.adapters.JobsAdapter.getRelativeTimeAgo;
 
 public class RequestsAdapter extends RecyclerView.Adapter<RequestsAdapter.ViewHolder> {
@@ -119,7 +120,7 @@ public class RequestsAdapter extends RecyclerView.Adapter<RequestsAdapter.ViewHo
                 i.putExtra("REQUEST", Parcels.wrap(request));
                 ActivityOptionsCompat options = ActivityOptionsCompat.
                         makeSceneTransitionAnimation((Activity) context, (View) ivRequest, context.getResources().getString(R.string.tr_request_image));
-                context.startActivity(i, options.toBundle());
+                ((Activity) context).startActivityForResult(i, REQUEST_CODE_MYDA_RDA , options.toBundle());
             }
         }
     }

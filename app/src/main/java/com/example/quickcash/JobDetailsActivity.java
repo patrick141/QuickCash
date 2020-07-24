@@ -100,6 +100,7 @@ public class JobDetailsActivity extends AppCompatActivity implements OnMapReadyC
          * If the user has already submitted a job, to prevent the user from sending multiple jobs
          * They are given an alternative layout that shows that they have already submitted a job request.
          */
+
         if(job.getRequests() != null){
             if(submittedRequest(job.getRequests())){
                 llJobRequest.setVisibility(View.GONE);
@@ -180,7 +181,6 @@ public class JobDetailsActivity extends AppCompatActivity implements OnMapReadyC
                 });
                 Toast.makeText(JobDetailsActivity.this, "Request has been submitted", Toast.LENGTH_SHORT).show();
                 Intent i = new Intent();
-                i.putExtra("MINE", 21);
                 setResult(RESULT_OK, i);
                 new Handler().postDelayed(new Runnable() {
                     @Override

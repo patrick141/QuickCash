@@ -1,5 +1,7 @@
 package com.example.quickcash;
 
+import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -7,6 +9,7 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
@@ -20,6 +23,8 @@ import com.parse.ParseFile;
 import com.parse.SaveCallback;
 
 import org.parceler.Parcels;
+
+import java.util.ArrayList;
 
 /**
  * RequestDetailsActivity
@@ -96,16 +101,65 @@ public class RequestDetailsActivity extends AppCompatActivity {
         btnDenyUser.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                request.deleteInBackground(new DeleteCallback() {
-                    @Override
-                    public void done(ParseException e) {
-                        if(e != null){
-                            Log.e(TAG, "Error deleting this request", e);
-                        }
-                        Log.i(TAG, "Going to delete this request");
-                        finish();
+                playDeleteAD();
+            }
+        });
+
+    }
+
+    /**
+     * Similar to the sign out Alert Dialog, this gives the user a confirmation
+     */
+    private void playDeleteAD() {
+        AlertDialog logOutDialog = new AlertDialog.Builder(this)
+                .setTitle(getResources().getString(R.string.RDA_deny))
+                .setMessage(getResources().getString(R.string.rda_deny_con) + " " + request.getUser().getUsername() + "'s request?")
+                .setIcon(R.drawable.logo)
+
+                .setPositiveButton(getResources().getString(R.string.rda_yes), new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int whichButton) {
+                        dialog.dismiss();
+                        removeThisRequest();
                     }
-                });
+                })
+                .setNegativeButton(getResources().getString(R.string.rda_no), new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.dismiss();
+                    }
+                })
+                .create();
+        logOutDialog.show();
+    }
+
+    /**
+     * This method deletes the Request in this job's array of request. Then, it deletes the request from the Parse DB.
+     */
+    private void removeThisRequest() {
+        Job job = (Job) request.getJob();
+        ArrayList<Request> requests = job.getRequests();
+        requests.remove(request);
+        job.setJobRequests(requests);
+        job.saveInBackground(new SaveCallback() {
+            @Override
+            public void done(ParseException e) {
+                if(e== null){
+                    Log.i(TAG, "Removed this from array");
+                }else{
+                    Log.e(TAG, "Need to try again");
+                }
+            }
+        });
+
+        request.deleteInBackground(new DeleteCallback() {
+            @Override
+            public void done(ParseException e) {
+                if(e != null){
+                    Log.e(TAG, "Error deleting this request", e);
+                }
+                Log.i(TAG, "Going to delete this request");
+                Intent i = new Intent();
+                setResult(RESULT_OK, i);
+                finish();
             }
         });
     }
