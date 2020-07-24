@@ -126,7 +126,7 @@ public class JobDetailsActivity extends AppCompatActivity implements OnMapReadyC
             @Override
             public void onClick(View view) {
                 Intent i = new Intent(JobDetailsActivity.this, ProfileActivity.class);
-                i.putExtra("PROFILE", Parcels.wrap(job));
+                i.putExtra("PROFILE", Parcels.wrap(job.getUser()));
                 JobDetailsActivity.this.startActivity(i);
             }
         });

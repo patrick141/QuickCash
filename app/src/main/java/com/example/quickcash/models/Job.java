@@ -27,6 +27,7 @@ public class Job extends ParseObject {
     public static final String KEY_JOB_REQUESTS = "requests";
     public static final String KEY_JOB_DATE = "dateOfJob";
     public static final String KEY_JOB_ASSIGNED_USER = "assignedUser";
+    public static final String KEY_JOB_ISFINISHED = "isFinished";
 
     public String getName(){
         return getString(KEY_JOB_NAME);
@@ -72,8 +73,8 @@ public class Job extends ParseObject {
         return getBoolean(KEY_JOB_ISTAKEN);
     }
 
-    public void setIsTaken(boolean bool){
-        put(KEY_JOB_ISTAKEN, bool);
+    public void setIsTaken(boolean taken){
+        put(KEY_JOB_ISTAKEN, taken);
     }
 
     public Double getPrice(){
@@ -115,5 +116,13 @@ public class Job extends ParseObject {
 
     public void setAssignedUser(ParseUser user) {
         put(KEY_JOB_ASSIGNED_USER, user);
+    }
+
+    public boolean isFinished() {
+        return getBoolean(KEY_JOB_ISFINISHED);
+    }
+
+    public void setIsFinished(boolean finished){
+        put(KEY_JOB_ISFINISHED, finished);
     }
 }

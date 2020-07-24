@@ -39,6 +39,9 @@
 
     <!-- MyJobs Fragment static strings -->
 
+    <!--Profile Activity -->
+    <string name="sample_phone_number">(111)222-3333</string>
+
     <!-- Job Details Activity -->
     <string name="JDA_requestID">Submit Request Here:</string>
     <string name="JDA_sendReq">Send Request</string>

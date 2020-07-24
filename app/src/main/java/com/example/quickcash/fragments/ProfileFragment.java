@@ -15,6 +15,7 @@ import androidx.annotation.Nullable;
 import com.bumptech.glide.Glide;
 import com.example.quickcash.R;
 import com.example.quickcash.models.Job;
+import com.example.quickcash.models.User;
 import com.parse.FindCallback;
 import com.parse.ParseException;
 import com.parse.ParseFile;
@@ -66,15 +67,19 @@ public class ProfileFragment extends HomeFragment {
 
         ParseUser user = ParseUser.getCurrentUser();
         tvUsername.setText(user.getUsername());
+        if(user.getString(User.KEY_USER_DESCRIPTION) == null){
+            tvUserSince.setText("User since " + timeNeed(user.getCreatedAt()));
+        } else{
+
+        }
         tvUserSince.setText("User since " + timeNeed(user.getCreatedAt()));
-        ParseFile userImage = (ParseFile) user.get("profilePic");
+        ParseFile userImage = (ParseFile) user.get(User.KEY_USER_IMAGE);
         if(userImage == null){
             Glide.with(getContext()).load(R.drawable.logo).into(ivProfilePic);
-        }
-        else{
+        } else{
             Glide.with(getContext()).load(userImage.getUrl()).into(ivProfilePic);
         }
-        rbUserRating.setRating((float) user.getDouble("userRating"));
+        rbUserRating.setRating((float) user.getDouble(User.KEY_USER_RATING));
         queryJobs();
     }
 
@@ -83,6 +88,7 @@ public class ProfileFragment extends HomeFragment {
         ParseQuery<Job> query = ParseQuery.getQuery(Job.class);
         query.include(Job.KEY_JOB_USER);
         query.whereEqualTo(Job.KEY_JOB_USER, ParseUser.getCurrentUser());
+        query.whereEqualTo(Job.KEY_JOB_ISFINISHED, false);
         query.setLimit(20);
         query.addDescendingOrder(Job.KEY_CREATED_AT);
         query.findInBackground(new FindCallback<Job>() {

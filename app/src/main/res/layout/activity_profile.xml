@@ -6,8 +6,27 @@
     android:layout_height="match_parent"
     tools:context=".ProfileActivity">
 
-    <include layout="@layout/toolbar_main"></include>
+    <include
+        android:id="@+id/toolbar_PA"
+        layout="@layout/toolbar_main"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"></include>
 
+    <include
+        android:id="@+id/profile"
+        layout="@layout/item_profile"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/toolbar_PA" />
+
+    <include
+        android:id="@+id/rv_Jobs_profile"
+        layout="@layout/fragment_home"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/profile" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
