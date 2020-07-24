@@ -38,6 +38,7 @@
     <string name="CF_takeImageID">Upload Image</string>
 
     <!-- MyJobs Fragment static strings -->
+    <string name="mjf_text">This is where your jobs assigned will be.</string>
 
     <!--Profile Activity -->
     <string name="sample_phone_number">(111)222-3333</string>

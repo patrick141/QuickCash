@@ -26,7 +26,7 @@ import org.parceler.Parcels;
 
 import java.util.List;
 
-import static com.example.quickcash.MyJobsDetailsActivity.REQUEST_CODE_MYDA_RDA;
+import static com.example.quickcash.detailactivities.MyJobsDetailsActivity.REQUEST_CODE_MYDA_RDA;
 import static com.example.quickcash.adapters.JobsAdapter.getRelativeTimeAgo;
 
 public class RequestsAdapter extends RecyclerView.Adapter<RequestsAdapter.ViewHolder> {

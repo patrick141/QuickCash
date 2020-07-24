@@ -18,8 +18,8 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
-import com.example.quickcash.JobDetailsActivity;
-import com.example.quickcash.MyJobsDetailsActivity;
+import com.example.quickcash.detailactivities.JobDetailsActivity;
+import com.example.quickcash.detailactivities.MyJobsDetailsActivity;
 import com.example.quickcash.R;
 import com.example.quickcash.models.Job;
 import com.parse.ParseFile;
@@ -190,6 +190,25 @@ public class JobsAdapter extends RecyclerView.Adapter<JobsAdapter.ViewHolder> {
      */
     public static String timeNeed(Date date){
         return new SimpleDateFormat("MMM dd, YYYY hh:mm a zzz").format(date);
+    }
+
+    /**
+     * Getters and setters
+     */
+    public Context getContext() {
+        return context;
+    }
+
+    public List<Job> getJobs() {
+        return jobs;
+    }
+
+    public Fragment getFragment() {
+        return fragment;
+    }
+
+    public void setFragment(Fragment fragment) {
+        this.fragment = fragment;
     }
 
 }

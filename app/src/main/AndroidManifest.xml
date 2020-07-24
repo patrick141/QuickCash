@@ -17,8 +17,9 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
-        <activity android:name=".BaseJobDetailsActivity"></activity>
-        <activity android:name=".MyJobsDetailsActivity" />
+        <activity android:name=".detailactivities.ToDoJobDetailsActivity"></activity>
+        <activity android:name=".detailactivities.BaseJobDetailsActivity" />
+        <activity android:name=".detailactivities.MyJobsDetailsActivity" />
         <activity android:name=".RequestDetailsActivity" />
 
         <provider
@@ -32,7 +33,7 @@
         </provider>
 
         <activity android:name=".ProfileActivity" />
-        <activity android:name=".JobDetailsActivity" />
+        <activity android:name=".detailactivities.JobDetailsActivity" />
         <activity android:name=".SignUpActivity" />
         <activity android:name=".LoginActivity">
             <intent-filter>

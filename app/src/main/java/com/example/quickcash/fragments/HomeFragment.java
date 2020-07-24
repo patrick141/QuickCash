@@ -16,7 +16,6 @@ import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import com.example.quickcash.R;
 import com.example.quickcash.adapters.JobsAdapter;
-import com.example.quickcash.adapters.RequestsAdapter;
 import com.example.quickcash.models.Job;
 import com.parse.FindCallback;
 import com.parse.ParseException;
@@ -46,7 +45,6 @@ public class HomeFragment extends Fragment {
 
     private RecyclerView rvJobs;
     private JobsAdapter jobsAdapter;
-    private RequestsAdapter requestsAdapter;
     private List<Job> allJobs;
     private SwipeRefreshLayout swipeContainer;
 
@@ -129,6 +127,8 @@ public class HomeFragment extends Fragment {
     public RecyclerView getRvJobs() { return rvJobs; }
 
     public JobsAdapter getJobsAdapter() { return jobsAdapter; }
+
+    public void setJobsAdapter(JobsAdapter jobsAdapter) { this.jobsAdapter = jobsAdapter;}
 
     public List<Job> getAllJobs() { return allJobs; }
 

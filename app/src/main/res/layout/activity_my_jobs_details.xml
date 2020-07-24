@@ -5,7 +5,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MyJobsDetailsActivity">
+    tools:context=".detailactivities.MyJobsDetailsActivity">
     <include layout="@layout/toolbar_main" android:id="@+id/toolbar_MJDA"></include>
 
     <include

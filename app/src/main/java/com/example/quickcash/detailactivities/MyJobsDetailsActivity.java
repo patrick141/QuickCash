@@ -1,4 +1,4 @@
-package com.example.quickcash;
+package com.example.quickcash.detailactivities;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -13,6 +13,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
+import com.example.quickcash.R;
 import com.example.quickcash.adapters.RequestsAdapter;
 import com.example.quickcash.models.Job;
 import com.example.quickcash.models.Request;

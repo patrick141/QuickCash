@@ -14,7 +14,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
-import com.example.quickcash.JobDetailsActivity;
+import com.example.quickcash.detailactivities.JobDetailsActivity;
 import com.example.quickcash.R;
 import com.example.quickcash.models.Job;
 import com.parse.ParseFile;
@@ -24,10 +24,6 @@ import org.parceler.Parcels;
 import java.util.List;
 
 import static com.example.quickcash.adapters.JobsAdapter.getRelativeTimeAgo;
-
-/**
- * This class will be used to modify the Jobs RV in our profile activity
- */
 
 public class MyAssignedJobsAdapter extends RecyclerView.Adapter<MyAssignedJobsAdapter.ViewHolder> {
     public static final String TAG = "MyAssignedJobsAdapter";
@@ -113,9 +109,9 @@ public class MyAssignedJobsAdapter extends RecyclerView.Adapter<MyAssignedJobsAd
                 Job job = jobs.get(position);
                 Log.d("Load job details for ", job.getName());
                 Intent i = new Intent(context, JobDetailsActivity.class);
-                Toast.makeText(context, job.getName(), Toast.LENGTH_SHORT).show();
+                Toast.makeText(context, " THIS MINE " +job.getName(), Toast.LENGTH_SHORT).show();
                 i.putExtra("JOB", Parcels.wrap(job));
-                context.startActivity(i);
+                //context.startActivity(i);
             }
         }
     }

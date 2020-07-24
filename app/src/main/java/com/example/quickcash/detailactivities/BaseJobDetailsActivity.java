@@ -1,8 +1,10 @@
-package com.example.quickcash;
+package com.example.quickcash.detailactivities;
 
 import android.os.Bundle;
 
 import androidx.appcompat.app.AppCompatActivity;
+
+import com.example.quickcash.R;
 
 public class BaseJobDetailsActivity extends AppCompatActivity {
 

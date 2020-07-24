@@ -27,4 +27,7 @@
     <dimen name="profile_margin_fromIV">10dp</dimen>
     <dimen name="profile_margin_top">5dp</dimen>
 
+    <!-- Dimensions for MyJobsFragment -->
+    <dimen name="mjf_size">18sp</dimen>
+
 </resources>
