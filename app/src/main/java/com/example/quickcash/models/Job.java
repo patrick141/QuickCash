@@ -125,4 +125,12 @@ public class Job extends ParseObject {
     public void setIsFinished(boolean finished){
         put(KEY_JOB_ISFINISHED, finished);
     }
+
+    public int getJobRequestCount(){
+        if(getRequests() == null){
+            return 0;
+        } else{
+            return getRequests().size();
+        }
+    }
 }

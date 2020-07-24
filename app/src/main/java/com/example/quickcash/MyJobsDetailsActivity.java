@@ -46,6 +46,7 @@ public class MyJobsDetailsActivity extends AppCompatActivity implements OnMapRea
     private TextView jobUserJDA;
     private TextView jobPriceJDA;
     private TextView jobAddressJDA;
+    private TextView numReqs;
     private ImageView jobImageJDA;
     private Toolbar toolbar;
     private GoogleMap map;
@@ -71,6 +72,7 @@ public class MyJobsDetailsActivity extends AppCompatActivity implements OnMapRea
         jobDescriptionJDA = findViewById(R.id.jda_job_description);
         jobImageJDA = findViewById(R.id.jda_job_image);
         rvRequests = findViewById(R.id.rv_View_Requests);
+        numReqs = findViewById(R.id.request_count);
 
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.map_demo);
@@ -98,7 +100,7 @@ public class MyJobsDetailsActivity extends AppCompatActivity implements OnMapRea
         jobUserJDA.setText(job.getUser().getUsername());
         jobPriceJDA.setText("$" + String.format("%.2f", job.getPrice()));
         jobAddressJDA.setText(job.getAddress());
-
+        numReqs.setText(job.getJobRequestCount() + " Requests");
         queryRequests();
     }
 

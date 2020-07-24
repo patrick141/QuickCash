@@ -5,13 +5,13 @@
     android:id="@+id/rl_jobsDA"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:padding="5dp"
     tools:context=".JobDetailsActivity">
 
     <TextView
         android:id="@+id/jda_job_name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="5dp"
         android:text="@string/app_name"
         android:textSize="24dp"
         android:textStyle="bold" />
@@ -20,22 +20,21 @@
         android:id="@+id/jda_job_date"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentEnd="true"
-        android:layout_marginEnd="5dp"
+        android:layout_alignParentStart="true"
+        android:layout_below="@id/jda_job_name"
         android:text="@string/ij_sampleDate" />
 
     <LinearLayout
         android:id="@+id/ll_jda_info"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@id/jda_job_name"
+        android:layout_below="@id/jda_job_date"
         android:layout_marginTop="5dp"
         android:orientation="horizontal">
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="5dp"
             android:text="@string/ij_postedID" />
 
         <TextView
@@ -57,7 +56,6 @@
         android:id="@+id/jda_job_image"
         android:layout_width="100dp"
         android:layout_height="100dp"
-        android:layout_below="@id/jda_job_date"
         android:layout_alignParentEnd="true"
         android:layout_marginEnd="5dp"
         android:transitionName="@string/tr_job_image"
@@ -82,7 +80,6 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@id/ll_jda_info"
-        android:layout_marginStart="5dp"
         android:layout_marginTop="20dp"
         android:text="@string/ij_amountID"
         android:textStyle="bold" />
@@ -92,7 +89,6 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@id/jda_amountID"
-        android:layout_marginStart="5dp"
         android:text="@string/ij_samplePrice" />
 
     <TextView
@@ -100,7 +96,6 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@id/jda_job_price"
-        android:layout_marginStart="5dp"
         android:layout_marginTop="20dp"
         android:text="@string/ij_descriptionID"
         android:textStyle="bold" />
@@ -110,7 +105,6 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@id/jda_desID"
-        android:layout_marginStart="5dp"
         android:text="@string/ij_sampleDescription" />
 
     <TextView
@@ -118,7 +112,6 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@id/jda_job_description"
-        android:layout_marginStart="5dp"
         android:layout_marginTop="10dp"
         android:text="@string/ij_addressID"
         android:textStyle="bold" />
