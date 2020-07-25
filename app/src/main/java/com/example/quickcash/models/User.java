@@ -9,4 +9,5 @@ public class User {
     public static final String KEY_USER_IMAGE = "profilePic";
     public static final String KEY_USER_JOBS = "myJobs";
     public static final String KEY_USER_DESCRIPTION = "description";
+    public static final String KEY_USER_COMPLETED_JOBS = "completedJobs";
 }

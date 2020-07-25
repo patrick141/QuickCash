@@ -10,6 +10,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
@@ -69,9 +70,8 @@ public class MyAssignedJobsAdapter extends RecyclerView.Adapter<MyAssignedJobsAd
         private TextView jobDate;
         private TextView jobDatePosted;
         private TextView jobAddress;
-        private TextView jobDescription;
         private TextView jobPrice;
-
+        private CardView cV_myJob;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -82,10 +82,14 @@ public class MyAssignedJobsAdapter extends RecyclerView.Adapter<MyAssignedJobsAd
             jobDatePosted = itemView.findViewById(R.id.job_date_posted);
             jobAddress = itemView.findViewById(R.id.job_address);
             jobPrice = itemView.findViewById(R.id.job_price);
+            cV_myJob = itemView.findViewById(R.id.cv_job);
             itemView.setOnClickListener(this);
         }
 
         public void bind(final Job job) {
+            if(job.isFinished()){
+                cV_myJob.setCardBackgroundColor(context.getResources().getColor(R.color.completedJob));
+            }
             jobName.setText(job.getName());
             jobDate.setText(job.getJobDate().toString());
             jobRequestorName.setText(job.getUser().getUsername());

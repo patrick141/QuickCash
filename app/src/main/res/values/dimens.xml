@@ -30,4 +30,7 @@
     <!-- Dimensions for MyJobsFragment -->
     <dimen name="mjf_size">18sp</dimen>
 
+    <!-- Dimensions for todo_activity -->
+    <dimen name="todo_width_from_p">40dp</dimen>
+
 </resources>

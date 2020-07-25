@@ -111,7 +111,7 @@ public class RequestDetailsActivity extends AppCompatActivity {
      * Similar to the sign out Alert Dialog, this gives the user a confirmation
      */
     private void playDeleteAD() {
-        AlertDialog logOutDialog = new AlertDialog.Builder(this)
+        AlertDialog dialog = new AlertDialog.Builder(this)
                 .setTitle(getResources().getString(R.string.RDA_deny))
                 .setMessage(getResources().getString(R.string.rda_deny_con) + " " + request.getUser().getUsername() + "'s request?")
                 .setIcon(R.drawable.logo)
@@ -128,7 +128,7 @@ public class RequestDetailsActivity extends AppCompatActivity {
                     }
                 })
                 .create();
-        logOutDialog.show();
+        dialog.show();
     }
 
     /**

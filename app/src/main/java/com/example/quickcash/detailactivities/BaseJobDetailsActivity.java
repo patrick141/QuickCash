@@ -11,9 +11,16 @@ import androidx.appcompat.widget.Toolbar;
 import com.bumptech.glide.Glide;
 import com.example.quickcash.R;
 import com.example.quickcash.models.Job;
+import com.example.quickcash.models.User;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
+import com.parse.ParseException;
 import com.parse.ParseFile;
+import com.parse.ParseQuery;
+import com.parse.ParseUser;
+import com.parse.SaveCallback;
+
+import java.util.ArrayList;
 
 import static com.example.quickcash.adapters.JobsAdapter.getRelativeTimeAgo;
 import static com.example.quickcash.adapters.JobsAdapter.timeNeed;
@@ -147,5 +154,59 @@ public class BaseJobDetailsActivity extends AppCompatActivity implements OnMapRe
     @Override
     public void onMapReady(GoogleMap googleMap) {
 
+    }
+
+    /**
+     * This is a function that calculates a user Rating based off a user finishing an assigned job.
+     * @return
+     */
+    public double getUpdatedUR(){
+        ParseUser user = ParseUser.getCurrentUser();
+        int num1 = 0;
+        ArrayList<Job> jobs = (ArrayList<Job>) user.get(User.KEY_USER_JOBS);
+        for(Job job: jobs){
+            if(job.isFinished()) num1 += 1;
+        }
+        num1 = (jobs != null) ? num1:0;
+        double d1 = (jobs!=null) ? (double) num1 / jobs.size() : 0;
+        d1 = d1 * 2.5 + 1;
+
+        ArrayList<Job> myJobs = null;
+        try {
+            myJobs = (ArrayList<Job>) user.fetchIfNeeded().get(User.KEY_USER_COMPLETED_JOBS);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+
+        int num2 = myJobs != null ? myJobs.size():0;
+
+        ParseQuery<Job> query = ParseQuery.getQuery(Job.class);
+        query.whereEqualTo(Job.KEY_JOB_ASSIGNED_USER, user);
+        int num3 = 0;
+        try {
+            num3 = query.count();
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        double d2 = (double) num2 / num3;
+        d2 = d2 * 2.5 + 1;
+
+        double finalRating = d1 + d2;
+        return (finalRating > 5) ? 5.00: finalRating;
+    }
+
+    public void updateUR(double newRating){
+        ParseUser user = ParseUser.getCurrentUser();
+        user.put(User.KEY_USER_RATING, getUpdatedUR());
+        user.saveInBackground(new SaveCallback() {
+            @Override
+            public void done(ParseException e) {
+                if(e == null){
+                    Log.i(TAG, " Updated UR");
+                } else {
+                    Log.e(TAG, "Error changing UR");
+                }
+            }
+        });
     }
 }

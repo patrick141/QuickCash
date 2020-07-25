@@ -13,6 +13,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.cardview.widget.CardView;
 import androidx.core.app.ActivityOptionsCompat;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.RecyclerView;
@@ -90,6 +91,7 @@ public class JobsAdapter extends RecyclerView.Adapter<JobsAdapter.ViewHolder> {
      */
 
     public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
+        private CardView myJobCard;
         private TextView jobName;
         private TextView jobRequestorName;
         private ImageView jobPicture;
@@ -107,10 +109,14 @@ public class JobsAdapter extends RecyclerView.Adapter<JobsAdapter.ViewHolder> {
             jobDatePosted = itemView.findViewById(R.id.job_date_posted);
             jobAddress = itemView.findViewById(R.id.job_address);
             jobPrice = itemView.findViewById(R.id.job_price);
+            myJobCard = itemView.findViewById(R.id.cv_job);
             itemView.setOnClickListener(this);
         }
 
         public void bind(final Job job) {
+            if(job.isFinished()){
+                myJobCard.setCardBackgroundColor(context.getResources().getColor(R.color.completedJob));
+            }
             jobName.setText(job.getName());
             jobDate.setText(timeNeed(job.getJobDate()));
             jobRequestorName.setText(job.getUser().getUsername());

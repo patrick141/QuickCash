@@ -88,7 +88,6 @@ public class ProfileFragment extends HomeFragment {
         ParseQuery<Job> query = ParseQuery.getQuery(Job.class);
         query.include(Job.KEY_JOB_USER);
         query.whereEqualTo(Job.KEY_JOB_USER, ParseUser.getCurrentUser());
-        query.whereEqualTo(Job.KEY_JOB_ISFINISHED, false);
         query.setLimit(20);
         query.addDescendingOrder(Job.KEY_CREATED_AT);
         query.findInBackground(new FindCallback<Job>() {

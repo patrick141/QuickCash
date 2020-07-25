@@ -164,8 +164,7 @@ public class JobDetailsActivity extends BaseJobDetailsActivity implements OnMapR
             if(request.getUser().hasSameId(ParseUser.getCurrentUser())){
                 return true;
             }
-        }
-        return false;
+        } return false;
     }
 
     @Override
