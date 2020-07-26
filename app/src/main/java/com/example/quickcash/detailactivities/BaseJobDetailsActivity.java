@@ -195,7 +195,7 @@ public class BaseJobDetailsActivity extends AppCompatActivity implements OnMapRe
         return (finalRating > 5) ? 5.00: finalRating;
     }
 
-    public void updateUR(double newRating){
+    public void updateUR(){
         ParseUser user = ParseUser.getCurrentUser();
         user.put(User.KEY_USER_RATING, getUpdatedUR());
         user.saveInBackground(new SaveCallback() {

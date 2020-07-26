@@ -111,7 +111,7 @@ public class ToDoJobDetailsActivity extends BaseJobDetailsActivity implements On
     }
 
     private void leaveThisJob() {
-        job.setAssignedUser(null);
+        job.remove(Job.KEY_JOB_ASSIGNED_USER);
         job.setIsTaken(false);
         job.saveInBackground(new SaveCallback() {
             @Override

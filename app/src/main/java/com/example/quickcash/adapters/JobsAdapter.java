@@ -217,4 +217,8 @@ public class JobsAdapter extends RecyclerView.Adapter<JobsAdapter.ViewHolder> {
         this.fragment = fragment;
     }
 
+    public void me(){
+        
+    }
+
 }
