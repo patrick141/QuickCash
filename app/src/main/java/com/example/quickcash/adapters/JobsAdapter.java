@@ -114,9 +114,7 @@ public class JobsAdapter extends RecyclerView.Adapter<JobsAdapter.ViewHolder> {
         }
 
         public void bind(final Job job) {
-            if(job.isFinished()){
-                myJobCard.setCardBackgroundColor(context.getResources().getColor(R.color.completedJob));
-            }
+            setColors(job);
             jobName.setText(job.getName());
             jobDate.setText(timeNeed(job.getJobDate()));
             jobRequestorName.setText(job.getUser().getUsername());
@@ -159,6 +157,17 @@ public class JobsAdapter extends RecyclerView.Adapter<JobsAdapter.ViewHolder> {
                         ((Activity) context).startActivityForResult(intent, JOB_SEND_REQUEST_CODE, options.toBundle());
                     }
                 }
+            }
+        }
+
+        private void setColors(Job job){
+            Date date = new Date();
+            if(job.isFinished()){
+                myJobCard.setCardBackgroundColor(context.getResources().getColor(R.color.completedJob));
+            } else if (job.getJobDate().before(date)) {
+                    myJobCard.setCardBackgroundColor(context.getResources().getColor(R.color.myAppColor));
+            } else{
+                return;
             }
         }
     }

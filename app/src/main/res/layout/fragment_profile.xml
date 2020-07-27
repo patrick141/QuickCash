@@ -2,19 +2,27 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/ll_profile_layout"
+    android:id="@+id/rl_profile_layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
     tools:context=".fragments.ProfileFragment">
 
-    <include layout="@layout/item_profile"/>
+    <include android:id="@+id/profile_template" layout="@layout/item_profile"/>
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/faq_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_below="@id/profile_template"
+        android:text="@string/color_faq"/>
 
     <include layout="@layout/fragment_home"
         android:id="@+id/rv_myPosts"
         android:layout_height="450dp"
         android:layout_width="match_parent"
-        android:layout_below="@id/cl_profile"></include>
+        android:layout_below="@id/faq_text"></include>
 
 
 </RelativeLayout>

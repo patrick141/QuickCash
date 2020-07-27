@@ -18,6 +18,8 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AlertDialog;
+import androidx.appcompat.widget.AppCompatTextView;
 import androidx.core.content.FileProvider;
 
 import com.bumptech.glide.Glide;
@@ -56,6 +58,7 @@ public class ProfileFragment extends HomeFragment {
     private RatingBar rbUserRating;
     private File photoFile;
     private String photoFileName = "photo.jpg";
+    private AppCompatTextView textFAQ;
     public static final int CAPTURE_IMAGE_ACTIVITY_REQUEST_CODE = 42;
 
     public ProfileFragment() {
@@ -77,7 +80,7 @@ public class ProfileFragment extends HomeFragment {
         tvUsername = view.findViewById(R.id.tv_Username);
         tvUserSince = view.findViewById(R.id.tv_UserSince);
         rbUserRating = view.findViewById(R.id.rb_user_rating);
-
+        textFAQ = view.findViewById(R.id.faq_text);
 
         ParseUser user = ParseUser.getCurrentUser();
         tvUsername.setText(user.getUsername());
@@ -102,6 +105,22 @@ public class ProfileFragment extends HomeFragment {
                 launchMyCamera();
             }
         });
+
+        textFAQ.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                displayColorFAQ();
+            }
+        });
+    }
+
+    private void displayColorFAQ() {
+        AlertDialog FAQDialog = new AlertDialog.Builder(getContext())
+                .setTitle(getResources().getString(R.string.color_faq))
+                .setMessage(getResources().getString(R.string.color_faq_description))
+                .setIcon(R.drawable.logo)
+                .create();
+        FAQDialog.show();
     }
 
     private void launchMyCamera() {

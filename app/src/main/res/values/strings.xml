@@ -53,8 +53,14 @@
     <string name="tododa_done">I am done!</string>
     <string name="tododa_leave">Leave this job</string>
     <string name="tododa_leave_text">Are you sure you can no longer do</string>
-    <!--Profile Activity -->
+    <!--Profile Fragment/Activity -->
+    <string name="color_faq">What do these colors mean?</string>
+    <string name="color_faq_description">
+        Red: Job Date is passed. No longer visible to other users.\n
+        Gold: Job has been completed by the assigned user.
+    </string>
     <string name="sample_phone_number">(111)222-3333</string>
+
 
     <!-- Job Details Activity -->
     <string name="JDA_requestID">Submit Request Here:</string>

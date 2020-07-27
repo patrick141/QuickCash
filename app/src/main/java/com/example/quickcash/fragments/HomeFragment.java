@@ -23,6 +23,7 @@ import com.parse.ParseQuery;
 import com.parse.ParseUser;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import jp.wasabeef.recyclerview.animators.SlideInUpAnimator;
@@ -97,6 +98,7 @@ public class HomeFragment extends Fragment {
         query.addAscendingOrder(Job.KEY_JOB_DATE);
         query.whereNotEqualTo(Job.KEY_JOB_USER, ParseUser.getCurrentUser());
         query.whereEqualTo(Job.KEY_JOB_ISTAKEN, false);
+        query.whereGreaterThan(Job.KEY_JOB_DATE, new Date());
         query.findInBackground(new FindCallback<Job>() {
             @Override
             public void done(List<Job> jobs, ParseException e) {
