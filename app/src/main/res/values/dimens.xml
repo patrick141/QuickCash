@@ -1,5 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <!-- Dimensions for Login/SignUp Activity -->
+    <dimen name="la_margin">16dp</dimen>
+    <dimen name="la_margin_btn">10dp</dimen>
+    <dimen name="la_margin_tv">20dp</dimen>
+    <dimen name="la_tv_width">350dp</dimen>
+    <dimen name="la_button_width">300dp</dimen>
+    <dimen name="la_textSize">14sp</dimen>
 
     <!-- Dimensions for Compose Fragment -->
     <dimen name="cf_padding">5dp</dimen>

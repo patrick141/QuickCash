@@ -5,13 +5,14 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.Toast;
 
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
 import com.example.quickcash.databinding.ActivityLoginBinding;
+import com.google.android.material.textfield.TextInputEditText;
 import com.parse.LogInCallback;
 import com.parse.ParseException;
 import com.parse.ParseUser;
@@ -28,8 +29,9 @@ import com.parse.ParseUser;
 public class LoginActivity extends AppCompatActivity {
 
     public static final String TAG = "LoginActivity";
-    private EditText etUsername;
-    private EditText etPassword;
+    public static final int REQUEST_SIGN_UP = 132;
+    private TextInputEditText etUsername;
+    private TextInputEditText etPassword;
     private Button btnLogin;
     private Button btnSignup;
     private Toolbar toolbar;
@@ -49,7 +51,7 @@ public class LoginActivity extends AppCompatActivity {
         etPassword = binding.laPassword;
         btnLogin = binding.btnLogin;
         btnSignup = binding.btnSignup;
-        toolbar = (Toolbar) binding.toolbarLi;
+        toolbar = binding.toolbarLi;
         setSupportActionBar(toolbar);
 
         /**
@@ -71,7 +73,7 @@ public class LoginActivity extends AppCompatActivity {
             public void onClick(View view) {
                 Log.i(TAG, "Going to sign up");
                 Intent i = new Intent(LoginActivity.this, SignUpActivity.class);
-                startActivity(i);
+                startActivityForResult(i, REQUEST_SIGN_UP);
             }
         });
     }
@@ -110,4 +112,17 @@ public class LoginActivity extends AppCompatActivity {
         finish();
     }
 
+    /**
+     * If the user goes to SignUpActivity and successfully
+     * @param requestCode
+     * @param resultCode
+     * @param data
+     */
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if(requestCode == REQUEST_SIGN_UP && resultCode == RESULT_OK){
+            goMainActivity();
+        }
+    }
 }

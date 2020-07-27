@@ -6,7 +6,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:layout_margin="16dp"
+    android:layout_margin="@dimen/la_margin"
     android:orientation="vertical"
     android:fitsSystemWindows="true"
     tools:context=".LoginActivity">
@@ -24,39 +24,60 @@
     </androidx.appcompat.widget.Toolbar>
 
     <ImageView
-        android:id="@+id/SAiconView"
+        android:id="@+id/iv_LA"
         android:layout_width="match_parent"
         android:layout_height="175dp"
         app:srcCompat="@drawable/logoname" />
 
-    <EditText
-        android:id="@+id/la_username"
-        android:layout_width="match_parent"
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/la_usernameTIL"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:hint="username"
-        android:textSize="14sp" />
+        android:layout_gravity="center_horizontal">
 
-    <EditText
-        android:id="@+id/la_password"
-        android:layout_width="match_parent"
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/la_username"
+            android:layout_width="@dimen/la_tv_width"
+            android:layout_height="wrap_content"
+            android:hint="@string/la_username"
+            android:textSize="@dimen/la_textSize" />
+
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/la_passwordTIL"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:hint="password"
-        android:inputType="textPassword"
-        android:textSize="14sp" />
+        android:layout_gravity="center_horizontal">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/la_password"
+            android:layout_width="@dimen/la_tv_width"
+            android:layout_height="wrap_content"
+            android:hint="@string/la_password"
+            android:inputType="textPassword"
+            android:textSize="@dimen/la_textSize" />
+
+    </com.google.android.material.textfield.TextInputLayout>
+
+
 
     <Button
         android:id="@+id/btnLogin"
-        android:layout_width="match_parent"
+        android:layout_width="@dimen/la_button_width"
         android:layout_height="wrap_content"
-        android:background="#4CAF50"
-        android:text="LOGIN" />
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="@dimen/la_margin_tv"
+        android:background="@color/myAppGreen"
+        android:text="@string/login" />
 
     <Button
         android:id="@+id/btnSignup"
-        android:layout_width="match_parent"
+        android:layout_width="@dimen/la_button_width"
         android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
-        android:background="#00BCD4"
-        android:text="Sign Up" />
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="@dimen/la_margin_btn"
+        android:background="@color/myAppBlue"
+        android:text="@string/sign_up" />
 
 </LinearLayout>

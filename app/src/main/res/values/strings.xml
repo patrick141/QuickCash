@@ -3,6 +3,14 @@
     <string name="fileProviderText">com.codepath.fileprovider.QuickCash</string>
     <string name="app_name_cap">QuickCash</string>
 
+    <string name="login">Log into QuickCash</string>
+    <string name="sign_up">New User? Sign up here!</string>
+    <string name="la_username">Enter Username: </string>
+    <string name="la_password">Enter Password: </string>
+    <string name="sa_enterU">Enter New Username: </string>
+    <string name="sa_enterP">Enter New Password: </string>
+    <string name="sign_up_text">Sign up for QuickCash</string>
+
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="ComposeFragmentSample">Hello compose fragment </string>
     <string name="HomeFragmentSample">Hello home fragment </string>

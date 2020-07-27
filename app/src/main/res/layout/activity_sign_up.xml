@@ -16,38 +16,48 @@
         android:background="@color/myAppColor"
         android:minHeight="?attr/actionBarSize"
         app:titleTextAppearance="@style/Toolbar.TitleText"
-        app:titleTextColor="@android:color/white"></androidx.appcompat.widget.Toolbar>
+        app:titleTextColor="@android:color/white"/>
 
     <ImageView
-        android:id="@+id/SAimageView"
+        android:id="@+id/iv_SA"
         android:layout_width="match_parent"
         android:layout_height="175dp"
         app:srcCompat="@drawable/logoname" />
-    <TextView
-        android:id="@+id/SAusernameID"
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/SA_usernameTIL"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Enter Username: "/>
+        android:text="Enter Username: ">
 
-    <EditText
-        android:id="@+id/SAusername"
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/SA_username"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/sa_enterU"/>
+
+    </com.google.android.material.textfield.TextInputLayout>
+
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/SA_passwordTIL"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"/>
-    <TextView
-        android:id="@+id/SApasswordID"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Enter Password: "/>
-    <EditText
-        android:id="@+id/SApassword"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"/>
+        android:layout_height="wrap_content">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/SA_password"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/sa_enterP"/>
+
+    </com.google.android.material.textfield.TextInputLayout>
 
     <Button
-        android:id="@+id/SAbtnSignUp"
-        android:layout_width="match_parent"
+        android:id="@+id/SA_btn_SignUp"
+        android:layout_width="@dimen/la_button_width"
         android:layout_height="wrap_content"
-        android:background="#FFEB3B"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="@dimen/la_margin"
+        android:background="@color/signUpColor"
         android:text="Sign up" />
 
 

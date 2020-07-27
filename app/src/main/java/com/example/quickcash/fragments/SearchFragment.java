@@ -48,7 +48,6 @@ public class SearchFragment extends HomeFragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         searchView = view.findViewById(R.id.search_bar);
-
         searchView.setQueryHint(" Search here ");
         /**
          * This handles what is being searched in the search view.

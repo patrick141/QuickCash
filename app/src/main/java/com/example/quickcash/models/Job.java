@@ -119,7 +119,12 @@ public class Job extends ParseObject {
     }
 
     public boolean isFinished() {
-        return getBoolean(KEY_JOB_ISFINISHED);
+        try {
+            return fetchIfNeeded().getBoolean(KEY_JOB_ISFINISHED);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        return false;
     }
 
     public void setIsFinished(boolean finished){

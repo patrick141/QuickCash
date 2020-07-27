@@ -1,5 +1,6 @@
 package com.example.quickcash;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -39,10 +40,11 @@ public class SignUpActivity extends LoginActivity {
         View view = binding.getRoot();
         setContentView(view);
 
-        etNewUsername = binding.SAusername;
-        etNewPassword = binding.SApassword;
-        btnSignUpNew = binding.SAbtnSignUp;
-        toolbar = (Toolbar) binding.toolbarSu;
+        etNewUsername = binding.SAUsername;
+        etNewPassword = binding.SAPassword;
+        btnSignUpNew = binding.SABtnSignUp;
+        toolbar = binding.toolbarSu;
+        toolbar.setTitle(getString(R.string.sign_up_text));
         setSupportActionBar(toolbar);
 
         /**
@@ -64,6 +66,7 @@ public class SignUpActivity extends LoginActivity {
                     public void done(ParseException e) {
                         if(e == null){
                             Log.e(TAG, "creating new user");
+                            // If successful, user logs into account.
                             loginUser(username, password);
                         }
                         else{
@@ -74,5 +77,15 @@ public class SignUpActivity extends LoginActivity {
                 });
             }
         });
+    }
+
+    /**
+     * This override makes sure that we finish LoginActivity as well as SignUpActivity.
+     */
+    @Override
+    protected void goMainActivity() {
+        Intent i = new Intent();
+        setResult(RESULT_OK);
+        finish();
     }
 }

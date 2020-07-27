@@ -5,5 +5,9 @@
     <color name="colorAccent">#03DAC5</color>
     <color name="myAppColor">#E63E3E</color>
     <color name="myAppAltColor">#0972eb</color>
+
+    <color name="myAppGreen">#4CAF50</color>
+    <color name="myAppBlue">#00BCD4</color>
+    <color name="signUpColor">#FFEB3B</color>
     <color name="completedJob">#fcbe03</color>
 </resources>
