@@ -7,6 +7,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -43,6 +44,10 @@ public class JobDetailsActivity extends BaseJobDetailsActivity implements OnMapR
     private LinearLayout llJobRequest;
     private EditText etRequestJDA;
     private Button btnSubmitRequest;
+    private ImageView ivReqPic;
+    private TextView tvReqName;
+    private TextView tvReqComment;
+    private TextView tvReqCA;
     private TextView sentReq;
     private GoogleMap map;
 
@@ -65,12 +70,15 @@ public class JobDetailsActivity extends BaseJobDetailsActivity implements OnMapR
         etRequestJDA = binding.jdaEtRequest;
         btnSubmitRequest = binding.jdaButtonRequest;
         sentReq = binding.sentView;
+
+
         sentReq.setVisibility(View.GONE);
             /**
              *  Assuming the user is clicking on another user's job. They will go to the default
              *  layout where they can submit a job request.
              */
         llJobRequest.setVisibility(View.VISIBLE);
+
 
         /**
          * If the user has already submitted a job, to prevent the user from sending multiple jobs

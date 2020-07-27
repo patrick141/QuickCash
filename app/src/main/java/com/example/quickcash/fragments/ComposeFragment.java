@@ -55,7 +55,6 @@ import static android.app.Activity.RESULT_OK;
 public class ComposeFragment extends Fragment {
 
     public static final String TAG = "ComposeFragment";
-
     private TextView composeTitle;
     private EditText etName;
     private EditText etDescription;
@@ -288,5 +287,19 @@ public class ComposeFragment extends Fragment {
         String newDate = stringDate + " " + stringTime;
         SimpleDateFormat format = new SimpleDateFormat("MM/dd/yyyy HH:mm", Locale.ENGLISH);
         return (format.parse(newDate));
+    }
+
+    public ImageView getIvImage() {
+        return ivImage;
+    }
+
+
+    public File getPhotoFile() {
+        return photoFile;
+    }
+
+
+    public String getPhotoFileName() {
+        return photoFileName;
     }
 }

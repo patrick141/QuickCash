@@ -19,9 +19,9 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
+import com.example.quickcash.R;
 import com.example.quickcash.detailactivities.JobDetailsActivity;
 import com.example.quickcash.detailactivities.MyJobsDetailsActivity;
-import com.example.quickcash.R;
 import com.example.quickcash.models.Job;
 import com.parse.ParseFile;
 import com.parse.ParseUser;
@@ -215,10 +215,6 @@ public class JobsAdapter extends RecyclerView.Adapter<JobsAdapter.ViewHolder> {
 
     public void setFragment(Fragment fragment) {
         this.fragment = fragment;
-    }
-
-    public void me(){
-        
     }
 
 }
