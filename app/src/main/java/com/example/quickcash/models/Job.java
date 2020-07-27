@@ -3,6 +3,7 @@ package com.example.quickcash.models;
 import com.parse.ParseClassName;
 import com.parse.ParseException;
 import com.parse.ParseFile;
+import com.parse.ParseGeoPoint;
 import com.parse.ParseObject;
 import com.parse.ParseUser;
 
@@ -28,6 +29,7 @@ public class Job extends ParseObject {
     public static final String KEY_JOB_DATE = "dateOfJob";
     public static final String KEY_JOB_ASSIGNED_USER = "assignedUser";
     public static final String KEY_JOB_ISFINISHED = "isFinished";
+    public static final String KEY_JOB_LOCATION = "location";
 
     public String getName(){
         return getString(KEY_JOB_NAME);
@@ -129,6 +131,14 @@ public class Job extends ParseObject {
 
     public void setIsFinished(boolean finished){
         put(KEY_JOB_ISFINISHED, finished);
+    }
+
+    public ParseGeoPoint getLocation(){
+        return getParseGeoPoint(KEY_JOB_LOCATION);
+    }
+
+    public void setLocation(ParseGeoPoint location){
+        put(KEY_JOB_LOCATION, location);
     }
 
     public int getJobRequestCount(){

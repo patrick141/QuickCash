@@ -30,15 +30,25 @@ import androidx.fragment.app.Fragment;
 
 import com.example.quickcash.R;
 import com.example.quickcash.models.Job;
+import com.google.android.gms.common.api.Status;
+import com.google.android.gms.maps.model.LatLng;
+import com.google.android.libraries.places.api.Places;
+import com.google.android.libraries.places.api.model.Place;
+import com.google.android.libraries.places.widget.Autocomplete;
+import com.google.android.libraries.places.widget.AutocompleteActivity;
+import com.google.android.libraries.places.widget.model.AutocompleteActivityMode;
 import com.parse.ParseFile;
+import com.parse.ParseGeoPoint;
 import com.parse.ParseUser;
 import com.parse.SaveCallback;
 
 import java.io.File;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.List;
 import java.util.Locale;
 
 import static android.app.Activity.RESULT_OK;
@@ -67,7 +77,9 @@ public class ComposeFragment extends Fragment {
     private ImageView ivImage;
     private File photoFile;
     private String photoFileName = "photo.jpg";
+    private Place place;
     public static final int CAPTURE_IMAGE_ACTIVITY_REQUEST_CODE = 42;
+    public static final int GOOGLE_PLACES = 1009;
     public final static int PICK_PHOTO_CODE = 1046;
 
     private DatePickerDialog.OnDateSetListener mDateSetListener;
@@ -97,6 +109,15 @@ public class ComposeFragment extends Fragment {
         btnCompose = view.findViewById(R.id.btn_composeJob);
         btnTakeImage = view.findViewById(R.id.btn_takeJobPic);
         ivImage = view.findViewById(R.id.iv_optionImage);
+
+        Places.initialize(getContext(), getResources().getString(R.string.newAPIKEY));
+        etAddress.setOnLongClickListener(new View.OnLongClickListener() {
+            @Override
+            public boolean onLongClick(View view) {
+                launchPlaces();
+                return true;
+            }
+        });
 
         etJobDate.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -188,6 +209,13 @@ public class ComposeFragment extends Fragment {
                 if(photoFile != null){
                     job.setImage(new ParseFile(photoFile));
                 }
+                if(place != null){
+                    ParseGeoPoint geoPoint = new ParseGeoPoint();
+                    LatLng latLng = place.getLatLng();
+                    geoPoint.setLatitude(latLng.latitude);
+                    geoPoint.setLongitude(latLng.longitude);
+                    job.setLocation(geoPoint);
+                }
                 job.saveInBackground(new SaveCallback() {
                     @Override
                     public void done(com.parse.ParseException e) {
@@ -218,6 +246,18 @@ public class ComposeFragment extends Fragment {
             }
         });
 
+    }
+
+    private void launchPlaces() {
+        //Initalize place field list
+        List<Place.Field> fieldList = Arrays.asList(Place.Field.ADDRESS
+                , Place.Field.LAT_LNG, Place.Field.NAME);
+        //Create intent
+        Intent intent = new Autocomplete.IntentBuilder(AutocompleteActivityMode.OVERLAY
+                , fieldList).build(getContext());
+
+        ///Start activity
+        startActivityForResult(intent, GOOGLE_PLACES);
     }
 
     /**
@@ -275,6 +315,14 @@ public class ComposeFragment extends Fragment {
                 Toast.makeText(getContext(), "Picture wasn't taken!", Toast.LENGTH_SHORT).show();
             }
         }
+
+        if(requestCode == GOOGLE_PLACES && resultCode == RESULT_OK){
+            place = Autocomplete.getPlaceFromIntent(data);
+            etAddress.setText(place.getAddress());
+        } else if(resultCode == AutocompleteActivity.RESULT_ERROR){
+            Status status = Autocomplete.getStatusFromIntent(data);
+            Toast.makeText(getContext(), status.getStatusMessage(),Toast.LENGTH_SHORT).show();
+        }
     }
 
     /**
@@ -287,19 +335,5 @@ public class ComposeFragment extends Fragment {
         String newDate = stringDate + " " + stringTime;
         SimpleDateFormat format = new SimpleDateFormat("MM/dd/yyyy HH:mm", Locale.ENGLISH);
         return (format.parse(newDate));
-    }
-
-    public ImageView getIvImage() {
-        return ivImage;
-    }
-
-
-    public File getPhotoFile() {
-        return photoFile;
-    }
-
-
-    public String getPhotoFileName() {
-        return photoFileName;
     }
 }

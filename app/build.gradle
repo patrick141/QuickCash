@@ -77,4 +77,6 @@ dependencies {
 
     implementation "org.permissionsdispatcher:permissionsdispatcher:$permissionDispatcherVersion"
     annotationProcessor "org.permissionsdispatcher:permissionsdispatcher-processor:$permissionDispatcherVersion"
+
+    implementation "com.google.android.libraries.places:places:2.2.0"
 }
