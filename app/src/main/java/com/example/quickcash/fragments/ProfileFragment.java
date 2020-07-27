@@ -39,6 +39,7 @@ import java.util.List;
 import static android.app.Activity.RESULT_CANCELED;
 import static android.app.Activity.RESULT_OK;
 import static com.example.quickcash.adapters.JobsAdapter.timeNeed;
+import static com.example.quickcash.detailactivities.MyJobsDetailsActivity.REQUEST_CODE_MYDA_RDA;
 
 /**
  * ProfileFragment
@@ -184,7 +185,7 @@ public class ProfileFragment extends HomeFragment {
             } else { // Result was a failure
                 Toast.makeText(getContext(), "Picture wasn't taken!", Toast.LENGTH_SHORT).show();
             }
-        } else if(resultCode == RESULT_CANCELED){
+        } else if( requestCode ==  REQUEST_CODE_MYDA_RDA && resultCode == RESULT_CANCELED){
             getJobsAdapter().clear();
             queryJobs();
         }

@@ -34,6 +34,8 @@ import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 
+import static com.example.quickcash.detailactivities.MyJobsDetailsActivity.REQUEST_CODE_MYDA_RDA;
+
 /**
  * JobsAdapter Class
  *
@@ -147,7 +149,7 @@ public class JobsAdapter extends RecyclerView.Adapter<JobsAdapter.ViewHolder> {
                 if(job.getUser().hasSameId(ParseUser.getCurrentUser())){
                     intent = new Intent(context, MyJobsDetailsActivity.class);
                     intent.putExtra("JOB", Parcels.wrap(job));
-                    context.startActivity(intent);
+                    fragment.startActivityForResult(intent, REQUEST_CODE_MYDA_RDA);
                 } else {
                     intent = new Intent(context, JobDetailsActivity.class);
                     intent.putExtra("JOB", Parcels.wrap(job));

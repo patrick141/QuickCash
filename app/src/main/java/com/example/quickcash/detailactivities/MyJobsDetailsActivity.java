@@ -37,6 +37,7 @@ import com.parse.SaveCallback;
 import org.parceler.Parcels;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import jp.wasabeef.recyclerview.animators.SlideInUpAnimator;
@@ -185,7 +186,7 @@ public class MyJobsDetailsActivity extends BaseJobDetailsActivity implements OnM
                 });
             }
         }
-        user.getList(User.KEY_USER_JOBS).remove(job);
+        user.removeAll(User.KEY_USER_JOBS, Arrays.asList(job));
         user.saveInBackground(new SaveCallback() {
             @Override
             public void done(ParseException e) {
