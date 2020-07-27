@@ -23,11 +23,18 @@
         android:padding="@dimen/profile_padding"
         android:text="@string/app_name"/>
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/rv_View_Requests"
-        android:layout_width="match_parent"
+    <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+        android:id="@+id/swipe_container_requests"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:padding="@dimen/cf_padding"
-        android:layout_below="@id/request_count"/>
+        android:layout_below="@id/request_count">
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rv_View_Requests"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="@dimen/cf_padding" />
+
+    </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 
 </RelativeLayout>

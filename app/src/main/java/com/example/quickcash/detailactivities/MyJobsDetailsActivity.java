@@ -6,9 +6,9 @@ import android.util.Log;
 import android.widget.TextView;
 
 import androidx.annotation.Nullable;
-import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import com.example.quickcash.R;
 import com.example.quickcash.adapters.RequestsAdapter;
@@ -35,7 +35,7 @@ public class MyJobsDetailsActivity extends BaseJobDetailsActivity implements OnM
     public static final String TAG = "MyJobsDetailsActivity";
     private Job job;
     private TextView numReqs;
-    private Toolbar toolbar;
+    private SwipeRefreshLayout swipeContainerRequests;
     private GoogleMap map;
 
     private RequestsAdapter requestsAdapter;
@@ -54,6 +54,20 @@ public class MyJobsDetailsActivity extends BaseJobDetailsActivity implements OnM
         setJobContents(job);
         rvRequests = findViewById(R.id.rv_View_Requests);
         numReqs = findViewById(R.id.request_count);
+        swipeContainerRequests = findViewById(R.id.swipe_container_requests);
+
+        swipeContainerRequests.setColorSchemeResources(android.R.color.holo_blue_bright,
+                android.R.color.holo_green_light,
+                android.R.color.holo_orange_light,
+                android.R.color.holo_red_light);
+
+        swipeContainerRequests.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                Log.i(TAG, "Fetching more requests");
+                queryRequests();
+            }
+        });
 
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.map_demo);
@@ -85,7 +99,9 @@ public class MyJobsDetailsActivity extends BaseJobDetailsActivity implements OnM
                 for (Request request : requests) {
                     Log.i(TAG, "Request User: " + request.getUser().getUsername() + " Comment: " + request.getComment() + " Post: " + request.getJob());
                 }
+                requestsAdapter.clear();
                 requestsAdapter.addAll(requests);
+                swipeContainerRequests.setRefreshing(false);
                 requestsAdapter.notifyDataSetChanged();
             }
         });
