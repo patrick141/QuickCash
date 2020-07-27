@@ -15,26 +15,44 @@
         android:layout_height="wrap_content"
         android:layout_below="@id/toolbar_MJDA"></include>
 
-    <TextView
-        android:id="@+id/request_count"
+    <RelativeLayout
+        android:id="@+id/rl_request_into"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@id/my_job_detail"
-        android:padding="@dimen/profile_padding"
-        android:text="@string/app_name"/>
+        android:padding="@dimen/mediumPadding"
+        android:layout_below="@id/my_job_detail">
 
-    <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
-        android:id="@+id/swipe_container_requests"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/request_count">
-
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/rv_View_Requests"
-            android:layout_width="match_parent"
+        <TextView
+            android:id="@+id/request_count"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:padding="@dimen/cf_padding" />
+            android:padding="@dimen/profile_padding"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentStart="true"
+            android:text="@string/app_name" />
 
-    </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
+        <Button
+            android:id="@+id/btn_delete_Job"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentEnd="true"
+            android:text="@string/MJDA_delete"
+            android:padding="@dimen/mediumPadding"
+            android:background="@color/myAppColor"/>
+
+        <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+            android:id="@+id/swipe_container_requests"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/btn_delete_Job">
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rv_View_Requests"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+
+        </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
+    </RelativeLayout>
 
 </RelativeLayout>

@@ -36,6 +36,7 @@ import com.parse.SaveCallback;
 import java.io.File;
 import java.util.List;
 
+import static android.app.Activity.RESULT_CANCELED;
 import static android.app.Activity.RESULT_OK;
 import static com.example.quickcash.adapters.JobsAdapter.timeNeed;
 
@@ -183,6 +184,9 @@ public class ProfileFragment extends HomeFragment {
             } else { // Result was a failure
                 Toast.makeText(getContext(), "Picture wasn't taken!", Toast.LENGTH_SHORT).show();
             }
+        } else if(resultCode == RESULT_CANCELED){
+            getJobsAdapter().clear();
+            queryJobs();
         }
     }
 
