@@ -30,6 +30,7 @@ import com.google.android.gms.maps.model.MarkerOptions;
 import com.parse.DeleteCallback;
 import com.parse.FindCallback;
 import com.parse.ParseException;
+import com.parse.ParseGeoPoint;
 import com.parse.ParseQuery;
 import com.parse.ParseUser;
 import com.parse.SaveCallback;
@@ -158,7 +159,13 @@ public class MyJobsDetailsActivity extends BaseJobDetailsActivity implements OnM
     @Override
     public void onMapReady(GoogleMap googleMap) {
         map = googleMap;
-        LatLng myPlace = new LatLng(35.258599, -80.836403);
+        ParseGeoPoint geoPoint = job.getParseGeoPoint(Job.KEY_JOB_LOCATION);
+        LatLng myPlace;
+        if(geoPoint != null){
+            myPlace = new LatLng(geoPoint.getLatitude(), geoPoint.getLongitude());
+        } else{
+            myPlace = new LatLng(35.258599, -80.836403);
+        }
         map.addMarker(new MarkerOptions().position(myPlace).title("My Location"));
         map.moveCamera(CameraUpdateFactory.newLatLng(myPlace));
     }
