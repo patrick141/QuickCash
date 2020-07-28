@@ -6,105 +6,105 @@
     android:id="@+id/cl_job"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:padding="@dimen/smallPadding"
     android:background="?android:attr/selectableItemBackground">
 
     <androidx.cardview.widget.CardView
         android:id="@+id/cv_job"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="10dp"
-        android:layout_marginTop="10dp"
-        android:layout_marginEnd="9dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:cardCornerRadius="4dp">
+        app:cardCornerRadius="@dimen/job_corner_radius">
 
-        <RelativeLayout
+        <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/rl_in_card"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-
-        <TextView
-            android:id="@+id/job_request_name"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/app_name"
-            android:textStyle="bold" />
-
-        <TextView
-            android:id="@+id/job_date"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentEnd="true"
-            android:text="@string/ij_sampleDate" />
-
-        <LinearLayout
-            android:id="@+id/ll_requestUserInfo"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/job_request_name">
+            android:layout_height="match_parent"
+            android:padding="@dimen/mediumPadding">
 
             <TextView
-                android:id="@+id/posted_ID"
+                android:id="@+id/job_request_name"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/ij_postedID" />
-
-            <TextView
-                android:id="@+id/job_username"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="5dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintWidth_default="wrap"
                 android:text="@string/app_name"
-                android:textStyle="bold|italic" />
+                android:textSize="@dimen/job_name_textSize"
+                android:textStyle="bold" />
 
             <TextView
-                android:id="@+id/job_date_posted"
+                android:id="@+id/job_date"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="2dp"
-                android:text="@string/ij_sampleDateAgo" />
-        </LinearLayout>
+                android:text="@string/ij_sampleDate"
+                app:layout_constraintWidth_default="wrap"
+                app:layout_constraintTop_toBottomOf="@id/job_request_name"
+                app:layout_constraintEnd_toStartOf="@id/job_picture"/>
+
+            <LinearLayout
+                android:id="@+id/ll_requestUserInfo"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/job_request_name">
+
+                <TextView
+                    android:id="@+id/posted_ID"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/ij_postedID" />
+
+                <TextView
+                    android:id="@+id/job_username"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="5dp"
+                    android:text="@string/app_name"
+                    android:textStyle="bold|italic" />
+
+                <TextView
+                    android:id="@+id/job_date_posted"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/jda_spacing"
+                    android:text="@string/ij_sampleDateAgo" />
+            </LinearLayout>
 
             <TextView
-            android:id="@+id/job_moneyID"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/ll_requestUserInfo"
-            android:layout_marginTop="20dp"
-            android:text="@string/ij_amountID"
-            android:textStyle="bold" />
+                android:id="@+id/job_price"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                android:text="@string/ij_samplePrice"
+                android:textSize="@dimen/job_price_textSize"/>
 
-        <TextView
-            android:id="@+id/job_price"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/job_moneyID"
-            android:text="@string/ij_samplePrice" />
+            <ImageView
+                android:id="@+id/job_picture"
+                android:layout_width="@dimen/job_image_hw"
+                android:layout_height="@dimen/job_image_hw"
+                android:layout_below="@id/job_request_name"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                android:transitionName="@string/tr_job_image"
+                tools:srcCompat="@tools:sample/avatars" />
 
-        <ImageView
-            android:id="@+id/job_picture"
-            android:layout_width="100dp"
-            android:layout_height="100dp"
-            android:layout_below="@id/job_request_name"
-            android:layout_alignParentEnd="true"
-            android:transitionName="@string/tr_job_image"
-            tools:srcCompat="@tools:sample/avatars" />
+            <TextView
+                android:id="@+id/job_address"
+                android:layout_width="120dp"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/ll_requestUserInfo"
+                android:text="@string/ij_sampleAddress"
+                android:textIsSelectable="true"
+                android:textStyle="bold"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toStartOf="@id/job_picture"/>
 
-        <TextView
-            android:id="@+id/job_address"
-            android:layout_width="120dp"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/ll_requestUserInfo"
-            android:layout_toLeftOf="@id/job_picture"
-            android:layout_marginTop="5dp"
-            android:layout_marginStart="5dp"
-            android:text="@string/ij_sampleAddress"
-            android:textIsSelectable="true"
-            android:textStyle="bold"/>
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
-        </RelativeLayout>
     </androidx.cardview.widget.CardView>
 
 

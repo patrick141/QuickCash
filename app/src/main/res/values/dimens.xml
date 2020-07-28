@@ -23,6 +23,13 @@
     <dimen name="cf_iv_width">80dp</dimen>
     <dimen name="compose_button_width">125dp</dimen>
 
+    <!-- Dimensions for Job -->
+    <dimen name="job_image_hw">120dp</dimen>
+    <dimen name="job_name_textSize">24sp</dimen>
+    <dimen name="job_price_textSize">24sp</dimen>
+    <dimen name="job_corner_radius">15dp</dimen>
+    <dimen name="jda_spacing">2dp</dimen>
+
     <!-- Dimensions for Request -->
     <dimen name="request_padding">8dp</dimen>
     <dimen name="request_user_iv_hw">70dp</dimen>

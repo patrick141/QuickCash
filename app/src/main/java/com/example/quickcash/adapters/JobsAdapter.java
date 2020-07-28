@@ -3,7 +3,6 @@ package com.example.quickcash.adapters;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
-import android.text.format.DateUtils;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -48,6 +47,12 @@ public class JobsAdapter extends RecyclerView.Adapter<JobsAdapter.ViewHolder> {
     private final Context context;
     private final List<Job> jobs;
     private Fragment fragment;
+
+    //This static int variables are used to create our relative time ago string
+    private static final int SECOND_MILLIS = 1000;
+    private static final int MINUTE_MILLIS = 60 * SECOND_MILLIS;
+    private static final int HOUR_MILLIS = 60 * MINUTE_MILLIS;
+    private static final int DAY_MILLIS = 24 * HOUR_MILLIS;
 
     public JobsAdapter(Context context, List<Job> jobs) {
         this.context = context;
@@ -116,16 +121,15 @@ public class JobsAdapter extends RecyclerView.Adapter<JobsAdapter.ViewHolder> {
         }
 
         public void bind(final Job job) {
-            setColors(job);
             jobName.setText(job.getName());
-            jobDate.setText(timeNeed(job.getJobDate()));
+            jobDate.setText(dateDisplay(job.getJobDate()));
             jobRequestorName.setText(job.getUser().getUsername());
             ParseFile image = job.getImage();
             if (image != null) {
                 Log.i(TAG, "This post has " + image.getUrl());
-                Glide.with(context).load(job.getImage().getUrl()).placeholder(R.drawable.ic_launcher_background).into(jobPicture);
+                Glide.with(context).load(job.getImage().getUrl()).placeholder(R.drawable.logo).into(jobPicture);
             } else {
-                Glide.with(context).load(R.drawable.logo).placeholder(R.drawable.ic_launcher_background).into(jobPicture);
+                Glide.with(context).load(R.drawable.logo).placeholder(R.drawable.logo).into(jobPicture);
             }
             jobDatePosted.setText(" " + getRelativeTimeAgo(job.getCreatedAt().toString()));
             jobAddress.setText(job.getAddress());
@@ -161,22 +165,13 @@ public class JobsAdapter extends RecyclerView.Adapter<JobsAdapter.ViewHolder> {
                 }
             }
         }
-
-        private void setColors(Job job){
-            Date date = new Date();
-            if(job.isFinished()){
-                myJobCard.setCardBackgroundColor(context.getResources().getColor(R.color.completedJob));
-            } else if (job.getJobDate().before(date)) {
-                    myJobCard.setCardBackgroundColor(context.getResources().getColor(R.color.myAppColor));
-            } else{
-                return;
-            }
-        }
     }
 
     /**
      * Converts a Date object's string and converts it into a timestamp from the time from that date.
      * Ex: "Thu Jul 16 08:30:00 EDT 2020" -> "3d" if today was Jul 19, 3 days past Jul 16.
+     * Note: this function has been modified to display a relative date for job posts that have been
+     * at least a week ago.
      **/
     public static String getRelativeTimeAgo(String rawJsonDate) {
         String format = "EEE MMM dd HH:mm:ss ZZZZZ yyyy";
@@ -184,22 +179,35 @@ public class JobsAdapter extends RecyclerView.Adapter<JobsAdapter.ViewHolder> {
         sf.setLenient(true);
 
         String relativeDate = "";
+        sf.setLenient(true);
+
         try {
-            long dateMillis = sf.parse(rawJsonDate).getTime();
-            relativeDate = DateUtils.getRelativeTimeSpanString(dateMillis,
-                    System.currentTimeMillis(), DateUtils.SECOND_IN_MILLIS, DateUtils.FORMAT_ABBREV_RELATIVE).toString();
+            long time = sf.parse(rawJsonDate).getTime();
+            long now = System.currentTimeMillis();
+
+            final long diff = now - time;
+            if (diff < MINUTE_MILLIS) {
+                return "just now";
+            } else if (diff < 2 * MINUTE_MILLIS) {
+                return "a minute ago";
+            } else if (diff < 50 * MINUTE_MILLIS) {
+                return diff / MINUTE_MILLIS + "m";
+            } else if (diff < 90 * MINUTE_MILLIS) {
+                return "an hour ago";
+            } else if (diff < 24 * HOUR_MILLIS) {
+                return diff / HOUR_MILLIS + "h";
+            } else if (diff < 48 * HOUR_MILLIS) {
+                return "yesterday";
+            } else {
+                return diff / DAY_MILLIS + "d";
+            }
         } catch (ParseException e) {
+            Log.i(TAG, "getRelativeTimeAgo failed");
             e.printStackTrace();
         }
-        String[] check = relativeDate.split(" ");
-        if (check.length == 1) {
-            return check[0];
-        } else {
-            return check[0] + check[1].charAt(0);
-        }
+
+        return "";
     }
-
-
     /**
      * This methods converts the date class to a String. This is for the job's requested date and time.
      * @param date
@@ -207,6 +215,15 @@ public class JobsAdapter extends RecyclerView.Adapter<JobsAdapter.ViewHolder> {
      */
     public static String timeNeed(Date date){
         return new SimpleDateFormat("MMM dd, YYYY hh:mm a zzz").format(date);
+    }
+
+    /**
+     * This function converts the date to a String but just returns the date, month and year
+     * @param date
+     * @return
+     */
+    public static String dateDisplay(Date date){
+        return new SimpleDateFormat("MM/dd/YY").format(date);
     }
 
     /**

@@ -23,6 +23,7 @@ import org.parceler.Parcels;
 
 import java.util.List;
 
+import static com.example.quickcash.adapters.JobsAdapter.dateDisplay;
 import static com.example.quickcash.adapters.JobsAdapter.getRelativeTimeAgo;
 
 public class MyAssignedJobsAdapter extends RecyclerView.Adapter<MyAssignedJobsAdapter.ViewHolder> {
@@ -87,18 +88,15 @@ public class MyAssignedJobsAdapter extends RecyclerView.Adapter<MyAssignedJobsAd
         }
 
         public void bind(final Job job) {
-            if(job.isFinished()){
-                cV_myJob.setCardBackgroundColor(context.getResources().getColor(R.color.completedJob));
-            }
             jobName.setText(job.getName());
-            jobDate.setText(job.getJobDate().toString());
+            jobDate.setText(dateDisplay(job.getJobDate()));
             jobRequestorName.setText(job.getUser().getUsername());
             ParseFile image = job.getImage();
             if (image != null) {
                 Log.i(TAG, "This post has " + image.getUrl());
-                Glide.with(context).load(job.getImage().getUrl()).placeholder(R.drawable.ic_launcher_background).into(jobPicture);
+                Glide.with(context).load(job.getImage().getUrl()).placeholder(R.drawable.logo).into(jobPicture);
             } else {
-                Glide.with(context).load(R.drawable.logo).placeholder(R.drawable.ic_launcher_background).into(jobPicture);
+                Glide.with(context).load(R.drawable.logo).placeholder(R.drawable.logo).into(jobPicture);
             }
             jobDatePosted.setText(" " + getRelativeTimeAgo(job.getCreatedAt().toString()));
             jobAddress.setText(job.getAddress());
