@@ -59,6 +59,11 @@
         android:text="@string/JDA_reqIsSent"
         android:textSize="24sp" />
 
+    <include layout="@layout/item_request"
+        android:id="@+id/my_request"
+        android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+        android:layout_below="@id/sentView"></include>
 
 
 </RelativeLayout>

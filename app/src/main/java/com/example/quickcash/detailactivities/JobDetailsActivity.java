@@ -12,11 +12,15 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.constraintlayout.widget.ConstraintLayout;
+
+import com.bumptech.glide.Glide;
 import com.example.quickcash.ProfileActivity;
 import com.example.quickcash.R;
 import com.example.quickcash.databinding.ActivityJobDetailsBinding;
 import com.example.quickcash.models.Job;
 import com.example.quickcash.models.Request;
+import com.example.quickcash.models.User;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
@@ -24,6 +28,7 @@ import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.parse.ParseException;
+import com.parse.ParseFile;
 import com.parse.ParseGeoPoint;
 import com.parse.ParseUser;
 import com.parse.SaveCallback;
@@ -31,6 +36,8 @@ import com.parse.SaveCallback;
 import org.parceler.Parcels;
 
 import java.util.List;
+
+import static com.example.quickcash.adapters.JobsAdapter.getRelativeTimeAgo;
 
 /**
  *  JobDetailsActivity
@@ -45,6 +52,7 @@ public class JobDetailsActivity extends BaseJobDetailsActivity implements OnMapR
     private LinearLayout llJobRequest;
     private EditText etRequestJDA;
     private Button btnSubmitRequest;
+    private ConstraintLayout clRequest;
     private ImageView ivReqPic;
     private TextView tvReqName;
     private TextView tvReqComment;
@@ -79,6 +87,13 @@ public class JobDetailsActivity extends BaseJobDetailsActivity implements OnMapR
              *  layout where they can submit a job request.
              */
         llJobRequest.setVisibility(View.VISIBLE);
+
+        clRequest = findViewById(R.id.my_request);
+        ivReqPic = findViewById(R.id.iv_request_User);
+        tvReqName = findViewById(R.id.request_user);
+        tvReqComment = findViewById(R.id.request_comment);
+        tvReqCA = findViewById(R.id.request_createdAt);
+        clRequest.setVisibility(View.GONE);
 
 
         /**
@@ -160,20 +175,47 @@ public class JobDetailsActivity extends BaseJobDetailsActivity implements OnMapR
                 },2000);
             }
         });
+        clRequest.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+            }
+        });
     }
 
     /**
      * This function checks to see if the current user has already submitted a request for the job. This iterates through the array
      * and returns true if it finds the matching user id.
+     * * This function also displays the request information, if a request has been found.
      * @param requests
      * @return
      */
     public boolean submittedRequest(List<Request> requests){
         for (Request request: requests){
             if(request.getUser().hasSameId(ParseUser.getCurrentUser())){
+                populateRequest(request);
                 return true;
             }
         } return false;
+    }
+
+    /**
+     * If a user has already submitted a request, the request's info view is populated on
+     * item_request layout.
+     * @param request
+     */
+    private void populateRequest(Request request) {
+        clRequest.setVisibility(View.VISIBLE);
+        ParseUser user = ParseUser.getCurrentUser();
+        ParseFile image = (ParseFile) user.get(User.KEY_USER_IMAGE);
+        if(image != null) {
+            Glide.with(this).load(image).placeholder(R.drawable.logo).into(ivReqPic);
+        } else {
+            Glide.with(this).load(R.drawable.logo).placeholder(R.drawable.logo).into(ivReqPic);
+        }
+        tvReqName.setText(user.getUsername());
+        tvReqComment.setText(request.getComment());
+        tvReqCA.setText(getRelativeTimeAgo(request.getCreatedAt().toString()));
     }
 
     @Override
