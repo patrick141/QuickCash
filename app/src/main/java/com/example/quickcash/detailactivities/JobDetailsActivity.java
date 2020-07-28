@@ -218,6 +218,11 @@ public class JobDetailsActivity extends BaseJobDetailsActivity implements OnMapR
         tvReqCA.setText(getRelativeTimeAgo(request.getCreatedAt().toString()));
     }
 
+    /**
+     * This function gets the job's location coordinate points and maps it into the small Google Map.
+     * If there is no geopoint, it maps to a default
+     * @param googleMap
+     */
     @Override
     public void onMapReady(GoogleMap googleMap) {
         map = googleMap;
@@ -226,9 +231,9 @@ public class JobDetailsActivity extends BaseJobDetailsActivity implements OnMapR
         if(geoPoint != null){
             myPlace = new LatLng(geoPoint.getLatitude(), geoPoint.getLongitude());
         } else{
-            myPlace = new LatLng(35.258599, -80.836403);
+            myPlace = new LatLng(getResources().getFloat(R.dimen.map_lat_default), getResources().getFloat(R.dimen.map_lon_default));
         }
-        map.addMarker(new MarkerOptions().position(myPlace).title("My Location"));
-        map.moveCamera(CameraUpdateFactory.newLatLng(myPlace));
+        map.addMarker(new MarkerOptions().position(myPlace).title(job.getName()));
+        map.moveCamera(CameraUpdateFactory.newLatLngZoom(myPlace, getResources().getFloat(R.dimen.map_zoom)));
     }
 }

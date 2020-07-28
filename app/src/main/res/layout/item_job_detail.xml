@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/rl_jobsDA"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:padding="5dp"
+    android:layout_height="match_parent"
+    android:padding="@dimen/mediumPadding"
     tools:context=".detailactivities.JobDetailsActivity">
 
     <TextView
@@ -13,29 +13,34 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/app_name"
-        android:textSize="24dp"
-        android:textStyle="bold" />
+        android:textSize="@dimen/job_name_textSize"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/jda_job_date"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentStart="true"
-        android:layout_below="@id/jda_job_name"
+        android:textSize="@dimen/job_detail_textSize"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/jda_job_name"
         android:text="@string/ij_sampleDate" />
 
     <LinearLayout
         android:id="@+id/ll_jda_info"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@id/jda_job_date"
         android:layout_marginTop="5dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/jda_job_date"
         android:orientation="horizontal">
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/ij_postedID" />
+            android:text="@string/ij_postedID"
+            android:textSize="@dimen/job_detail_textSize"/>
 
         <TextView
             android:id="@+id/jda_job_user"
@@ -43,60 +48,57 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="5dp"
             android:text="@string/app_name"
-            android:textStyle="bold|italic" />
+            android:textStyle="bold|italic"
+            android:textSize="@dimen/job_detail_textSize"/>
 
         <TextView
             android:id="@+id/jda_job_created_date"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:text="@string/ij_sampleDateAgo" />
+            android:text="@string/ij_sampleDateAgo"
+            android:textSize="@dimen/job_detail_textSize"/>
     </LinearLayout>
 
     <ImageView
         android:id="@+id/jda_job_image"
-        android:layout_width="100dp"
-        android:layout_height="100dp"
-        android:layout_alignParentEnd="true"
-        android:layout_marginEnd="5dp"
+        android:layout_width="@dimen/job_detail_image_hw"
+        android:layout_height="@dimen/job_detail_image_hw"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
         android:transitionName="@string/tr_job_image"
         tools:srcCompat="@tools:sample/avatars" />
-
-    <fragment
-        android:id="@+id/map_demo"
-        android:name="com.google.android.gms.maps.SupportMapFragment"
-        android:layout_width="127dp"
-        android:layout_height="118dp"
-        android:layout_below="@id/jda_job_address"
-        android:layout_marginLeft="16dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="18dp"
-        android:layout_marginRight="10dp"
-        android:layout_marginBottom="38dp"
-        android:layout_toStartOf="@+id/jda_job_image"
-        android:layout_toRightOf="@id/jda_job_description" />
 
     <TextView
         android:id="@+id/jda_amountID"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@id/ll_jda_info"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="@dimen/job_detail_margin"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/ll_jda_info"
         android:text="@string/ij_amountID"
-        android:textStyle="bold" />
+        android:textStyle="bold"
+        android:textSize="@dimen/job_detail_id_textSize"/>
 
     <TextView
         android:id="@+id/jda_job_price"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@id/jda_amountID"
-        android:text="@string/ij_samplePrice" />
+        android:layout_marginStart="@dimen/job_detail_small_margin"
+        android:layout_marginTop="@dimen/job_detail_margin"
+        android:text="@string/ij_samplePrice"
+        android:textSize="@dimen/job_price_textSize"
+        app:layout_constraintStart_toEndOf="@id/jda_amountID"
+        app:layout_constraintTop_toBottomOf="@id/ll_jda_info" />
 
     <TextView
         android:id="@+id/jda_desID"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@id/jda_job_price"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="@dimen/job_detail_small_margin"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/jda_amountID"
+        android:textSize="@dimen/job_detail_id_textSize"
         android:text="@string/ij_descriptionID"
         android:textStyle="bold" />
 
@@ -105,23 +107,54 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@id/jda_desID"
-        android:text="@string/ij_sampleDescription" />
+        android:layout_marginTop="@dimen/job_detail_small_margin"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/jda_desID"
+        android:text="@string/ij_sampleDescription"
+        android:textSize="@dimen/job_detail_textSize"/>
 
     <TextView
         android:id="@+id/jda_addressID"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@id/jda_job_description"
-        android:layout_marginTop="10dp"
+        android:layout_marginTop="@dimen/job_detail_small_margin"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/jda_job_description"
         android:text="@string/ij_addressID"
-        android:textStyle="bold" />
+        android:textStyle="bold"
+        android:textSize="@dimen/job_detail_id_textSize"/>
 
     <TextView
         android:id="@+id/jda_job_address"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@id/jda_job_description"
-        android:layout_marginTop="10dp"
-        android:layout_toRightOf="@id/jda_addressID"
-        android:text="@string/ij_sampleAddress" />
-</RelativeLayout>
+        android:layout_marginTop="@dimen/job_detail_small_margin"
+        app:layout_constraintStart_toEndOf="@id/jda_addressID"
+        app:layout_constraintTop_toBottomOf="@id/jda_job_description"
+        android:text="@string/ij_sampleAddress"
+        android:textSize="@dimen/job_detail_textSize"/>
+
+    <fragment
+        android:id="@+id/map_demo"
+        android:name="com.google.android.gms.maps.SupportMapFragment"
+        android:layout_below="@id/jda_job_address"
+        android:layout_width="@dimen/job_map_hw"
+        android:layout_height="@dimen/job_map_hw"
+        android:layout_marginTop="@dimen/job_detail_small_margin"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/jda_addressID"/>
+
+    <TextView
+        android:id="@+id/jda_job_status"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/job_detail_margin"
+        android:text="@string/MJDA_status"
+        android:textSize="@dimen/job_detail_textSize"
+        app:layout_constraintEnd_toStartOf="@+id/jda_job_image"
+        app:layout_constraintStart_toEndOf="@+id/jda_job_price"
+        app:layout_constraintTop_toBottomOf="@+id/ll_jda_info" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

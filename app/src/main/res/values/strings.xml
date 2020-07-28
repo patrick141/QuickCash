@@ -71,6 +71,11 @@
     <string name="MJDA_delete_info">Are you sure you want to delete this job?</string>
     <string name="MJDA_yes">Yes</string>
     <string name="MJDA_no">No</string>
+    <string name="MJDA_status">FINISHED</string>
+
+    <!-- JDA Messages -->
+    <string name="JDA_call_success"></string>
+    <string name="JDA_call_failure"></string>
 
     <!-- Request Details Activity static strings -->
     <string name="RDA_moreinfo">Want to chat?</string>

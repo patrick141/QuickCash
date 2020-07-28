@@ -2,6 +2,7 @@ package com.example.quickcash.detailactivities;
 
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -41,6 +42,7 @@ public class BaseJobDetailsActivity extends AppCompatActivity implements OnMapRe
     private TextView jobUserJDA;
     private TextView jobPriceJDA;
     private TextView jobAddressJDA;
+    private TextView jobstatusJDA;
     private ImageView jobImageJDA;
 
     @Override
@@ -65,9 +67,11 @@ public class BaseJobDetailsActivity extends AppCompatActivity implements OnMapRe
         jobAddressJDA = findViewById(R.id.jda_job_address);
         jobDescriptionJDA = findViewById(R.id.jda_job_description);
         jobImageJDA = findViewById(R.id.jda_job_image);
+        jobstatusJDA = findViewById(R.id.jda_job_status);
     }
 
     public void setJobContents(Job job){
+        jobstatusJDA.setVisibility(View.INVISIBLE);
         if(job!= null) {
             jobNameJDA.setText(job.getName());
             jobDateJDA.setText(timeNeed(job.getJobDate()));
@@ -82,6 +86,10 @@ public class BaseJobDetailsActivity extends AppCompatActivity implements OnMapRe
             jobUserJDA.setText(job.getUser().getUsername());
             jobPriceJDA.setText("$" + String.format("%.2f", job.getPrice()));
             jobAddressJDA.setText(job.getAddress());
+            if(job.isFinished()) {
+                jobstatusJDA.setVisibility(View.VISIBLE);
+                jobstatusJDA.setText(getString(R.string.MJDA_status));
+            }
         } else {
             Log.e(TAG, "Did not get Job");
         }
