@@ -8,21 +8,15 @@
     android:orientation="vertical"
     tools:context=".fragments.ProfileFragment">
 
-    <include android:id="@+id/profile_template" layout="@layout/item_profile"/>
+    <include layout="@layout/item_profile"
+        android:id="@+id/profile_template" />
 
-    <androidx.appcompat.widget.AppCompatTextView
-        android:id="@+id/faq_text"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"
-        android:layout_below="@id/profile_template"
-        android:text="@string/color_faq"/>
 
     <include layout="@layout/fragment_home"
         android:id="@+id/rv_myPosts"
-        android:layout_height="450dp"
+        android:layout_height="match_parent"
         android:layout_width="match_parent"
-        android:layout_below="@id/faq_text"></include>
+        android:layout_below="@id/profile_template"/>
 
 
 </RelativeLayout>
