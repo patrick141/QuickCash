@@ -40,6 +40,7 @@
     <dimen name="job_detail_small_margin">5dp</dimen>
     <dimen name="job_map_hw">150dp</dimen>
     <item name="job_request_delay" type="dimen" format="integer">2000</item>
+    <dimen name="job_delete_btn_height">40dp</dimen>
 
     <!-- Dimensions for Request -->
     <dimen name="request_padding">8dp</dimen>

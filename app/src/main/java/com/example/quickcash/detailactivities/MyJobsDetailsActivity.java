@@ -43,6 +43,12 @@ import java.util.List;
 
 import jp.wasabeef.recyclerview.animators.SlideInUpAnimator;
 
+/**
+ * MyJobsDetailsActivity
+ *
+ * This activity shows the user's own jobs and its details.
+ */
+
 public class MyJobsDetailsActivity extends BaseJobDetailsActivity implements OnMapReadyCallback {
     public static final int REQUEST_CODE_MYDA_RDA = 190;
     public static final String TAG = "MyJobsDetailsActivity";
@@ -63,7 +69,7 @@ public class MyJobsDetailsActivity extends BaseJobDetailsActivity implements OnM
         ActivityMyJobsDetailsBinding binding = ActivityMyJobsDetailsBinding.inflate(getLayoutInflater());
         View view = binding.getRoot();
         setContentView(view);
-        job = (Job) Parcels.unwrap(getIntent().getParcelableExtra(Job.class.getSimpleName()));
+        job = Parcels.unwrap(getIntent().getParcelableExtra(Job.class.getSimpleName()));
         runToolbar();
         findtheViews();
         setJobContents(job);
@@ -85,12 +91,18 @@ public class MyJobsDetailsActivity extends BaseJobDetailsActivity implements OnM
             }
         });
 
+        /**
+         * This calls our Google Maps fragment.
+         */
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.map_demo);
         mapFragment.getMapAsync(this);
 
+        /**
+         * If a job is finished, there is no need for the user to be able to delete the job
+         */
         if(job.isFinished()){
-            btnDeleteJob.setVisibility(View.INVISIBLE);
+            btnDeleteJob.setVisibility(View.GONE);
         }
 
         requests = new ArrayList<>();
@@ -99,7 +111,7 @@ public class MyJobsDetailsActivity extends BaseJobDetailsActivity implements OnM
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
         rvRequests.setLayoutManager(linearLayoutManager);
         rvRequests.setItemAnimator(new SlideInUpAnimator());
-        numReqs.setText(getRequestCount() + " Requests");
+        numReqs.setText(getString(R.string.requestCount_1) + " " + job.getJobRequestCount() + " " + getString(R.string.requestCount_2));
         queryRequests();
 
         btnDeleteJob.setOnClickListener(new View.OnClickListener() {
@@ -110,6 +122,10 @@ public class MyJobsDetailsActivity extends BaseJobDetailsActivity implements OnM
         });
     }
 
+    /**
+     * This method plays an alert dialog to get another confirmation for a user to
+     * delete a job.
+     */
     private void playDeleteJobAlertDialog() {
         AlertDialog deleteJobDialog = new AlertDialog.Builder(this)
                 .setTitle(getResources().getString(R.string.MJDA_delete))
@@ -122,16 +138,14 @@ public class MyJobsDetailsActivity extends BaseJobDetailsActivity implements OnM
                         deleteJob(job);
                     }
                 })
-                .setNegativeButton(getResources().getString(R.string.MJDA_no), new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int whichButton) {
-                        dialog.dismiss();
-                    }
-                })
+                .setNegativeButton(getResources().getString(R.string.MJDA_no), null)
                 .create();
         deleteJobDialog.show();
     }
 
+    /**
+     * This function queries requests that only point to this job.
+     */
     protected void queryRequests() {
         ParseQuery<Request> query = ParseQuery.getQuery(Request.class);
         query.include(Request.KEY_REQUEST_USER);
@@ -142,11 +156,12 @@ public class MyJobsDetailsActivity extends BaseJobDetailsActivity implements OnM
             @Override
             public void done(List<Request> requests, ParseException e) {
                 if (e != null) {
-                    Log.e(TAG, "Issues with getting requests", e);
+                    Log.e(TAG, getString(R.string.requestQError), e);
                     return;
                 }
+                Log.i(TAG, getString(R.string.requestQSuccess));
                 for (Request request : requests) {
-                    Log.i(TAG, "Request User: " + request.getUser().getUsername() + " Comment: " + request.getComment() + " Post: " + request.getJob());
+                    Log.i(TAG, request.getUser().getUsername() + " " + request.getComment());
                 }
                 requestsAdapter.clear();
                 requestsAdapter.addAll(requests);
@@ -156,6 +171,11 @@ public class MyJobsDetailsActivity extends BaseJobDetailsActivity implements OnM
         });
     }
 
+    /**
+     * Thus function loads our map fragment and pin points the job's GeoPoint location or the default
+     * location.
+     * @param googleMap
+     */
     @Override
     public void onMapReady(GoogleMap googleMap) {
         map = googleMap;
@@ -164,9 +184,9 @@ public class MyJobsDetailsActivity extends BaseJobDetailsActivity implements OnM
         if(geoPoint != null){
             myPlace = new LatLng(geoPoint.getLatitude(), geoPoint.getLongitude());
         } else{
-            myPlace = new LatLng(35.258599, -80.836403);
+            myPlace = new LatLng(getResources().getFloat(R.dimen.map_lat_default), getResources().getFloat(R.dimen.map_lon_default));
         }
-        map.addMarker(new MarkerOptions().position(myPlace).title("My Location"));
+        map.addMarker(new MarkerOptions().position(myPlace).title(job.getName()));
         map.moveCamera(CameraUpdateFactory.newLatLng(myPlace));
     }
 
@@ -181,14 +201,14 @@ public class MyJobsDetailsActivity extends BaseJobDetailsActivity implements OnM
         ParseUser user = ParseUser.getCurrentUser();
         List<Request> requests = job.getRequests();
         if(requests != null) {
-            for (Request request : requests) {
+            for (final Request request : requests) {
                 request.deleteInBackground(new DeleteCallback() {
                     @Override
                     public void done(ParseException e) {
                         if (e != null) {
-                            Log.e(TAG, "error deleting one of these requests");
+                            Log.e(TAG, getString(R.string.MJDA_delete_reqs_failure) + " " + request.getComment());
                         }
-                        Log.i(TAG, "deleting request");
+                        Log.i(TAG, getString(R.string.MJDA_delete_reqs_success));
                     }
                 });
             }
@@ -198,40 +218,36 @@ public class MyJobsDetailsActivity extends BaseJobDetailsActivity implements OnM
             @Override
             public void done(ParseException e) {
                 if(e!=null){
-                    Log.e(TAG, "Error deleting a job");
+                    Log.e(TAG, getString(R.string.MJDA_delete_job_array_failure));
                 }
-                Log.i(TAG, "Job is no longer in your array");
+                Log.i(TAG, getString(R.string.MJDA_delete_job_array_sucess));
             }
         });
         job.deleteInBackground(new DeleteCallback() {
             @Override
             public void done(ParseException e) {
                 if(e != null){
-                    Log.e(TAG, "Error deleting the Job Object");
+                    Log.e(TAG, getString(R.string.MJDA_delete_job_error));
                 }
-                Log.i(TAG, " Succesfully deleted this job");
-                Toast.makeText(MyJobsDetailsActivity.this, " Job has been deleted ", Toast.LENGTH_SHORT).show();
+                Log.i(TAG, getString(R.string.MJDA_delete_job_success));
+                Toast.makeText(MyJobsDetailsActivity.this, getString(R.string.jobDelConfirm), Toast.LENGTH_SHORT).show();
             }
         });
-        setResult(RESULT_CANCELED);
+        setResult(RESULT_OK);
         finish();
     }
 
-    public int getRequestCount(){
-        ParseQuery<Request> query = ParseQuery.getQuery(Request.class);
-        query.whereEqualTo(Request.KEY_REQUEST_JOB, job);
-        try {
-            return query.count();
-        } catch (ParseException e) {
-            e.printStackTrace();
-        }
-        return 0;
-    }
-
+    /**
+     * If user has deleted a request, this function updates the query and count.
+     * @param requestCode
+     * @param resultCode
+     * @param data
+     */
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if(requestCode == REQUEST_CODE_MYDA_RDA && resultCode == RESULT_OK){
+            numReqs.setText(getString(R.string.requestCount_1) + " " + job.getJobRequestCount() + " " + getString(R.string.requestCount_2));
             requestsAdapter.clear();
             queryRequests();
         }

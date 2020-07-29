@@ -67,11 +67,18 @@
     <string name="JDA_sendReq">Send Request</string>
     <string name="JDA_sampleReq">I would be happy to do this job.</string>
     <string name="JDA_reqIsSent">Request has been submitted</string>
+
+    <!--My Job Details Activity -->
     <string name="MJDA_delete">Delete this Job</string>
     <string name="MJDA_delete_info">Are you sure you want to delete this job?</string>
     <string name="MJDA_yes">Yes</string>
     <string name="MJDA_no">No</string>
     <string name="MJDA_status">FINISHED</string>
+    <string name="requestCount_1">You have</string>
+    <string name="requestCount_2">requests.</string>
+    <string name="requestQSuccess">Successful on getting requests</string>
+    <string name="requestQError">Issues with getting requests.</string>
+    <string name="jobDelConfirm">Job has been deleted.</string>
 
     <!-- JDA Messages -->
     <string name="JDA_fill">Please fill in the comment</string>
@@ -82,6 +89,14 @@
     <string name="JDA_request_toast">Request has been submitted</string>
     <string name="JDA_job_request_arr_error">Error adding job to requests array</string>
     <string name="JDA_job_request_arr">Request now in this job array.</string>
+
+    <!--MJDA Messages -->
+    <string name="MJDA_delete_reqs_success">Deleted this request.</string>
+    <string name="MJDA_delete_reqs_failure">Error deleting this request: </string>
+    <string name="MJDA_delete_job_array_sucess">Job is no longer in array.</string>
+    <string name="MJDA_delete_job_array_failure">Error deleting job from the array.</string>
+    <string name="MJDA_delete_job_success">Successfully deleted this job.</string>
+    <string name="MJDA_delete_job_error">Error deleting this job from DB.</string>
 
     <!-- Request Details Activity static strings -->
     <string name="RDA_moreinfo">Want to chat?</string>
