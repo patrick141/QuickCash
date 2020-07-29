@@ -19,11 +19,13 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.core.content.FileProvider;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import com.bumptech.glide.Glide;
 import com.example.quickcash.R;
 import com.example.quickcash.models.Job;
 import com.example.quickcash.models.User;
+import com.google.android.material.tabs.TabLayout;
 import com.parse.FindCallback;
 import com.parse.ParseException;
 import com.parse.ParseFile;
@@ -57,6 +59,7 @@ public class ProfileFragment extends HomeFragment {
     private TextView tvUsername;
     private TextView tvUserSince;
     private RatingBar rbUserRating;
+    private TabLayout jobTabLayout;
     private File photoFile;
     private String photoFileName = "photo.jpg";
 
@@ -79,6 +82,7 @@ public class ProfileFragment extends HomeFragment {
         tvUsername = view.findViewById(R.id.tv_Username);
         tvUserSince = view.findViewById(R.id.tv_UserSince);
         rbUserRating = view.findViewById(R.id.rb_user_rating);
+        jobTabLayout = view.findViewById(R.id.myjobs_view_switcher);
 
         ParseUser user = ParseUser.getCurrentUser();
         tvUsername.setText(user.getUsername());
@@ -104,6 +108,55 @@ public class ProfileFragment extends HomeFragment {
             }
         });
 
+        /**
+         * This method checks to see which tab has been opened.
+         *
+         * 0 -- Pending Jobs
+         * 1 -- Completed Jobs
+         *
+         * It also resets the swipe refresher based on whatever the user clicks.
+         */
+        jobTabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
+            @Override
+            public void onTabSelected(TabLayout.Tab tab) {
+                int position = tab.getPosition();
+                switch(position){
+                    case 0:{
+                        queryJobs();
+                        getSwipeContainer().setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+                            @Override
+                            public void onRefresh() {
+                                queryJobs();
+                            }
+                        });
+                        break;
+                    }
+                    case 1:{
+                        queryFinishedJobs();
+                        getSwipeContainer().setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+                            @Override
+                            public void onRefresh() {
+                                queryFinishedJobs();
+                            }
+                        });
+                        break;
+                    }
+                    default:{
+                        return;
+                    }
+                }
+            }
+
+            @Override
+            public void onTabUnselected(TabLayout.Tab tab) {
+                return;
+            }
+
+            @Override
+            public void onTabReselected(TabLayout.Tab tab) {
+                return;
+            }
+        });
     }
 
     private void launchMyCamera() {
@@ -178,6 +231,7 @@ public class ProfileFragment extends HomeFragment {
         ParseQuery<Job> query = ParseQuery.getQuery(Job.class);
         query.include(Job.KEY_JOB_USER);
         query.whereEqualTo(Job.KEY_JOB_USER, ParseUser.getCurrentUser());
+        query.whereEqualTo(Job.KEY_JOB_ISFINISHED, false);
         query.setLimit(20);
         query.addDescendingOrder(Job.KEY_CREATED_AT);
         query.findInBackground(new FindCallback<Job>() {
@@ -190,8 +244,31 @@ public class ProfileFragment extends HomeFragment {
                 for(Job job: jobs){
                     Log.i(TAG, "Job: " + job.getName() + ", username" + job.getUser().getUsername());
                 }
-                getAllJobs().addAll(jobs);
+                getJobsAdapter().clear();
+                getJobsAdapter().addAll(jobs);
+                getSwipeContainer().setRefreshing(false);
                 getJobsAdapter().notifyDataSetChanged();
+            }
+        });
+    }
+
+    protected void queryFinishedJobs(){
+        ParseQuery<Job> query = ParseQuery.getQuery(Job.class);
+        query.include(Job.KEY_JOB_USER);
+        query.whereEqualTo(Job.KEY_JOB_USER, ParseUser.getCurrentUser());
+        query.whereEqualTo(Job.KEY_JOB_ISFINISHED, true);
+        query.setLimit(20);
+        query.addDescendingOrder(Job.KEY_CREATED_AT);
+        query.findInBackground(new FindCallback<Job>() {
+            @Override
+            public void done(List<Job> jobs, ParseException e) {
+                if(e != null){
+                    Log.e(TAG, "Issues with getting jobs", e);
+                    return;
+                }
+                for(Job job: jobs){
+                    Log.i(TAG, "Job: " + job.getName() + ", username" + job.getUser().getUsername());
+                }
                 getJobsAdapter().clear();
                 getJobsAdapter().addAll(jobs);
                 getSwipeContainer().setRefreshing(false);
