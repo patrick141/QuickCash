@@ -64,6 +64,9 @@ import static android.app.Activity.RESULT_OK;
 
 public class ComposeFragment extends Fragment {
 
+    public static final int CAPTURE_IMAGE_ACTIVITY_REQUEST_CODE = 42;
+    public static final int GOOGLE_PLACES = 1009;
+    public final static int PICK_PHOTO_CODE = 1046;
     public static final String TAG = "ComposeFragment";
     private TextView composeTitle;
     private EditText etName;
@@ -78,9 +81,6 @@ public class ComposeFragment extends Fragment {
     private File photoFile;
     private String photoFileName = "photo.jpg";
     private Place place;
-    public static final int CAPTURE_IMAGE_ACTIVITY_REQUEST_CODE = 42;
-    public static final int GOOGLE_PLACES = 1009;
-    public final static int PICK_PHOTO_CODE = 1046;
 
     private DatePickerDialog.OnDateSetListener mDateSetListener;
 

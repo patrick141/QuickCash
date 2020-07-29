@@ -73,15 +73,10 @@ public class MyJobsFragment extends HomeFragment {
                     Log.i(TAG, "Job: " + job.getName() + ", username" + job.getUser().getUsername());
                 }
                 getAllJobs().addAll(jobs);
-                /*
-                getJobsAdapter().notifyDataSetChanged();
-                getJobsAdapter().clear();
-                getJobsAdapter().addAll(jobs);*/
                 myAdapter.notifyDataSetChanged();
                 myAdapter.clear();
                 myAdapter.addAll(jobs);
                 getSwipeContainer().setRefreshing(false);
-                //getJobsAdapter().notifyDataSetChanged();
                 myAdapter.notifyDataSetChanged();
             }
         });

@@ -50,14 +50,15 @@ import static com.example.quickcash.detailactivities.MyJobsDetailsActivity.REQUE
 
 public class ProfileFragment extends HomeFragment {
 
+    public static final int CAPTURE_IMAGE_ACTIVITY_REQUEST_CODE = 42;
     public static String TAG = "ProfileFragment";
+
     private ImageView ivProfilePic;
     private TextView tvUsername;
     private TextView tvUserSince;
     private RatingBar rbUserRating;
     private File photoFile;
     private String photoFileName = "photo.jpg";
-    public static final int CAPTURE_IMAGE_ACTIVITY_REQUEST_CODE = 42;
 
     public ProfileFragment() {
         // Required empty public constructor
