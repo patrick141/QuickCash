@@ -11,12 +11,32 @@
     <include layout="@layout/item_profile"
         android:id="@+id/profile_template" />
 
+    <com.google.android.material.tabs.TabLayout
+        android:id="@+id/myjobs_view_switcher"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/profile_template"
+        android:background="@color/tabLayoutColor">
+
+        <com.google.android.material.tabs.TabItem
+            android:id="@+id/jobs_pending"
+            android:text="@string/pf_pending"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+
+        <com.google.android.material.tabs.TabItem
+            android:id="@+id/jobs_finished"
+            android:text="@string/pf_completed"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+
+    </com.google.android.material.tabs.TabLayout>
 
     <include layout="@layout/fragment_home"
         android:id="@+id/rv_myPosts"
         android:layout_height="match_parent"
         android:layout_width="match_parent"
-        android:layout_below="@id/profile_template"/>
+        android:layout_below="@id/myjobs_view_switcher"/>
 
 
 </RelativeLayout>

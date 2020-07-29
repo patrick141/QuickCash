@@ -50,6 +50,9 @@
     <!-- MyJobs Fragment static strings -->
     <string name="mjf_text">This is where your jobs assigned will be.</string>
 
+    <!--Profile Fragment static strings -->
+    <string name="pf_pending">Pending</string>
+    <string name="pf_completed">Completed</string>
     <!--ToDoJobDetailsActivity static strings -->
     <string name="tododa_change">I can no longer do this</string>
     <string name="tododa_done">I am done!</string>
