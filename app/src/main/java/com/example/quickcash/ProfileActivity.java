@@ -57,7 +57,7 @@ public class ProfileActivity extends AppCompatActivity {
         tvPhoneNumber = findViewById(R.id.tv_phone);
         rbUserRating = findViewById(R.id.rb_user_rating);
 
-        ParseUser user = Parcels.unwrap(getIntent().getParcelableExtra(User.class.getSimpleName()));
+        final ParseUser user = Parcels.unwrap(getIntent().getParcelableExtra(User.class.getSimpleName()));
 
         tvUsername.setText(user.getUsername());
         String description = user.getString(User.KEY_USER_DESCRIPTION);
@@ -89,17 +89,24 @@ public class ProfileActivity extends AppCompatActivity {
         swipeContainter.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
-                queryProfileJobs();
+                queryProfileJobs(user);
             }
         });
-        queryProfileJobs();
+        queryProfileJobs(user);
     }
 
-    private void queryProfileJobs() {
+    /**
+     * This method takes the user and queries jobs that have been created by that user that
+     * still haven't been assigned to anyone yet.
+     * @param user
+     */
+    private void queryProfileJobs(ParseUser user) {
         ParseQuery<Job> query = ParseQuery.getQuery(Job.class);
         query.include(Job.KEY_JOB_USER);
         query.setLimit(20);
         query.addDescendingOrder(Job.KEY_CREATED_AT);
+        query.whereEqualTo(Job.KEY_JOB_USER, user);
+        query.whereEqualTo(Job.KEY_JOB_ISTAKEN, false);
         query.findInBackground(new FindCallback<Job>() {
             @Override
             public void done(List<Job> jobs, ParseException e) {

@@ -34,7 +34,7 @@
         android:layout_width="match_parent"
         android:layout_height="@dimen/pa_rv_height"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/profile_job_status" />
+        app:layout_constraintTop_toBottomOf="@id/profile_job_status"/>
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

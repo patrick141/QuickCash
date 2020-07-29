@@ -55,7 +55,7 @@
     <dimen name="profile_image_hw">100dp</dimen>
     <dimen name="profile_margin_fromIV">10dp</dimen>
     <dimen name="profile_margin_top">5dp</dimen>
-    <dimen name="pa_rv_height">500dp</dimen>
+    <dimen name="pa_rv_height">450dp</dimen>
 
     <!-- Dimensions for MyJobsFragment -->
     <dimen name="mjf_size">18sp</dimen>
