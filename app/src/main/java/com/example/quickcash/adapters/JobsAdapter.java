@@ -38,21 +38,22 @@ import static com.example.quickcash.detailactivities.MyJobsDetailsActivity.REQUE
 /**
  * JobsAdapter Class
  *
- * This class will handle making our job requests into a recycler view.
+ * This class will handle putting our job postings into a recycler view.
  */
 public class JobsAdapter extends RecyclerView.Adapter<JobsAdapter.ViewHolder> {
-
-    public static final String TAG = "JobsAdapter";
-    public static final int JOB_SEND_REQUEST_CODE = 1001;
-    private final Context context;
-    private final List<Job> jobs;
-    private Fragment fragment;
 
     //This static int variables are used to create our relative time ago string
     private static final int SECOND_MILLIS = 1000;
     private static final int MINUTE_MILLIS = 60 * SECOND_MILLIS;
     private static final int HOUR_MILLIS = 60 * MINUTE_MILLIS;
     private static final int DAY_MILLIS = 24 * HOUR_MILLIS;
+    public static final int JOB_SEND_REQUEST_CODE = 1001;
+
+    public static final String TAG = "JobsAdapter";
+
+    private final Context context;
+    private final List<Job> jobs;
+    private Fragment fragment;
 
     public JobsAdapter(Context context, List<Job> jobs) {
         this.context = context;
@@ -126,7 +127,6 @@ public class JobsAdapter extends RecyclerView.Adapter<JobsAdapter.ViewHolder> {
             jobRequestorName.setText(job.getUser().getUsername());
             ParseFile image = job.getImage();
             if (image != null) {
-                Log.i(TAG, "This post has " + image.getUrl());
                 Glide.with(context).load(job.getImage().getUrl()).placeholder(R.drawable.logo).into(jobPicture);
             } else {
                 Glide.with(context).load(R.drawable.logo).placeholder(R.drawable.logo).into(jobPicture);
@@ -145,18 +145,19 @@ public class JobsAdapter extends RecyclerView.Adapter<JobsAdapter.ViewHolder> {
             int position = getAdapterPosition();
             if(position != RecyclerView.NO_POSITION) {
                 Job job = jobs.get(position);
-                Log.d("Load job details for ", job.getName());
+                Log.d(context.getResources().getString(R.string.jobdetailOnClick), job.getName());
+
                 ActivityOptionsCompat options = ActivityOptionsCompat.
                         makeSceneTransitionAnimation((Activity) context, (View) jobPicture, context.getResources().getString(R.string.tr_job_image));
                 Toast.makeText(context, job.getName(), Toast.LENGTH_SHORT).show();
                 Intent intent;
                 if(job.getUser().hasSameId(ParseUser.getCurrentUser())){
                     intent = new Intent(context, MyJobsDetailsActivity.class);
-                    intent.putExtra("JOB", Parcels.wrap(job));
+                    intent.putExtra(Job.class.getSimpleName(), Parcels.wrap(job));
                     fragment.startActivityForResult(intent, REQUEST_CODE_MYDA_RDA);
                 } else {
                     intent = new Intent(context, JobDetailsActivity.class);
-                    intent.putExtra("JOB", Parcels.wrap(job));
+                    intent.putExtra(Job.class.getSimpleName(), Parcels.wrap(job));
                     if(fragment != null) {
                         fragment.startActivityForResult(intent, JOB_SEND_REQUEST_CODE, options.toBundle());
                     } else {
@@ -205,7 +206,6 @@ public class JobsAdapter extends RecyclerView.Adapter<JobsAdapter.ViewHolder> {
             Log.i(TAG, "getRelativeTimeAgo failed");
             e.printStackTrace();
         }
-
         return "";
     }
     /**

@@ -74,8 +74,14 @@
     <string name="MJDA_status">FINISHED</string>
 
     <!-- JDA Messages -->
+    <string name="JDA_fill">Please fill in the comment</string>
     <string name="JDA_call_success"></string>
     <string name="JDA_call_failure"></string>
+    <string name="JDA_request_sucess">Request was succesful</string>
+    <string name="JDA_request_failure">Error while creating request.</string>
+    <string name="JDA_request_toast">Request has been submitted</string>
+    <string name="JDA_job_request_arr_error">Error adding job to requests array</string>
+    <string name="JDA_job_request_arr">Request now in this job array.</string>
 
     <!-- Request Details Activity static strings -->
     <string name="RDA_moreinfo">Want to chat?</string>
@@ -84,6 +90,9 @@
     <string name="rda_deny_con">Are you sure you want to deny </string>
     <string name="rda_yes">Yes</string>
     <string name="rda_no">No</string>
+
+    <!-- Log static strings -->
+    <string name="jobdetailOnClick">Load job details for </string>
 
     <!-- transition names -->
     <string name="tr_request_image">request_image</string>

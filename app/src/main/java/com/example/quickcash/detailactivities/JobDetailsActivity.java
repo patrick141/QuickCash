@@ -1,5 +1,6 @@
 package com.example.quickcash.detailactivities;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
@@ -68,7 +69,7 @@ public class JobDetailsActivity extends BaseJobDetailsActivity implements OnMapR
         View view = binding.getRoot();
         setContentView(view);
         runToolbar();
-        job = (Job) Parcels.unwrap(getIntent().getParcelableExtra("JOB"));
+        job = (Job) Parcels.unwrap(getIntent().getParcelableExtra(Job.class.getSimpleName()));
         /**
          * The follow methods get our
          */
@@ -126,6 +127,7 @@ public class JobDetailsActivity extends BaseJobDetailsActivity implements OnMapR
          *  User can submit request by filling out the editText and clicking on the submit button.
          */
         btnSubmitRequest.setOnClickListener(new View.OnClickListener() {
+            @SuppressLint("ResourceType")
             @Override
             public void onClick(View view) {
                 String comment = etRequestJDA.getText().toString();
@@ -134,7 +136,7 @@ public class JobDetailsActivity extends BaseJobDetailsActivity implements OnMapR
                  * The user cannot submit a request if they do not fill out the editText.
                  */
                 if(comment.isEmpty()){
-                    Toast.makeText(JobDetailsActivity.this, "Please fill in request comment", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(JobDetailsActivity.this, getString(R.string.JDA_fill), Toast.LENGTH_SHORT).show();
                     return;
                 }
                 final Request request = new Request();
@@ -145,10 +147,10 @@ public class JobDetailsActivity extends BaseJobDetailsActivity implements OnMapR
                     @Override
                     public void done(ParseException e) {
                         if(e !=null){
-                            Log.e(TAG, "Error while creating job request", e);
+                            Log.e(TAG, getString(R.string.JDA_request_failure), e);
                             return;
                         }
-                        Log.i(TAG, "Request was successful");
+                        Log.i(TAG, getString(R.string.JDA_request_sucess));
                         etRequestJDA.setText("");
                         llJobRequest.setVisibility(View.GONE);
                         sentReq.setVisibility(View.VISIBLE);
@@ -159,12 +161,12 @@ public class JobDetailsActivity extends BaseJobDetailsActivity implements OnMapR
                     @Override
                     public void done(ParseException e) {
                         if(e!= null){
-                            Log.e(TAG, "Error while adding job request", e);
+                            Log.e(TAG, getString(R.string.JDA_job_request_arr_error), e);
                         }
-                        Log.i(TAG, "It's now in DB");
+                        Log.i(TAG, getString(R.string.JDA_job_request_arr));
                     }
                 });
-                Toast.makeText(JobDetailsActivity.this, "Request has been submitted", Toast.LENGTH_SHORT).show();
+                Toast.makeText(JobDetailsActivity.this, getString(R.string.JDA_request_toast), Toast.LENGTH_SHORT).show();
                 Intent i = new Intent();
                 setResult(RESULT_OK, i);
                 new Handler().postDelayed(new Runnable() {
@@ -172,7 +174,7 @@ public class JobDetailsActivity extends BaseJobDetailsActivity implements OnMapR
                     public void run() {
                         finish();
                     }
-                },2000);
+                },getResources().getInteger(R.dimen.job_request_delay));
             }
         });
         clRequest.setOnClickListener(new View.OnClickListener() {

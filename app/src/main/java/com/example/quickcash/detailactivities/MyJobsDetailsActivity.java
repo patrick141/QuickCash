@@ -44,7 +44,9 @@ import java.util.List;
 import jp.wasabeef.recyclerview.animators.SlideInUpAnimator;
 
 public class MyJobsDetailsActivity extends BaseJobDetailsActivity implements OnMapReadyCallback {
+    public static final int REQUEST_CODE_MYDA_RDA = 190;
     public static final String TAG = "MyJobsDetailsActivity";
+
     private Job job;
     private TextView numReqs;
     private SwipeRefreshLayout swipeContainerRequests;
@@ -55,15 +57,13 @@ public class MyJobsDetailsActivity extends BaseJobDetailsActivity implements OnM
     private RecyclerView rvRequests;
     private List<Request> requests;
 
-    public static final int REQUEST_CODE_MYDA_RDA = 190;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         ActivityMyJobsDetailsBinding binding = ActivityMyJobsDetailsBinding.inflate(getLayoutInflater());
         View view = binding.getRoot();
         setContentView(view);
-        job = (Job) Parcels.unwrap(getIntent().getParcelableExtra("JOB"));
+        job = (Job) Parcels.unwrap(getIntent().getParcelableExtra(Job.class.getSimpleName()));
         runToolbar();
         findtheViews();
         setJobContents(job);
