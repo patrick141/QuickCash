@@ -2,6 +2,7 @@ package com.example.quickcash;
 
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -39,11 +40,15 @@ public class MainActivity extends AppCompatActivity {
     private Toolbar toolbar;
     private BottomNavigationView bottomNavigationView;
     private final FragmentManager fragmentManager = getSupportFragmentManager();
+    public SharedPreferences prefs;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        checkifFirstTime();
+
         ActivityMainBinding binding = ActivityMainBinding.inflate(getLayoutInflater());
         View view = binding.getRoot();
         setContentView(view);
@@ -88,6 +93,24 @@ public class MainActivity extends AppCompatActivity {
         /**
          * This method logs the users out of QuickCash. They return to the login Screen.
          */
+    }
+
+    /**
+     * This is a function that checks to see if this is a user's first time installing this app.
+     */
+    private void checkifFirstTime() {
+        prefs = getSharedPreferences(getString(R.string.app_name), MODE_PRIVATE);
+        if(prefs.getBoolean(getString(R.string.app_name_ft),true)){
+            playWelcome();
+            prefs.edit().putBoolean(getString(R.string.app_name_ft),false).commit();
+        }
+    }
+
+    /**
+     * If this is the first time for user,  this method will execute.
+     */
+    private void playWelcome() {
+        Toast.makeText(this, getString(R.string.welcome), Toast.LENGTH_LONG).show();
     }
 
     /**

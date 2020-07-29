@@ -2,6 +2,8 @@
     <string name="app_name">QuickCash</string>
     <string name="fileProviderText">com.codepath.fileprovider.QuickCash</string>
     <string name="app_name_cap">QuickCash</string>
+    <string name="app_name_ft">FirstRun</string>
+    <string name="welcome">Welcome to QuickCash!</string>
 
     <string name="login">Log into QuickCash</string>
     <string name="sign_up">New User? Sign up here!</string>
@@ -112,4 +114,5 @@
     <!-- transition names -->
     <string name="tr_request_image">request_image</string>
     <string name="tr_job_image">job_image</string>
+    <string name="dismiss">Dismiss</string>
 </resources>
