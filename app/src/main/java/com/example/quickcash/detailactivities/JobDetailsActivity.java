@@ -113,7 +113,7 @@ public class JobDetailsActivity extends BaseJobDetailsActivity implements OnMapR
             @Override
             public void onClick(View view) {
                 Intent i = new Intent(JobDetailsActivity.this, ProfileActivity.class);
-                i.putExtra("PROFILE", Parcels.wrap(job.getUser()));
+                i.putExtra(User.class.getSimpleName(), Parcels.wrap(job.getUser()));
                 JobDetailsActivity.this.startActivity(i);
             }
         });
@@ -238,4 +238,5 @@ public class JobDetailsActivity extends BaseJobDetailsActivity implements OnMapR
         map.addMarker(new MarkerOptions().position(myPlace).title(job.getName()));
         map.moveCamera(CameraUpdateFactory.newLatLngZoom(myPlace, getResources().getFloat(R.dimen.map_zoom)));
     }
+
 }

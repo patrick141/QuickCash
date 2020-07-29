@@ -50,11 +50,12 @@
 
     <dimen name="rv_jobs_height">100dp</dimen>
 
-    <!-- Dimensions for Profile -->
+    <!-- Dimensions for Profile/Profile Activity -->
     <dimen name="profile_padding">8dp</dimen>
     <dimen name="profile_image_hw">100dp</dimen>
     <dimen name="profile_margin_fromIV">10dp</dimen>
     <dimen name="profile_margin_top">5dp</dimen>
+    <dimen name="pa_rv_height">500dp</dimen>
 
     <!-- Dimensions for MyJobsFragment -->
     <dimen name="mjf_size">18sp</dimen>

@@ -20,13 +20,21 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/toolbar_PA" />
 
-    <include
-        android:id="@+id/rv_Jobs_profile"
-        layout="@layout/fragment_home"
-        android:layout_width="match_parent"
+    <TextView
+        android:id="@+id/profile_job_status"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/profile" />
+        app:layout_constraintTop_toBottomOf="@id/profile"
+        android:text="@string/ij_sampleDescription"/>
+
+    <include
+        layout="@layout/fragment_home"
+        android:id="@+id/rv_profile"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/pa_rv_height"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/profile_job_status" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
