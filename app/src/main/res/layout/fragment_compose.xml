@@ -44,7 +44,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/cf_nameTIL" >
 
-        <EditText
+        <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/et_description"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -60,11 +60,12 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/cf_descriptionTIL" >
 
-        <EditText
+        <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/et_date"
             android:layout_width="@dimen/cf_picker_width"
             android:layout_height="wrap_content"
             android:clickable="true"
+            android:focusableInTouchMode="false"
             android:editable="false"
             android:textSize="@dimen/cf_et_text_size" />
     </com.google.android.material.textfield.TextInputLayout>
@@ -77,11 +78,12 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/cf_descriptionTIL" >
 
-        <EditText
+        <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/et_time"
             android:layout_width="@dimen/cf_picker_width"
             android:layout_height="wrap_content"
             android:clickable="true"
+            android:focusableInTouchMode="false"
             android:editable="false"
             android:textSize="@dimen/cf_et_text_size" />
     </com.google.android.material.textfield.TextInputLayout>
@@ -94,10 +96,11 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/cf_dateTIL" >
 
-        <EditText
+        <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/et_address"
             android:layout_width="@dimen/cf_address_width"
             android:layout_height="wrap_content"
+            android:focusableInTouchMode="false"
             android:textSize="@dimen/cf_et_text_size" />
     </com.google.android.material.textfield.TextInputLayout>
 
@@ -110,7 +113,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/cf_addressTIL" >
 
-        <EditText
+        <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/et_price"
             android:layout_width="@dimen/cf_other_width"
             android:layout_height="wrap_content"

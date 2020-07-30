@@ -72,9 +72,9 @@ public class ComposeFragment extends Fragment {
     private EditText etName;
     private EditText etDescription;
     private EditText etAddress;
-    private EditText etPrice;
     private EditText etJobDate;
     private EditText etJobTime;
+    private EditText etPrice;
     private Button btnCompose;
     private Button btnTakeImage;
     private ImageView ivImage;
@@ -111,11 +111,11 @@ public class ComposeFragment extends Fragment {
         ivImage = view.findViewById(R.id.iv_optionImage);
 
         Places.initialize(getContext(), getResources().getString(R.string.newAPIKEY));
-        etAddress.setOnLongClickListener(new View.OnLongClickListener() {
+
+        etAddress.setOnClickListener(new View.OnClickListener() {
             @Override
-            public boolean onLongClick(View view) {
+            public void onClick(View view) {
                 launchPlaces();
-                return true;
             }
         });
 
@@ -131,7 +131,6 @@ public class ComposeFragment extends Fragment {
                         getContext(),
                         mDateSetListener,
                         year,month,day);
-                //dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
                 dialog.show();
             }
         });
@@ -248,15 +247,14 @@ public class ComposeFragment extends Fragment {
 
     }
 
+    /**
+     * This method launches Places Search view in ComposeFragment.
+     */
     private void launchPlaces() {
-        //Initalize place field list
         List<Place.Field> fieldList = Arrays.asList(Place.Field.ADDRESS
                 , Place.Field.LAT_LNG, Place.Field.NAME);
-        //Create intent
         Intent intent = new Autocomplete.IntentBuilder(AutocompleteActivityMode.OVERLAY
                 , fieldList).build(getContext());
-
-        ///Start activity
         startActivityForResult(intent, GOOGLE_PLACES);
     }
 
