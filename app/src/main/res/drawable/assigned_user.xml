@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--This xml file is how we set the background for the assigned user -->
+<shape xmlns:android="http://schemas.android.com/apk/res/android">
+    <solid android:color="@android:color/white"/>
+    <stroke android:width="1dip" android:color="@color/assignedUser" />
+    <padding
+        android:top="@dimen/smallPadding"
+        android:bottom="@dimen/smallPadding"
+        android:left="@dimen/smallPadding"
+        android:right="@dimen/smallPadding">
+    </padding>
+</shape>

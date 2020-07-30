@@ -11,5 +11,6 @@
     <color name="myAppGreen">#4CAF50</color>
     <color name="myAppBlue">#00BCD4</color>
     <color name="signUpColor">#FFEB3B</color>
+    <color name="assignedUser">#FFEC3A</color>
     <color name="completedJob">#fcbe03</color>
 </resources>

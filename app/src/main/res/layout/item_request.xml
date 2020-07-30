@@ -43,11 +43,4 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <ImageView
-        android:id="@+id/iv_assigned"
-        android:layout_width="30dp"
-        android:layout_height="30dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/request_createdAt"
-        tools:srcCompat="@drawable/star_user" />
 </androidx.constraintlayout.widget.ConstraintLayout>

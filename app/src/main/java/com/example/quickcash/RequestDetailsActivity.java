@@ -26,6 +26,8 @@ import org.parceler.Parcels;
 
 import java.util.ArrayList;
 
+import static com.example.quickcash.adapters.RequestsAdapter.userAssigned;
+
 /**
  * RequestDetailsActivity
  *
@@ -56,7 +58,7 @@ public class RequestDetailsActivity extends AppCompatActivity {
         toolbar = (Toolbar) findViewById(R.id.toolbar_Home);
         setSupportActionBar(toolbar);
 
-        request = (Request) Parcels.unwrap(getIntent().getParcelableExtra("REQUEST"));
+        request = (Request) Parcels.unwrap(getIntent().getParcelableExtra(Request.class.getSimpleName()));
         ivRequestor = binding.ivRequestorPP;
         tvRequestor = binding.tvRequestorName;
         tvRequestorComment = binding.tvRequestComment;
@@ -80,6 +82,9 @@ public class RequestDetailsActivity extends AppCompatActivity {
         tvRequestor.setText(request.getUser().getUsername());
         tvRequestorComment.setText(request.getComment());
 
+        if(userAssigned(request.getUser(), request)){
+            tvRequestor.setBackground(getDrawable(R.drawable.assigned_user));
+        }
         btnAcceptUser.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
