@@ -105,6 +105,7 @@
     <string name="rda_deny_con">Are you sure you want to deny </string>
     <string name="rda_yes">Yes</string>
     <string name="rda_no">No</string>
+    <string name="extra_text">...</string>
 
     <!-- Log static strings -->
     <string name="jobdetailOnClick">Load job details for </string>
@@ -112,5 +113,6 @@
     <!-- transition names -->
     <string name="tr_request_image">request_image</string>
     <string name="tr_job_image">job_image</string>
+    <string name="tr_request_name">request_name</string>
     <string name="dismiss">Dismiss</string>
 </resources>

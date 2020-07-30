@@ -11,6 +11,7 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.core.app.ActivityOptionsCompat;
+import androidx.core.util.Pair;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
@@ -31,6 +32,8 @@ import static com.example.quickcash.adapters.JobsAdapter.getRelativeTimeAgo;
 import static com.example.quickcash.detailactivities.MyJobsDetailsActivity.REQUEST_CODE_MYDA_RDA;
 
 public class RequestsAdapter extends RecyclerView.Adapter<RequestsAdapter.ViewHolder> {
+    public static final int SHORT_COMMENT_LIMIT = 35;
+
     private final Context context;
     private final List<Request> requests;
 
@@ -87,7 +90,7 @@ public class RequestsAdapter extends RecyclerView.Adapter<RequestsAdapter.ViewHo
         public void bind(Request request) {
             ParseUser user = request.getUser();
             tvRequestUsername.setText(user.getUsername());
-            tvRequestComment.setText(request.getComment());
+            tvRequestComment.setText(getShortenText(request.getComment()) + context.getString(R.string.extra_text));
             ParseFile userImage = null;
             try {
                 userImage = (ParseFile) user.fetchIfNeeded().getParseFile(User.KEY_USER_IMAGE);
@@ -106,7 +109,8 @@ public class RequestsAdapter extends RecyclerView.Adapter<RequestsAdapter.ViewHo
         }
 
         /**
-         * Added a transition animation that switches between a requestor image into RDA.
+         * Not only does this open RequestDetailsActivity, it also creates a transition
+         * animation for the request's username and image.
          * @param view
          */
         @Override
@@ -116,11 +120,24 @@ public class RequestsAdapter extends RecyclerView.Adapter<RequestsAdapter.ViewHo
                 Request request = requests.get(position);
                 Intent i = new Intent(context, RequestDetailsActivity.class);
                 i.putExtra(Request.class.getSimpleName(), Parcels.wrap(request));
+
+                Pair<View, String> p1 = Pair.create((View) ivRequest, context.getString(R.string.tr_request_image));
+                Pair<View, String> p2 = Pair.create((View) tvRequestUsername, context.getString(R.string.tr_request_name));
+
                 ActivityOptionsCompat options = ActivityOptionsCompat.
-                        makeSceneTransitionAnimation((Activity) context, (View) ivRequest, context.getResources().getString(R.string.tr_request_image));
+                        makeSceneTransitionAnimation((Activity) context, p1, p2);
                 ((Activity) context).startActivityForResult(i, REQUEST_CODE_MYDA_RDA , options.toBundle());
             }
         }
+    }
+
+    /**
+     * This function shortens the request's comment if it's not greater than 35 characters.
+     * @param text
+     * @return
+     */
+    public static String getShortenText(String text){
+        return text.length() < SHORT_COMMENT_LIMIT ? text: text.substring(0,SHORT_COMMENT_LIMIT);
     }
 
     public static boolean userAssigned(ParseUser user, Request request){
