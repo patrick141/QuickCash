@@ -146,7 +146,6 @@ public class JobsAdapter extends RecyclerView.Adapter<JobsAdapter.ViewHolder> {
             if(position != RecyclerView.NO_POSITION) {
                 Job job = jobs.get(position);
                 Log.d(context.getResources().getString(R.string.jobdetailOnClick), job.getName());
-
                 ActivityOptionsCompat options = ActivityOptionsCompat.
                         makeSceneTransitionAnimation((Activity) context, (View) jobPicture, context.getResources().getString(R.string.tr_job_image));
                 Toast.makeText(context, job.getName(), Toast.LENGTH_SHORT).show();

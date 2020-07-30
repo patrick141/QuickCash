@@ -63,7 +63,7 @@
     <dimen name="profile_margin_top">5dp</dimen>
     <dimen name="pa_rv_height">450dp</dimen>
 
-    <!-- Dimensions for MyJobsFragment -->
+    <!-- Dimensions for JobTasksFragment -->
     <dimen name="mjf_size">18sp</dimen>
 
     <!-- Dimensions for todo_activity -->

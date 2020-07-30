@@ -19,7 +19,7 @@ import androidx.fragment.app.FragmentManager;
 import com.example.quickcash.databinding.ActivityMainBinding;
 import com.example.quickcash.fragments.ComposeFragment;
 import com.example.quickcash.fragments.HomeFragment;
-import com.example.quickcash.fragments.MyJobsFragment;
+import com.example.quickcash.fragments.JobTasksFragment;
 import com.example.quickcash.fragments.ProfileFragment;
 import com.example.quickcash.fragments.SearchFragment;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
@@ -77,7 +77,7 @@ public class MainActivity extends AppCompatActivity {
                         fragment = new ComposeFragment();
                         break;
                     case R.id.action_myjobs:
-                        fragment = new MyJobsFragment();
+                        fragment = new JobTasksFragment();
                         break;
                     default:
                         fragment = new ProfileFragment();

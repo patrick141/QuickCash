@@ -20,21 +20,21 @@ import com.parse.ParseUser;
 
 import java.util.List;
 /**
- * MyJobsFragment
+ * JobTasksFragment
  *
- * This is the MyJobsFragment. This is where a user can see
+ * This is the JobTasksFragment. This is where a user can see
  * jobs that they have been approved to do.
  *
  * @author Patrick Amaro Rivera
  */
 
 
-public class MyJobsFragment extends HomeFragment {
+public class JobTasksFragment extends HomeFragment {
     private MyAssignedJobsAdapter myAdapter;
     private TextView tvInfo;
 
 
-    public MyJobsFragment() {
+    public JobTasksFragment() {
         // Required empty public constructor
     }
 
