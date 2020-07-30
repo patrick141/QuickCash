@@ -13,4 +13,14 @@
     <color name="signUpColor">#FFEB3B</color>
     <color name="assignedUser">#FFEC3A</color>
     <color name="completedJob">#fcbe03</color>
+
+
+    <color name="background_color_orange">#e95a22</color>
+    <color name="background_color_pink">#ff00b5</color>
+    <color name="background_color_dark_blue">#006386</color>
+    <color name="background_color_blue">#9ff5fc</color>
+    <color name="background_color_light_blue">#e6f7f7</color>
+    <color name="background_color_red">#e95a22</color>
+    <color name="background_color_green">#ddedda</color>
+    <color name="background_color_light_green">#edf5eb</color>
 </resources>

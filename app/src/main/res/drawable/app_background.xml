@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--This xml file is the background for QuickCash -->
+<shape xmlns:android="http://schemas.android.com/apk/res/android">
+    <gradient
+        android:angle="360"
+        android:startColor="@color/background_color_light_blue"
+        android:centerColor="@color/background_color_light_blue"
+        android:endColor="@color/background_color_light_green"
+        android:type="linear"/>
+    <padding
+        android:top="@dimen/smallPadding"
+        android:bottom="@dimen/smallPadding"
+        android:left="@dimen/smallPadding"
+        android:right="@dimen/smallPadding">
+    </padding>
+</shape>

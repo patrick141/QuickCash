@@ -3,6 +3,8 @@
     <dimen name="smallPadding">5dp</dimen>
     <dimen name="mediumPadding">10dp</dimen>
     <dimen name="largePadding">20dp</dimen>
+
+    <dimen name="background_radius">360dp</dimen>
     <!-- Dimensions for Login/SignUp Activity -->
     <dimen name="la_margin">16dp</dimen>
     <dimen name="la_margin_btn">10dp</dimen>
