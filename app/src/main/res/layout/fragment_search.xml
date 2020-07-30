@@ -18,6 +18,55 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <include layout="@layout/fragment_home"></include>
+    <LinearLayout
+        android:id="@+id/filter"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:padding="@dimen/smallPadding">
+
+        <TextView
+            android:id="@+id/filter_ID"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/SF_rg"
+            android:layout_gravity="center_vertical"/>
+
+        <RadioGroup
+            android:id="@+id/rg_filter"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+                <RadioButton
+                    android:id="@+id/filter_all"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_marginStart="@dimen/sf_rb_btn_margin"
+                    android:text="@string/SF_rb_all"/>
+
+                <RadioButton
+                    android:id="@+id/filter_location"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/sf_rb_btn_margin"
+                    android:text="@string/SF_rb_loc" />
+
+                <RadioButton
+                    android:id="@+id/filter_amount"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/sf_rb_btn_margin"
+                    android:text="@string/SF_rb_pri"/>
+
+                <RadioButton
+                    android:id="@+id/filter_popularity"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/sf_rb_btn_margin"
+                    android:text="@string/SF_rb_pop" />
+
+        </RadioGroup>
+    </LinearLayout>
+    <include layout="@layout/fragment_home"/>
 
 </LinearLayout>

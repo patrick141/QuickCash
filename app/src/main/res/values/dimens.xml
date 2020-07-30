@@ -11,11 +11,14 @@
     <dimen name="la_button_width">300dp</dimen>
     <dimen name="la_textSize">14sp</dimen>
 
+    <!-- Dimensions for Search Fragment -->
+    <dimen name="sf_rb_btn_margin">5dp</dimen>
+
     <!-- Dimensions for Compose Fragment -->
     <dimen name="cf_padding">5dp</dimen>
     <dimen name="compose_fragment_title">36sp</dimen>
     <dimen name="cf_et_text_size">14sp</dimen>
-    <dimen name="cf_name_width">150dp</dimen>
+    <dimen name="cf_name_width">175dp</dimen>
     <dimen name="cf_address_width">250dp</dimen>
     <dimen name="cf_picker_width">175dp</dimen>
     <dimen name="cf_other_width">200dp</dimen>

@@ -112,6 +112,12 @@
     <!-- Log static strings -->
     <string name="jobdetailOnClick">Load job details for </string>
 
+    <string name="SF_rg">Filter by: </string>
+    <string name="SF_rb_all">All</string>
+    <string name="SF_rb_pop">Popularity</string>
+    <string name="SF_rb_loc">Location</string>
+    <string name="SF_rb_pri">Price</string>
+
     <!-- transition names -->
     <string name="tr_request_image">request_image</string>
     <string name="tr_job_image">job_image</string>
