@@ -61,6 +61,9 @@ public class JobDetailsActivity extends BaseJobDetailsActivity implements OnMapR
     private TextView sentReq;
     private GoogleMap map;
 
+    private Button btnEditReq;
+    private Button btnDelReq;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -89,7 +92,10 @@ public class JobDetailsActivity extends BaseJobDetailsActivity implements OnMapR
              */
         llJobRequest.setVisibility(View.VISIBLE);
 
-        clRequest = findViewById(R.id.my_request);
+        clRequest = findViewById(R.id.cl_my_request);
+        btnEditReq = binding.btnEditReq;
+        btnDelReq = binding.btnDeleteMyReq;
+
         ivReqPic = findViewById(R.id.iv_request_User);
         tvReqName = findViewById(R.id.request_user);
         tvReqComment = findViewById(R.id.request_comment);
@@ -177,12 +183,27 @@ public class JobDetailsActivity extends BaseJobDetailsActivity implements OnMapR
                 },getResources().getInteger(R.dimen.job_request_delay));
             }
         });
-        clRequest.setOnClickListener(new View.OnClickListener() {
+        btnEditReq.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
+                playEditAD();
             }
         });
+
+        btnDelReq.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                playDeleteAD();
+            }
+        });
+    }
+
+    private void playEditAD() {
+
+    }
+
+    private void playDeleteAD() {
+
     }
 
     /**

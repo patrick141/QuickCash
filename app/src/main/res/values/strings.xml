@@ -67,6 +67,8 @@
     <string name="JDA_sendReq">Send Request</string>
     <string name="JDA_sampleReq">I would be happy to do this job.</string>
     <string name="JDA_reqIsSent">Request has been submitted</string>
+    <string name="JDA_my_req_edit">Edit Request</string>
+    <string name="JDA_my_req_del">Delete Request</string>
 
     <!--My Job Details Activity -->
     <string name="MJDA_delete">Delete this Job</string>

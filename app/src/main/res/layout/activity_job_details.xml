@@ -59,11 +59,41 @@
         android:text="@string/JDA_reqIsSent"
         android:textSize="24sp" />
 
-    <include layout="@layout/item_request"
-        android:id="@+id/my_request"
-        android:layout_height="wrap_content"
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/cl_my_request"
         android:layout_width="match_parent"
-        android:layout_below="@id/sentView"></include>
+        android:layout_height="wrap_content"
+        android:layout_below="@id/sentView"
+        android:padding="@dimen/largePadding">
+
+        <include layout="@layout/item_request"
+            android:id="@+id/my_request"
+            android:layout_height="wrap_content"
+            android:layout_width="match_parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent"/>
+
+        <Button
+            android:id="@+id/btn_edit_req"
+            android:padding="@dimen/smallPadding"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@color/myAppGreen"
+            android:text="@string/JDA_my_req_edit"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/my_request"/>
+
+        <Button
+            android:id="@+id/btn_delete_my_req"
+            android:padding="@dimen/smallPadding"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@color/myAppColor"
+            android:text="@string/JDA_my_req_del"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/my_request"/>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
 
 </RelativeLayout>
