@@ -21,6 +21,7 @@
     <color name="background_color_blue">#9ff5fc</color>
     <color name="background_color_light_blue">#e6f7f7</color>
     <color name="background_color_red">#e95a22</color>
+    <color name="background_color_beige">#f5e1df</color>
     <color name="background_color_green">#ddedda</color>
     <color name="background_color_light_green">#edf5eb</color>
 </resources>

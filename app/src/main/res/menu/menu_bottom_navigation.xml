@@ -5,31 +5,31 @@
     <item
         android:id="@+id/action_home"
         android:icon="@android:drawable/ic_menu_compass"
-        android:title="HOME"
+        android:title="Home"
         app:showAsAction="always" />
 
     <item
         android:id="@+id/action_search"
         android:icon="@android:drawable/ic_menu_search"
-        android:title="SEARCH"
+        android:title="Search"
         app:showAsAction="always" />
 
     <item
         android:id="@+id/action_compose"
         android:icon="@android:drawable/ic_menu_edit"
-        android:title="COMPOSE"
+        android:title="Compose"
         app:showAsAction="always"/>
 
     <item
         android:id="@+id/action_myjobs"
-        android:title="JOBS"
-        android:icon="@android:drawable/ic_input_get"
+        android:title="Job Tasks"
+        android:icon="@drawable/logo"
         app:showAsAction="always"/>
 
     <item
         android:id="@+id/action_profile"
-        android:title="PROFILE"
-        android:icon="@android:drawable/ic_dialog_info"
+        android:title="Profile"
+        android:icon="@drawable/ic_baseline_person_24"
         app:showAsAction="always"/>
 
 </menu>

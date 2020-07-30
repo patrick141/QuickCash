@@ -89,10 +89,6 @@ public class MainActivity extends AppCompatActivity {
         });
         // Default fragment when user signs is in the Home Fragment
         bottomNavigationView.setSelectedItemId(R.id.action_home);
-
-        /**
-         * This method logs the users out of QuickCash. They return to the login Screen.
-         */
     }
 
     /**
