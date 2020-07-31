@@ -37,7 +37,7 @@ public class ToDoJobDetailsActivity extends BaseJobDetailsActivity implements On
         ActivityToDoJobDetailsBinding binding = ActivityToDoJobDetailsBinding.inflate(getLayoutInflater());
         View view = binding.getRoot();
         setContentView(view);
-        job = (Job) Parcels.unwrap(getIntent().getParcelableExtra("JOB"));
+        job = (Job) Parcels.unwrap(getIntent().getParcelableExtra(Job.class.getSimpleName()));
         runToolbar();
         findtheViews();
         setJobContents(job);

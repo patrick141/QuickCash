@@ -21,9 +21,12 @@ import com.bumptech.glide.Glide;
 import com.example.quickcash.R;
 import com.example.quickcash.detailactivities.JobDetailsActivity;
 import com.example.quickcash.detailactivities.MyJobsDetailsActivity;
+import com.example.quickcash.detailactivities.ToDoJobDetailsActivity;
+import com.example.quickcash.fragments.HomeFragment;
+import com.example.quickcash.fragments.ProfileFragment;
+import com.example.quickcash.fragments.SearchFragment;
 import com.example.quickcash.models.Job;
 import com.parse.ParseFile;
-import com.parse.ParseUser;
 
 import org.parceler.Parcels;
 
@@ -149,20 +152,71 @@ public class JobsAdapter extends RecyclerView.Adapter<JobsAdapter.ViewHolder> {
                 ActivityOptionsCompat options = ActivityOptionsCompat.
                         makeSceneTransitionAnimation((Activity) context, (View) jobPicture, context.getResources().getString(R.string.tr_job_image));
                 Toast.makeText(context, job.getName(), Toast.LENGTH_SHORT).show();
-                Intent intent;
-                if(job.getUser().hasSameId(ParseUser.getCurrentUser())){
-                    intent = new Intent(context, MyJobsDetailsActivity.class);
-                    intent.putExtra(Job.class.getSimpleName(), Parcels.wrap(job));
-                    fragment.startActivityForResult(intent, REQUEST_CODE_MYDA_RDA);
-                } else {
+                Intent intent = generateIntent(context, fragment, job);
+                startActivityFor(context, intent, fragment, options);
+            }
+        }
+    }
+
+    /**
+     * Since we are navigating between several different types of job details activities, we only care about
+     * the fragment that the jobsAdapter has initialized. This method helps create our
+     * Intent we want to use for navigation between views.
+     *
+     * Clicking job in HomeFragment -> JobDetailsActivity
+     * Clicking job in ProfileFragment -> MyJobsDetailsActivity
+     *
+     * This function uses a switch statement that checks to see the fragment and creates
+     * the intent based from there. It also makes sure to wrap the job so that these
+     * other details classes can use that to display the job information.
+     * @param context
+     * @param fragment
+     * @param job
+     * @return
+     */
+    private Intent generateIntent(Context context, Fragment fragment, Job job){
+        Intent intent = null;
+        if(fragment != null){
+            switch (fragment.getClass().getSimpleName()) {
+                case HomeFragment.TAG:
                     intent = new Intent(context, JobDetailsActivity.class);
-                    intent.putExtra(Job.class.getSimpleName(), Parcels.wrap(job));
-                    if(fragment != null) {
-                        fragment.startActivityForResult(intent, JOB_SEND_REQUEST_CODE, options.toBundle());
-                    } else {
-                        ((Activity) context).startActivityForResult(intent, JOB_SEND_REQUEST_CODE, options.toBundle());
-                    }
-                }
+                    break;
+                case SearchFragment.TAG:
+                    intent = new Intent(context, JobDetailsActivity.class);
+                    break;
+                case ProfileFragment.TAG:
+                    intent = new Intent(context, MyJobsDetailsActivity.class);
+                    break;
+                default:
+                    intent = new Intent(context, ToDoJobDetailsActivity.class);
+                    break;
+            }
+        } else {
+            intent = new Intent(context, JobDetailsActivity.class);
+        }
+        intent.putExtra(Job.class.getSimpleName(), Parcels.wrap(job));
+        return intent;
+    }
+
+    /**
+     * This method determines how the new activity is going to be started. Since, we have
+     * several different request codes, we only want to fist check to see if the adapter is
+     * in a profile fragment and have that fragment start the activity (for request approve
+     * and deny). The remaining fragments (or if it's null, the context) can start their
+     * other activities with the options to bundle.
+     * @param context
+     * @param intent
+     * @param fragment
+     * @param options
+     */
+    private void startActivityFor(Context context, Intent intent, Fragment fragment, ActivityOptionsCompat options){
+        if(fragment instanceof ProfileFragment){
+            fragment.startActivityForResult(intent, REQUEST_CODE_MYDA_RDA);
+        } else {
+            if(fragment != null){
+                fragment.startActivityForResult(intent, JOB_SEND_REQUEST_CODE, options.toBundle());
+            } else{
+                ((Activity) context).startActivityForResult(intent, JOB_SEND_REQUEST_CODE, options.toBundle());
             }
         }
     }

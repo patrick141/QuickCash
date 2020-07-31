@@ -53,7 +53,7 @@ import static com.example.quickcash.detailactivities.MyJobsDetailsActivity.REQUE
 public class ProfileFragment extends HomeFragment {
 
     public static final int CAPTURE_IMAGE_ACTIVITY_REQUEST_CODE = 42;
-    public static String TAG = "ProfileFragment";
+    public static final String TAG = "ProfileFragment";
 
     private ImageView ivProfilePic;
     private TextView tvUsername;

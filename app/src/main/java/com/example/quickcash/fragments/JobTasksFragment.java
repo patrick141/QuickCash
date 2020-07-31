@@ -11,7 +11,6 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
 import com.example.quickcash.R;
-import com.example.quickcash.adapters.MyAssignedJobsAdapter;
 import com.example.quickcash.models.Job;
 import com.parse.FindCallback;
 import com.parse.ParseException;
@@ -30,7 +29,7 @@ import java.util.List;
 
 
 public class JobTasksFragment extends HomeFragment {
-    private MyAssignedJobsAdapter myAdapter;
+    public static final String TAG = "JobTasksFragment";
     private TextView tvInfo;
 
 
@@ -47,8 +46,6 @@ public class JobTasksFragment extends HomeFragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         tvInfo = view.findViewById(R.id.MTFtext);
-        myAdapter = new MyAssignedJobsAdapter(getContext(), getAllJobs());
-        getRvJobs().setAdapter(myAdapter);
     }
 
     /**.
@@ -73,11 +70,11 @@ public class JobTasksFragment extends HomeFragment {
                     Log.i(TAG, "Job: " + job.getName() + ", username" + job.getUser().getUsername());
                 }
                 getAllJobs().addAll(jobs);
-                myAdapter.notifyDataSetChanged();
-                myAdapter.clear();
-                myAdapter.addAll(jobs);
+                getJobsAdapter().notifyDataSetChanged();
+                getJobsAdapter().clear();
+                getJobsAdapter().addAll(jobs);
                 getSwipeContainer().setRefreshing(false);
-                myAdapter.notifyDataSetChanged();
+                getJobsAdapter().notifyDataSetChanged();
             }
         });
     }
