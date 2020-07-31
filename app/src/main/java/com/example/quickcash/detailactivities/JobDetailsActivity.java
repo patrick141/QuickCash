@@ -167,7 +167,7 @@ public class JobDetailsActivity extends BaseJobDetailsActivity implements OnMapR
                 Notification notification = new Notification();
                 notification.setSender(ParseUser.getCurrentUser());
                 notification.setRecipient(job.getUser());
-                String messenge = currentUser.getUsername() + getString(R.string.notif_req)
+                String messenge = currentUser.getUsername() + " " + getString(R.string.notif_req)
                         + " " + job.getName();
                 notification.setMessage(messenge);
                 notification.setJob(job);

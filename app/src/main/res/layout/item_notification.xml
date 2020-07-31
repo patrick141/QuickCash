@@ -4,14 +4,15 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/cv_notification"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
+    android:layout_height="match_parent"
     android:padding="@dimen/mediumPadding">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/cl_notification"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:padding="@dimen/largePadding">
+
         <ImageView
             android:id="@+id/iv_messenger"
             android:layout_width="@dimen/profile_image_hw"
@@ -31,13 +32,22 @@
 
         <TextView
             android:id="@+id/tv_messenge"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="@dimen/notif_width"
+            android:layout_height="@dimen/notif_height"
             android:layout_marginStart="@dimen/profile_margin_fromIV"
             android:layout_marginTop="@dimen/profile_margin_top"
             android:text="@string/ij_sampleDescription"
+            app:autoSizeTextType="uniform"
             app:layout_constraintStart_toEndOf="@+id/iv_messenger"
             app:layout_constraintTop_toBottomOf="@+id/tv_messenger_name" />
+
+        <TextView
+            android:id="@+id/tv_messenge_CA"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/CF_timeID"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 </androidx.cardview.widget.CardView>
