@@ -34,6 +34,9 @@
 
     <string name="notification">Notifications</string>
     <string name="notif_info">This is where your notifications will appear.</string>
+    <string name="notif_suc">Notification was submitted</string>
+    <string name="notif_req"> has sent a request for your job: </string>
+
     <string name="return_now">return</string>
     <string name="sign_out">Sign Out</string>
     <string name="sign_out_text">Are you sure you want to log out?</string>

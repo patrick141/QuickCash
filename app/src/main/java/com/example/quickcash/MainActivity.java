@@ -130,9 +130,11 @@ public class MainActivity extends AppCompatActivity {
         switch(item.getItemId()){
             case R.id.sign_out_main:
                 playSignOutAD();
+                break;
             case R.id.notifications_main:
                 Intent intent = new Intent(this, NotificationsActivity.class);
                 startActivity(intent);
+                break;
         }
         return super.onOptionsItemSelected(item);
     }

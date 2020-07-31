@@ -1,5 +1,6 @@
 package com.example.quickcash.models;
 
+import com.parse.ParseClassName;
 import com.parse.ParseException;
 import com.parse.ParseObject;
 import com.parse.ParseUser;
@@ -9,13 +10,15 @@ import com.parse.ParseUser;
  *
  * This class defines our notification.
  */
-
+@ParseClassName("Notification")
 public class Notification extends ParseObject {
     public static final String KEY_NOTIF_MESSAGE = "message";
     public static final String KEY_NOTIF_HASREAD = "hasRead";
     public static final String KEY_NOTIF_RECIEVE = "recipient";
     public static final String KEY_NOTIF_SENDER = "messenger";
-    public static final String KEY_NOTIF_REFER = "reference";
+    public static final String KEY_NOTIF_REFER_JOB = "referJob";
+    public static final String KEY_NOTIF_REFER_REQ = "referRequest";
+
 
     public ParseUser getRecipient(){
         try {
@@ -59,12 +62,20 @@ public class Notification extends ParseObject {
         put(KEY_NOTIF_MESSAGE, message);
     }
 
-    public ParseObject getReference(){
-        return getParseObject(KEY_NOTIF_REFER);
+    public Job getJob(){
+        return (Job) getParseObject(KEY_NOTIF_REFER_JOB);
     }
 
-    public void setReference(ParseObject object){
-        put(KEY_NOTIF_REFER, object);
+    public void setJob(Job job) {
+        put(KEY_NOTIF_REFER_JOB, job);
+    }
+
+    public Request getRequest(){
+        return (Request) getParseObject(KEY_NOTIF_REFER_REQ);
+    }
+
+    public void setRequest(Request request) {
+        put(KEY_NOTIF_REFER_REQ, request);
     }
 
 }

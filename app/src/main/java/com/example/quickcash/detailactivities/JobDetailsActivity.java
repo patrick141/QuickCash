@@ -20,6 +20,7 @@ import com.example.quickcash.ProfileActivity;
 import com.example.quickcash.R;
 import com.example.quickcash.databinding.ActivityJobDetailsBinding;
 import com.example.quickcash.models.Job;
+import com.example.quickcash.models.Notification;
 import com.example.quickcash.models.Request;
 import com.example.quickcash.models.User;
 import com.google.android.gms.maps.CameraUpdateFactory;
@@ -162,6 +163,26 @@ public class JobDetailsActivity extends BaseJobDetailsActivity implements OnMapR
                         sentReq.setVisibility(View.VISIBLE);
                     }
                 });
+
+                Notification notification = new Notification();
+                notification.setSender(ParseUser.getCurrentUser());
+                notification.setRecipient(job.getUser());
+                String messenge = currentUser.getUsername() + getString(R.string.notif_req)
+                        + " " + job.getName();
+                notification.setMessage(messenge);
+                notification.setJob(job);
+                notification.setRequest(request);
+                notification.saveInBackground(new SaveCallback() {
+                    @Override
+                    public void done(ParseException e) {
+                        if(e != null){
+                            Log.e(TAG, "" + e);
+                        }
+                        Log.i(TAG, getString(R.string.notif_suc));
+                    }
+                });
+
+
                 job.addJobRequest(request);
                 job.saveInBackground(new SaveCallback() {
                     @Override
