@@ -14,6 +14,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
+import com.example.quickcash.R;
 import com.example.quickcash.adapters.JobsAdapter;
 import com.example.quickcash.databinding.FragmentHomeBinding;
 import com.example.quickcash.models.Job;
@@ -44,11 +45,11 @@ public class HomeFragment extends Fragment {
 
     public static final String TAG = "HomeFragment";
 
-    private RecyclerView rvJobs;
-    private JobsAdapter jobsAdapter;
-    private List<Job> allJobs;
-    private SwipeRefreshLayout swipeContainer;
-    private FragmentHomeBinding binding;
+    protected RecyclerView rvJobs;
+    protected JobsAdapter jobsAdapter;
+    protected List<Job> allJobs;
+    protected SwipeRefreshLayout swipeContainer;
+    protected FragmentHomeBinding binding;
 
     public HomeFragment() {
         // Required empty public constructor
@@ -66,7 +67,7 @@ public class HomeFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        rvJobs = binding.rvJobs;
+        rvJobs = view.findViewById(R.id.rv_Jobs);
         allJobs = new ArrayList<>();
 
         jobsAdapter = new JobsAdapter(getContext(), allJobs, this);
@@ -76,8 +77,7 @@ public class HomeFragment extends Fragment {
         rvJobs.setLayoutManager(linearLayoutManager);
         rvJobs.setItemAnimator(new SlideInUpAnimator());
 
-        swipeContainer = binding.swipeContainer;
-
+        swipeContainer = view.findViewById(R.id.swipe_Container);
         swipeContainer.setColorSchemeResources(android.R.color.holo_blue_bright,
                 android.R.color.holo_green_light,
                 android.R.color.holo_orange_light,
