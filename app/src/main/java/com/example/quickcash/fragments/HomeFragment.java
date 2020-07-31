@@ -14,8 +14,8 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
-import com.example.quickcash.R;
 import com.example.quickcash.adapters.JobsAdapter;
+import com.example.quickcash.databinding.FragmentHomeBinding;
 import com.example.quickcash.models.Job;
 import com.parse.FindCallback;
 import com.parse.ParseException;
@@ -48,6 +48,7 @@ public class HomeFragment extends Fragment {
     private JobsAdapter jobsAdapter;
     private List<Job> allJobs;
     private SwipeRefreshLayout swipeContainer;
+    private FragmentHomeBinding binding;
 
     public HomeFragment() {
         // Required empty public constructor
@@ -57,13 +58,15 @@ public class HomeFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_home, container, false);
+        binding = FragmentHomeBinding.inflate(getLayoutInflater(), container, false);
+        View view = binding.getRoot();
+        return view;
     }
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        rvJobs = view.findViewById(R.id.rv_Jobs);
+        rvJobs = binding.rvJobs;
         allJobs = new ArrayList<>();
 
         jobsAdapter = new JobsAdapter(getContext(), allJobs, this);
@@ -73,7 +76,7 @@ public class HomeFragment extends Fragment {
         rvJobs.setLayoutManager(linearLayoutManager);
         rvJobs.setItemAnimator(new SlideInUpAnimator());
 
-        swipeContainer = view.findViewById(R.id.swipe_Container);
+        swipeContainer = binding.swipeContainer;
 
         swipeContainer.setColorSchemeResources(android.R.color.holo_blue_bright,
                 android.R.color.holo_green_light,
@@ -94,7 +97,6 @@ public class HomeFragment extends Fragment {
         ParseQuery<Job> query = ParseQuery.getQuery(Job.class);
         query.include(Job.KEY_JOB_USER);
         query.setLimit(20);
-        //query.addDescendingOrder(Job.KEY_CREATED_AT);
         query.addAscendingOrder(Job.KEY_JOB_DATE);
         query.whereNotEqualTo(Job.KEY_JOB_USER, ParseUser.getCurrentUser());
         query.whereEqualTo(Job.KEY_JOB_ISTAKEN, false);
@@ -136,4 +138,9 @@ public class HomeFragment extends Fragment {
 
     public SwipeRefreshLayout getSwipeContainer() { return swipeContainer; }
 
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        binding = null;
+    }
 }
