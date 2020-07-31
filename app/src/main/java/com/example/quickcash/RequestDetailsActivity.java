@@ -16,10 +16,12 @@ import androidx.appcompat.widget.Toolbar;
 import com.bumptech.glide.Glide;
 import com.example.quickcash.databinding.ActivityRequestDetailsBinding;
 import com.example.quickcash.models.Job;
+import com.example.quickcash.models.Notification;
 import com.example.quickcash.models.Request;
 import com.parse.DeleteCallback;
 import com.parse.ParseException;
 import com.parse.ParseFile;
+import com.parse.ParseUser;
 import com.parse.SaveCallback;
 
 import org.parceler.Parcels;
@@ -99,6 +101,24 @@ public class RequestDetailsActivity extends AppCompatActivity {
                         }
                         Log.i(TAG, request.getUser().getUsername() + " has this job!");
                         finish();
+                    }
+                });
+                ParseUser currentUser = ParseUser.getCurrentUser();
+                Notification notification = new Notification();
+                notification.setSender(currentUser);
+                notification.setRecipient(request.getUser());
+                String messenge = currentUser.getUsername() + " " + getString(R.string.notif_approv)
+                        + " " + job.getName();
+                notification.setJob(job);
+                notification.setRequest(request);
+                notification.setMessage(messenge);
+                notification.saveInBackground(new SaveCallback() {
+                    @Override
+                    public void done(ParseException e) {
+                        if(e != null){
+                            e.printStackTrace();
+                        }
+                        Log.i(TAG, getString(R.string.notif_suc));
                     }
                 });
             }

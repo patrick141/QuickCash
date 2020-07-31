@@ -11,6 +11,7 @@ import androidx.appcompat.app.AlertDialog;
 import com.example.quickcash.R;
 import com.example.quickcash.databinding.ActivityToDoJobDetailsBinding;
 import com.example.quickcash.models.Job;
+import com.example.quickcash.models.Notification;
 import com.example.quickcash.models.User;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
@@ -108,6 +109,23 @@ public class ToDoJobDetailsActivity extends BaseJobDetailsActivity implements On
             }
         });
         ParseUser user = ParseUser.getCurrentUser();
+
+        Notification notification = new Notification();
+        notification.setSender(user);
+        notification.setRecipient(job.getUser());
+        String messenge = user.getUsername() + " " + getString(R.string.notif_finish)
+                + " " + job.getName();
+        notification.setJob(job);
+        notification.setMessage(messenge);
+        notification.saveInBackground(new SaveCallback() {
+            @Override
+            public void done(ParseException e) {
+                if(e != null){
+                    e.printStackTrace();
+                }
+                Log.i(TAG, getString(R.string.notif_suc));
+            }
+        });
 
         user.add(User.KEY_USER_COMPLETED_JOBS, job);
         user.saveInBackground(new SaveCallback() {

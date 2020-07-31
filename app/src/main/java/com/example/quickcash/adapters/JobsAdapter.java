@@ -232,9 +232,6 @@ public class JobsAdapter extends RecyclerView.Adapter<JobsAdapter.ViewHolder> {
         SimpleDateFormat sf = new SimpleDateFormat(format, Locale.ENGLISH);
         sf.setLenient(true);
 
-        String relativeDate = "";
-        sf.setLenient(true);
-
         try {
             long time = sf.parse(rawJsonDate).getTime();
             long now = System.currentTimeMillis();

@@ -128,4 +128,6 @@
     <string name="tr_job_image">job_image</string>
     <string name="tr_request_name">request_name</string>
     <string name="dismiss">Dismiss</string>
+    <string name="notif_finish">"has finished your job: "</string>
+    <string name="notif_approv">"has approved you to do: "</string>
 </resources>
