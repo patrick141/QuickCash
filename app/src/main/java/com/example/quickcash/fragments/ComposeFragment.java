@@ -29,6 +29,7 @@ import androidx.core.content.FileProvider;
 import androidx.fragment.app.Fragment;
 
 import com.example.quickcash.R;
+import com.example.quickcash.databinding.FragmentComposeBinding;
 import com.example.quickcash.models.Job;
 import com.google.android.gms.common.api.Status;
 import com.google.android.gms.maps.model.LatLng;
@@ -81,7 +82,7 @@ public class ComposeFragment extends Fragment {
     private File photoFile;
     private String photoFileName = "photo.jpg";
     private Place place;
-
+    private FragmentComposeBinding binding;
     private DatePickerDialog.OnDateSetListener mDateSetListener;
 
 
@@ -93,22 +94,24 @@ public class ComposeFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_compose, container, false);
+        binding = FragmentComposeBinding.inflate(getLayoutInflater(), container, false);
+        View view = binding.getRoot();
+        return view;
     }
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        composeTitle = view.findViewById(R.id.cf_composeID);
-        etName = view.findViewById(R.id.et_name);
-        etDescription = view.findViewById(R.id.et_description);
-        etJobDate = view.findViewById(R.id.et_date);
-        etJobTime = view.findViewById(R.id.et_time);
-        etAddress = view.findViewById(R.id.et_address);
-        etPrice = view.findViewById(R.id.et_price);
-        btnCompose = view.findViewById(R.id.btn_composeJob);
-        btnTakeImage = view.findViewById(R.id.btn_takeJobPic);
-        ivImage = view.findViewById(R.id.iv_optionImage);
+        composeTitle = binding.cfComposeID;
+        etName = binding.etName;
+        etDescription = binding.etDescription;
+        etJobDate = binding.etDate;
+        etJobTime = binding.etTime;
+        etAddress = binding.etAddress;
+        etPrice = binding.etPrice;
+        btnCompose = binding.btnComposeJob;
+        btnTakeImage = binding.btnTakeJobPic;
+        ivImage = binding.ivOptionImage;
 
         Places.initialize(getContext(), getResources().getString(R.string.newAPIKEY));
 
@@ -333,5 +336,11 @@ public class ComposeFragment extends Fragment {
         String newDate = stringDate + " " + stringTime;
         SimpleDateFormat format = new SimpleDateFormat("MM/dd/yyyy HH:mm", Locale.ENGLISH);
         return (format.parse(newDate));
+    }
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        binding = null;
     }
 }
