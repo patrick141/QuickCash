@@ -1,6 +1,7 @@
 package com.example.quickcash;
 
 import android.os.Bundle;
+import android.view.View;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
@@ -9,6 +10,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import com.example.quickcash.adapters.NotificationsAdapter;
+import com.example.quickcash.databinding.ActivityNotificationsBinding;
 import com.example.quickcash.models.Notification;
 import com.parse.FindCallback;
 import com.parse.ParseException;
@@ -28,17 +30,21 @@ public class NotificationsActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_notifications);
+        ActivityNotificationsBinding binding = ActivityNotificationsBinding.inflate(getLayoutInflater());
+        View view = binding.getRoot();
+        setContentView(view);
 
         toolbar = findViewById(R.id.toolbar_Home);
-        rvNotifs = findViewById(R.id.rv_notifications);
         setSupportActionBar(toolbar);
+
+        rvNotifs = binding.rvNotifications;
         notifications = new ArrayList<>();
         nAdapters = new NotificationsAdapter(this, notifications);
         rvNotifs.setAdapter(nAdapters);
         rvNotifs.setLayoutManager(new LinearLayoutManager(this));
 
-        nSwipeContainer = findViewById(R.id.swipe_container_notifs);
+        nSwipeContainer = binding.swipeContainerNotifs;
+
         nSwipeContainer.setColorSchemeResources(
                 R.color.background_color_orange,
                 R.color.background_color_pink,
@@ -55,6 +61,7 @@ public class NotificationsActivity extends AppCompatActivity {
         queryNotifications();
     }
 
+
     private void queryNotifications() {
         ParseQuery<Notification> query = ParseQuery.getQuery(Notification.class);
         query.whereEqualTo(Notification.KEY_NOTIF_RECIEVE, ParseUser.getCurrentUser());
@@ -62,6 +69,9 @@ public class NotificationsActivity extends AppCompatActivity {
         query.findInBackground(new FindCallback<Notification>() {
             @Override
             public void done(List<Notification> notifications, ParseException e) {
+                if(e!=null){
+                    e.printStackTrace();
+                }
                 nAdapters.clear();
                 nAdapters.addAll(notifications);
                 nSwipeContainer.setRefreshing(false);
