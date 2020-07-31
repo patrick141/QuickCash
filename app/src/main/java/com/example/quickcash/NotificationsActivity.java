@@ -6,6 +6,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import com.example.quickcash.adapters.NotificationsAdapter;
 import com.example.quickcash.models.Notification;
@@ -22,6 +23,7 @@ public class NotificationsActivity extends AppCompatActivity {
     private RecyclerView rvNotifs;
     private NotificationsAdapter nAdapters;
     private List<Notification> notifications;
+    private SwipeRefreshLayout nSwipeContainer;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,8 +36,21 @@ public class NotificationsActivity extends AppCompatActivity {
         notifications = new ArrayList<>();
         nAdapters = new NotificationsAdapter(this, notifications);
         rvNotifs.setAdapter(nAdapters);
-
         rvNotifs.setLayoutManager(new LinearLayoutManager(this));
+
+        nSwipeContainer = findViewById(R.id.swipe_container_notifs);
+        nSwipeContainer.setColorSchemeResources(
+                R.color.background_color_orange,
+                R.color.background_color_pink,
+                R.color.background_color_dark_blue
+        );
+
+        nSwipeContainer.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                queryNotifications();
+            }
+        });
 
         queryNotifications();
     }
@@ -49,6 +64,8 @@ public class NotificationsActivity extends AppCompatActivity {
             public void done(List<Notification> notifications, ParseException e) {
                 nAdapters.clear();
                 nAdapters.addAll(notifications);
+                nSwipeContainer.setRefreshing(false);
+                nAdapters.notifyDataSetChanged();
             }
         });
     }

@@ -18,8 +18,16 @@
         android:textColor="@color/background_color_dark_blue"
         android:layout_gravity="center_horizontal"/>
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/rv_notifications"
+
+    <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+        android:id="@+id/swipe_container_notifs"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"/>
+        android:layout_height="match_parent">
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rv_notifications"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"/>
+
+    </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 </LinearLayout>
