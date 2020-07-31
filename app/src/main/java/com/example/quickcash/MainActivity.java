@@ -127,8 +127,12 @@ public class MainActivity extends AppCompatActivity {
      */
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-        if(item.getItemId() == R.id.sign_out_main){
-            playSignOutAD();
+        switch(item.getItemId()){
+            case R.id.sign_out_main:
+                playSignOutAD();
+            case R.id.notifications_main:
+                Intent intent = new Intent(this, NotificationsActivity.class);
+                startActivity(intent);
         }
         return super.onOptionsItemSelected(item);
     }

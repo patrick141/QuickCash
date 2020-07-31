@@ -4,6 +4,11 @@
 
 
     <item
+        android:id="@+id/notifications_main"
+        android:icon="@drawable/ic_baseline_message_24"
+        android:title="@string/notification"
+        app:showAsAction="always" />
+    <item
         android:id="@+id/sign_out_main"
         android:title="@string/sign_out"
         app:showAsAction="always" />

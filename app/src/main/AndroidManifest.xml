@@ -18,7 +18,8 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
-        <activity android:name=".detailactivities.ToDoJobDetailsActivity"></activity>
+        <activity android:name=".NotificationsActivity"></activity>
+        <activity android:name=".detailactivities.ToDoJobDetailsActivity" />
         <activity android:name=".detailactivities.BaseJobDetailsActivity" />
         <activity android:name=".detailactivities.MyJobsDetailsActivity" />
         <activity android:name=".RequestDetailsActivity" />
@@ -46,7 +47,7 @@
         <activity
             android:name=".MainActivity"
             android:screenOrientation="portrait"
-            android:windowSoftInputMode="adjustPan"/>
+            android:windowSoftInputMode="adjustPan" />
 
         <meta-data
             android:name="com.google.android.gms.version"
