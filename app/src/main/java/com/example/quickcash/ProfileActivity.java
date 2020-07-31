@@ -31,6 +31,8 @@ import static com.example.quickcash.adapters.JobsAdapter.timeNeed;
 
 public class ProfileActivity extends AppCompatActivity {
     public static final String TAG = "ProfileActivity";
+    public static final String DEFAULT_RM1 = "User since ";
+    public static final String PHONE_URI = "tel:";
 
     private ParseUser user;
     private Toolbar toolbar;
@@ -64,11 +66,13 @@ public class ProfileActivity extends AppCompatActivity {
         if(description != null){
             tvDescription.setText(description);
         } else{
-            tvDescription.setText("User since " + timeNeed(user.getCreatedAt()));
+            tvDescription.setText(DEFAULT_RM1 + timeNeed(user.getCreatedAt()));
         }
         String phone = user.getString(User.KEY_USER_PHONE);
         if(phone != null){
             tvPhoneNumber.setText(phone);
+        } else{
+            tvPhoneNumber.setText("7047047040");
         }
         ParseFile userImage = (ParseFile) user.get(User.KEY_USER_IMAGE);
         if(userImage == null){

@@ -37,8 +37,10 @@ import java.io.File;
 import java.util.List;
 
 import static android.app.Activity.RESULT_OK;
+import static com.example.quickcash.ProfileActivity.DEFAULT_RM1;
 import static com.example.quickcash.adapters.JobsAdapter.timeNeed;
 import static com.example.quickcash.detailactivities.MyJobsDetailsActivity.REQUEST_CODE_MYDA_RDA;
+import static com.example.quickcash.models.User.KEY_USER_DESCRIPTION;
 
 /**
  * ProfileFragment
@@ -58,6 +60,7 @@ public class ProfileFragment extends HomeFragment {
     private ImageView ivProfilePic;
     private TextView tvUsername;
     private TextView tvUserSince;
+    private TextView tvPhone;
     private RatingBar rbUserRating;
     private TabLayout jobTabLayout;
     private File photoFile;
@@ -81,17 +84,17 @@ public class ProfileFragment extends HomeFragment {
         ivProfilePic = view.findViewById(R.id.iv_profliePic);
         tvUsername = view.findViewById(R.id.tv_Username);
         tvUserSince = view.findViewById(R.id.tv_UserSince);
+        tvPhone = view.findViewById(R.id.tv_phone);
         rbUserRating = view.findViewById(R.id.rb_user_rating);
         jobTabLayout = view.findViewById(R.id.myjobs_view_switcher);
 
         ParseUser user = ParseUser.getCurrentUser();
         tvUsername.setText(user.getUsername());
-        if(user.getString(User.KEY_USER_DESCRIPTION) == null){
-            tvUserSince.setText("User since " + timeNeed(user.getCreatedAt()));
+        if(user.getString(KEY_USER_DESCRIPTION) == null){
+            tvUserSince.setText(DEFAULT_RM1 + timeNeed(user.getCreatedAt()));
         } else{
-
+            tvUserSince.setText(user.getString(KEY_USER_DESCRIPTION));
         }
-        tvUserSince.setText("User since " + timeNeed(user.getCreatedAt()));
         ParseFile userImage = (ParseFile) user.get(User.KEY_USER_IMAGE);
         if(userImage == null){
             Glide.with(getContext()).load(R.drawable.logo).into(ivProfilePic);

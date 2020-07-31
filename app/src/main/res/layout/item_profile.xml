@@ -5,7 +5,7 @@
     android:id="@+id/cl_profile"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:padding="@dimen/profile_padding">
+    android:padding="@dimen/largePadding">
 
     <ImageView
         android:id="@+id/iv_profliePic"
@@ -51,6 +51,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/profile_margin_fromIV"
         android:layout_marginTop="@dimen/profile_margin_top"
+        android:autoLink="phone"
         android:text="@string/sample_phone_number"
         android:textIsSelectable="true"
         app:layout_constraintStart_toEndOf="@+id/iv_profliePic"
