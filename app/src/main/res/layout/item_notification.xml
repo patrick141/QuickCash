@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/cv_notification"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:padding="@dimen/mediumPadding">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/cl_notification"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:padding="@dimen/largePadding">
+        <ImageView
+            android:id="@+id/iv_messenger"
+            android:layout_width="@dimen/profile_image_hw"
+            android:layout_height="@dimen/profile_image_hw"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:srcCompat="@tools:sample/avatars" />
+
+        <TextView
+            android:id="@+id/tv_messenger_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/profile_margin_fromIV"
+            android:text="@string/app_name"
+            app:layout_constraintStart_toEndOf="@+id/iv_messenger"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/tv_messenge"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/profile_margin_fromIV"
+            android:layout_marginTop="@dimen/profile_margin_top"
+            android:text="@string/ij_sampleDescription"
+            app:layout_constraintStart_toEndOf="@+id/iv_messenger"
+            app:layout_constraintTop_toBottomOf="@+id/tv_messenger_name" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</androidx.cardview.widget.CardView>
