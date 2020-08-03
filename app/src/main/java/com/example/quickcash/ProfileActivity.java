@@ -76,7 +76,11 @@ public class ProfileActivity extends AppCompatActivity {
             tvPhoneNumber.setText("7047047040");
         }
         ParseFile userImage = (ParseFile) user.get(User.KEY_USER_IMAGE);
-        Glide.with(this).load(userImage.getUrl()).transform(new CircleCrop()).placeholder(R.drawable.logo).error(R.drawable.logo).into(ivProfilePic);
+        if(userImage == null){
+            Glide.with(this).load(R.drawable.logo).transform(new CircleCrop()).placeholder(R.drawable.logo).error(R.drawable.logo).into(ivProfilePic);
+        } else {
+            Glide.with(this).load(userImage.getUrl()).transform(new CircleCrop()).placeholder(R.drawable.logo).error(R.drawable.logo).into(ivProfilePic);
+        }
 
         rbUserRating.setRating((float) user.getDouble(User.KEY_USER_RATING));
 

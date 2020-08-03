@@ -97,7 +97,11 @@ public class ProfileFragment extends HomeFragment {
             tvUserSince.setText(user.getString(KEY_USER_DESCRIPTION));
         }
         ParseFile userImage = (ParseFile) user.get(User.KEY_USER_IMAGE);
-        Glide.with(getContext()).load(userImage.getUrl()).transform(new CircleCrop()).placeholder(R.drawable.logo).error(R.drawable.logo).into(ivProfilePic);
+        if(userImage == null){
+            Glide.with(getContext()).load(R.drawable.logo).transform(new CircleCrop()).placeholder(R.drawable.logo).error(R.drawable.logo).into(ivProfilePic);
+        } else {
+            Glide.with(getContext()).load(userImage.getUrl()).transform(new CircleCrop()).placeholder(R.drawable.logo).error(R.drawable.logo).into(ivProfilePic);
+        }
         rbUserRating.setRating((float) user.getDouble(User.KEY_USER_RATING));
         queryJobs();
 
