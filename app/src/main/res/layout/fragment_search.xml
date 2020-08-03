@@ -23,7 +23,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        android:padding="@dimen/smallPadding">
+        android:padding="@dimen/mediumPadding">
 
         <TextView
             android:id="@+id/filter_ID"
@@ -37,12 +37,6 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal">
-                <RadioButton
-                    android:id="@+id/filter_all"
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:layout_marginStart="@dimen/sf_rb_btn_margin"
-                    android:text="@string/SF_rb_all"/>
 
                 <RadioButton
                     android:id="@+id/filter_location"

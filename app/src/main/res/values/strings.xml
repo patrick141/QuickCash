@@ -130,4 +130,10 @@
     <string name="dismiss">Dismiss</string>
     <string name="notif_finish">"has finished your job: "</string>
     <string name="notif_approv">"has approved you to do: "</string>
+    <string name="delete">Delete</string>
+
+    <string name="JDA_my_req_del_info">Are you sure you to delete your request?</string>
+    <string name="JDA_del_req_arr">Deleted request from the job array</string>
+    <string name="JDA_del_req">Successfully delete the request from DB</string>
+    <string name="JDA_del_req_conf">You have deleted your request</string>
 </resources>

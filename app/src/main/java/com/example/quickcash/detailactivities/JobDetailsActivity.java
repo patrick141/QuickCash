@@ -1,6 +1,7 @@
 package com.example.quickcash.detailactivities;
 
 import android.annotation.SuppressLint;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
@@ -13,6 +14,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.constraintlayout.widget.ConstraintLayout;
 
 import com.bumptech.glide.Glide;
@@ -29,6 +31,7 @@ import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
+import com.parse.DeleteCallback;
 import com.parse.ParseException;
 import com.parse.ParseFile;
 import com.parse.ParseGeoPoint;
@@ -37,6 +40,7 @@ import com.parse.SaveCallback;
 
 import org.parceler.Parcels;
 
+import java.util.Arrays;
 import java.util.List;
 
 import static com.example.quickcash.adapters.JobsAdapter.getRelativeTimeAgo;
@@ -50,6 +54,8 @@ import static com.example.quickcash.adapters.JobsAdapter.getRelativeTimeAgo;
 public class JobDetailsActivity extends BaseJobDetailsActivity implements OnMapReadyCallback {
 
     public static final String TAG = "JobDetailsActivity";
+    public static final int PAUSE = 2000;
+
     private Job job;
     private LinearLayout llJobRequest;
     private EditText etRequestJDA;
@@ -62,6 +68,7 @@ public class JobDetailsActivity extends BaseJobDetailsActivity implements OnMapR
     private TextView sentReq;
     private GoogleMap map;
 
+    private Request request;
     private Button btnEditReq;
     private Button btnDelReq;
 
@@ -201,7 +208,7 @@ public class JobDetailsActivity extends BaseJobDetailsActivity implements OnMapR
                     public void run() {
                         finish();
                     }
-                },getResources().getInteger(R.dimen.job_request_delay));
+                },PAUSE);
             }
         });
         btnEditReq.setOnClickListener(new View.OnClickListener() {
@@ -224,7 +231,54 @@ public class JobDetailsActivity extends BaseJobDetailsActivity implements OnMapR
     }
 
     private void playDeleteAD() {
+        AlertDialog logOutDialog = new AlertDialog.Builder(this)
+                .setTitle(getResources().getString(R.string.JDA_my_req_del))
+                .setMessage(getResources().getString(R.string.JDA_my_req_del_info))
+                .setIcon(R.drawable.logo)
+                .setPositiveButton(getResources().getString(R.string.delete), new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int whichButton) {
+                        dialog.dismiss();
+                        deleteMyRequest();
+                    }
+                })
+                .setNegativeButton(getResources().getString(R.string.return_now), null)
+                .create();
+        logOutDialog.show();
+    }
 
+    private void deleteMyRequest() {
+        job.removeAll(Job.KEY_JOB_REQUESTS, Arrays.asList(request));
+        job.saveInBackground(new SaveCallback() {
+            @Override
+            public void done(ParseException e) {
+                if(e!= null){
+                    e.printStackTrace();
+                }
+                Log.i(TAG, getString(R.string.JDA_del_req_arr));
+            }
+        });
+        request.deleteInBackground(new DeleteCallback() {
+            @SuppressLint("ResourceType")
+            @Override
+            public void done(ParseException e) {
+                if(e!=null){
+                    e.printStackTrace();
+                }
+                Log.i(TAG, getString(R.string.JDA_del_req));
+                sentReq.setText(getString(R.string.JDA_del_req_conf));
+                clRequest.setVisibility(View.GONE);
+                request = null;
+
+                Intent i = new Intent();
+                setResult(RESULT_OK, i);
+                new Handler().postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        finish();
+                    }
+                },PAUSE);
+            }
+        });
     }
 
     /**
@@ -237,7 +291,8 @@ public class JobDetailsActivity extends BaseJobDetailsActivity implements OnMapR
     public boolean submittedRequest(List<Request> requests){
         for (Request request: requests){
             if(request.getUser().hasSameId(ParseUser.getCurrentUser())){
-                populateRequest(request);
+                this.request = request;
+                populateRequest();
                 return true;
             }
         } return false;
@@ -246,9 +301,8 @@ public class JobDetailsActivity extends BaseJobDetailsActivity implements OnMapR
     /**
      * If a user has already submitted a request, the request's info view is populated on
      * item_request layout.
-     * @param request
      */
-    private void populateRequest(Request request) {
+    private void populateRequest() {
         clRequest.setVisibility(View.VISIBLE);
         ParseUser user = ParseUser.getCurrentUser();
         ParseFile image = (ParseFile) user.get(User.KEY_USER_IMAGE);
