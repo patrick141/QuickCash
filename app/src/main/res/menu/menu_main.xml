@@ -2,7 +2,12 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
-
+    <item
+        android:id="@+id/map_main"
+        android:icon="@drawable/gmapslogo"
+        android:title="@string/map_activity"
+        app:showAsAction="always"
+        />
     <item
         android:id="@+id/notifications_main"
         android:icon="@drawable/ic_baseline_message_24"

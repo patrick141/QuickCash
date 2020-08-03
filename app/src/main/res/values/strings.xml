@@ -140,4 +140,5 @@
     <string name="JDA_del_req_arr">Deleted request from the job array</string>
     <string name="JDA_del_req">Successfully delete the request from DB</string>
     <string name="JDA_del_req_conf">You have deleted your request</string>
+    <string name="map_activity">Map</string>
 </resources>

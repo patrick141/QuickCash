@@ -128,6 +128,10 @@ public class MainActivity extends AppCompatActivity {
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         switch(item.getItemId()){
+            case R.id.map_main:
+                Intent i = new Intent(this, MapActivity.class);
+                startActivity(i);
+                break;
             case R.id.sign_out_main:
                 playSignOutAD();
                 break;
