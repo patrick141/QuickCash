@@ -13,10 +13,15 @@ import com.bumptech.glide.Glide;
 import com.example.quickcash.R;
 import com.example.quickcash.models.Job;
 import com.example.quickcash.models.User;
+import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
+import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.MarkerOptions;
 import com.parse.ParseException;
 import com.parse.ParseFile;
+import com.parse.ParseGeoPoint;
 import com.parse.ParseQuery;
 import com.parse.ParseUser;
 import com.parse.SaveCallback;
@@ -44,6 +49,9 @@ public class BaseJobDetailsActivity extends AppCompatActivity implements OnMapRe
     private TextView jobAddressJDA;
     private TextView jobstatusJDA;
     private ImageView jobImageJDA;
+    private SupportMapFragment mapFragment;
+    private GoogleMap map;
+    private Job baseJob;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -68,9 +76,12 @@ public class BaseJobDetailsActivity extends AppCompatActivity implements OnMapRe
         jobDescriptionJDA = findViewById(R.id.jda_job_description);
         jobImageJDA = findViewById(R.id.jda_job_image);
         jobstatusJDA = findViewById(R.id.jda_job_status);
+        mapFragment = (SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.map_demo);
+        mapFragment.getMapAsync(this);
     }
 
     public void setJobContents(Job job){
+        baseJob = job;
         jobstatusJDA.setVisibility(View.INVISIBLE);
         if(job!= null) {
             jobNameJDA.setText(job.getName());
@@ -159,9 +170,25 @@ public class BaseJobDetailsActivity extends AppCompatActivity implements OnMapRe
         this.jobImageJDA = jobImageJDA;
     }
 
+
+    /**
+     * This function gets the job's location coordinate points and maps it into the small Google Map.
+     * If there is no geopoint, it maps to a default
+     *
+     * @param googleMap
+     */
     @Override
     public void onMapReady(GoogleMap googleMap) {
-
+        map = googleMap;
+        ParseGeoPoint geoPoint = baseJob.getParseGeoPoint(Job.KEY_JOB_LOCATION);
+        LatLng myPlace;
+        if(geoPoint != null){
+            myPlace = new LatLng(geoPoint.getLatitude(), geoPoint.getLongitude());
+        } else{
+            myPlace = new LatLng(getResources().getFloat(R.dimen.map_lat_default), getResources().getFloat(R.dimen.map_lon_default));
+        }
+        map.addMarker(new MarkerOptions().position(myPlace).title(baseJob.getName()));
+        map.moveCamera(CameraUpdateFactory.newLatLngZoom(myPlace, getResources().getFloat(R.dimen.map_zoom)));
     }
 
     /**

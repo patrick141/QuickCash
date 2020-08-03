@@ -26,16 +26,9 @@ import com.example.quickcash.models.Job;
 import com.example.quickcash.models.Notification;
 import com.example.quickcash.models.Request;
 import com.example.quickcash.models.User;
-import com.google.android.gms.maps.CameraUpdateFactory;
-import com.google.android.gms.maps.GoogleMap;
-import com.google.android.gms.maps.OnMapReadyCallback;
-import com.google.android.gms.maps.SupportMapFragment;
-import com.google.android.gms.maps.model.LatLng;
-import com.google.android.gms.maps.model.MarkerOptions;
 import com.parse.DeleteCallback;
 import com.parse.ParseException;
 import com.parse.ParseFile;
-import com.parse.ParseGeoPoint;
 import com.parse.ParseUser;
 import com.parse.SaveCallback;
 
@@ -52,7 +45,7 @@ import static com.example.quickcash.adapters.JobsAdapter.getRelativeTimeAgo;
  *  This class handles viewing details of jobs. The Activity changes based off if the user is click-
  *  ing on their own job or if they are viewing other job posts and want to submit a request.
  */
-public class JobDetailsActivity extends BaseJobDetailsActivity implements OnMapReadyCallback {
+public class JobDetailsActivity extends BaseJobDetailsActivity{
 
     public static final String TAG = "JobDetailsActivity";
     public static final int PAUSE = 2000;
@@ -67,8 +60,6 @@ public class JobDetailsActivity extends BaseJobDetailsActivity implements OnMapR
     private TextView tvReqComment;
     private TextView tvReqCA;
     private TextView sentReq;
-    private GoogleMap map;
-
     private Request request;
     private Button btnEditReq;
     private Button btnDelReq;
@@ -131,11 +122,6 @@ public class JobDetailsActivity extends BaseJobDetailsActivity implements OnMapR
                 JobDetailsActivity.this.startActivity(i);
             }
         });
-
-        SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
-                .findFragmentById(R.id.map_demo);
-        mapFragment.getMapAsync(this);
-
 
         /**
          *  User can submit request by filling out the editText and clicking on the submit button.
@@ -366,24 +352,4 @@ public class JobDetailsActivity extends BaseJobDetailsActivity implements OnMapR
         tvReqComment.setText(request.getComment());
         tvReqCA.setText(getRelativeTimeAgo(request.getCreatedAt().toString()));
     }
-
-    /**
-     * This function gets the job's location coordinate points and maps it into the small Google Map.
-     * If there is no geopoint, it maps to a default
-     * @param googleMap
-     */
-    @Override
-    public void onMapReady(GoogleMap googleMap) {
-        map = googleMap;
-        ParseGeoPoint geoPoint = job.getParseGeoPoint(Job.KEY_JOB_LOCATION);
-        LatLng myPlace;
-        if(geoPoint != null){
-            myPlace = new LatLng(geoPoint.getLatitude(), geoPoint.getLongitude());
-        } else{
-            myPlace = new LatLng(getResources().getFloat(R.dimen.map_lat_default), getResources().getFloat(R.dimen.map_lon_default));
-        }
-        map.addMarker(new MarkerOptions().position(myPlace).title(job.getName()));
-        map.moveCamera(CameraUpdateFactory.newLatLngZoom(myPlace, getResources().getFloat(R.dimen.map_zoom)));
-    }
-
 }

@@ -21,16 +21,9 @@ import com.example.quickcash.databinding.ActivityMyJobsDetailsBinding;
 import com.example.quickcash.models.Job;
 import com.example.quickcash.models.Request;
 import com.example.quickcash.models.User;
-import com.google.android.gms.maps.CameraUpdateFactory;
-import com.google.android.gms.maps.GoogleMap;
-import com.google.android.gms.maps.OnMapReadyCallback;
-import com.google.android.gms.maps.SupportMapFragment;
-import com.google.android.gms.maps.model.LatLng;
-import com.google.android.gms.maps.model.MarkerOptions;
 import com.parse.DeleteCallback;
 import com.parse.FindCallback;
 import com.parse.ParseException;
-import com.parse.ParseGeoPoint;
 import com.parse.ParseQuery;
 import com.parse.ParseUser;
 import com.parse.SaveCallback;
@@ -49,14 +42,13 @@ import jp.wasabeef.recyclerview.animators.SlideInUpAnimator;
  * This activity shows the user's own jobs and its details.
  */
 
-public class MyJobsDetailsActivity extends BaseJobDetailsActivity implements OnMapReadyCallback {
+public class MyJobsDetailsActivity extends BaseJobDetailsActivity{
     public static final int REQUEST_CODE_MYDA_RDA = 190;
     public static final String TAG = "MyJobsDetailsActivity";
 
     private Job job;
     private TextView numReqs;
     private SwipeRefreshLayout swipeContainerRequests;
-    private GoogleMap map;
     private Button btnDeleteJob;
 
     private RequestsAdapter requestsAdapter;
@@ -90,13 +82,6 @@ public class MyJobsDetailsActivity extends BaseJobDetailsActivity implements OnM
                 queryRequests();
             }
         });
-
-        /**
-         * This calls our Google Maps fragment.
-         */
-        SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
-                .findFragmentById(R.id.map_demo);
-        mapFragment.getMapAsync(this);
 
         /**
          * If a job is finished, there is no need for the user to be able to delete the job
@@ -169,25 +154,6 @@ public class MyJobsDetailsActivity extends BaseJobDetailsActivity implements OnM
                 requestsAdapter.notifyDataSetChanged();
             }
         });
-    }
-
-    /**
-     * Thus function loads our map fragment and pin points the job's GeoPoint location or the default
-     * location.
-     * @param googleMap
-     */
-    @Override
-    public void onMapReady(GoogleMap googleMap) {
-        map = googleMap;
-        ParseGeoPoint geoPoint = job.getParseGeoPoint(Job.KEY_JOB_LOCATION);
-        LatLng myPlace;
-        if(geoPoint != null){
-            myPlace = new LatLng(geoPoint.getLatitude(), geoPoint.getLongitude());
-        } else{
-            myPlace = new LatLng(getResources().getFloat(R.dimen.map_lat_default), getResources().getFloat(R.dimen.map_lon_default));
-        }
-        map.addMarker(new MarkerOptions().position(myPlace).title(job.getName()));
-        map.moveCamera(CameraUpdateFactory.newLatLng(myPlace));
     }
 
     /**

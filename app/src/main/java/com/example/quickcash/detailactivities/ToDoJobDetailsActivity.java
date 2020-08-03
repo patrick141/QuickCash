@@ -13,24 +13,16 @@ import com.example.quickcash.databinding.ActivityToDoJobDetailsBinding;
 import com.example.quickcash.models.Job;
 import com.example.quickcash.models.Notification;
 import com.example.quickcash.models.User;
-import com.google.android.gms.maps.CameraUpdateFactory;
-import com.google.android.gms.maps.GoogleMap;
-import com.google.android.gms.maps.OnMapReadyCallback;
-import com.google.android.gms.maps.SupportMapFragment;
-import com.google.android.gms.maps.model.LatLng;
-import com.google.android.gms.maps.model.MarkerOptions;
 import com.parse.ParseException;
-import com.parse.ParseGeoPoint;
 import com.parse.ParseUser;
 import com.parse.SaveCallback;
 
 import org.parceler.Parcels;
 
-public class ToDoJobDetailsActivity extends BaseJobDetailsActivity implements OnMapReadyCallback {
+public class ToDoJobDetailsActivity extends BaseJobDetailsActivity{
     private Job job;
     private Button btnDone;
     private Button btnLeave;
-    private GoogleMap map;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -58,10 +50,6 @@ public class ToDoJobDetailsActivity extends BaseJobDetailsActivity implements On
                 playLeaveAD();
             }
         });
-
-        SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
-                .findFragmentById(R.id.map_demo);
-        mapFragment.getMapAsync(this);
 
     }
 
@@ -153,17 +141,4 @@ public class ToDoJobDetailsActivity extends BaseJobDetailsActivity implements On
         });
     }
 
-    @Override
-    public void onMapReady(GoogleMap googleMap) {
-        map = googleMap;
-        ParseGeoPoint geoPoint = job.getParseGeoPoint(Job.KEY_JOB_LOCATION);
-        LatLng myPlace;
-        if(geoPoint != null){
-            myPlace = new LatLng(geoPoint.getLatitude(), geoPoint.getLongitude());
-        } else{
-            myPlace = new LatLng(35.258599, -80.836403);
-        }
-        map.addMarker(new MarkerOptions().position(myPlace).title("My Location"));
-        map.moveCamera(CameraUpdateFactory.newLatLng(myPlace));
-    }
 }
