@@ -21,7 +21,6 @@ import com.example.quickcash.models.Request;
 import com.parse.DeleteCallback;
 import com.parse.ParseException;
 import com.parse.ParseFile;
-import com.parse.ParseUser;
 import com.parse.SaveCallback;
 
 import org.parceler.Parcels;
@@ -103,15 +102,7 @@ public class RequestDetailsActivity extends AppCompatActivity {
                         finish();
                     }
                 });
-                ParseUser currentUser = ParseUser.getCurrentUser();
-                Notification notification = new Notification();
-                notification.setSender(currentUser);
-                notification.setRecipient(request.getUser());
-                String messenge = currentUser.getUsername() + " " + getString(R.string.notif_approv)
-                        + " " + job.getName();
-                notification.setJob(job);
-                notification.setRequest(request);
-                notification.setMessage(messenge);
+                Notification notification = Notification.generateMyNotification(Notification.APPROVED_USER,job, request, RequestDetailsActivity.this);
                 notification.saveInBackground(new SaveCallback() {
                     @Override
                     public void done(ParseException e) {

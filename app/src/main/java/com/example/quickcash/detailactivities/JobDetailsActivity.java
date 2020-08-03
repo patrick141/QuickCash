@@ -156,15 +156,7 @@ public class JobDetailsActivity extends BaseJobDetailsActivity{
                         sentReq.setVisibility(View.VISIBLE);
                     }
                 });
-
-                Notification notification = new Notification();
-                notification.setSender(ParseUser.getCurrentUser());
-                notification.setRecipient(job.getUser());
-                String messenge = currentUser.getUsername() + " " + getString(R.string.notif_req)
-                        + " " + job.getName();
-                notification.setMessage(messenge);
-                notification.setJob(job);
-                notification.setRequest(request);
+                Notification notification = Notification.generateMyNotification(Notification.SEND_REQUEST, job, request, JobDetailsActivity.this);
                 notification.saveInBackground(new SaveCallback() {
                     @Override
                     public void done(ParseException e) {

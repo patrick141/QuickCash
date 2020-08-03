@@ -98,13 +98,7 @@ public class ToDoJobDetailsActivity extends BaseJobDetailsActivity{
         });
         ParseUser user = ParseUser.getCurrentUser();
 
-        Notification notification = new Notification();
-        notification.setSender(user);
-        notification.setRecipient(job.getUser());
-        String messenge = user.getUsername() + " " + getString(R.string.notif_finish)
-                + " " + job.getName();
-        notification.setJob(job);
-        notification.setMessage(messenge);
+        Notification notification = Notification.generateMyNotification(Notification.JOB_DONE, job, null, ToDoJobDetailsActivity.this);
         notification.saveInBackground(new SaveCallback() {
             @Override
             public void done(ParseException e) {
