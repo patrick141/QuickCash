@@ -59,7 +59,7 @@
             android:textSize="@dimen/job_detail_textSize"/>
     </LinearLayout>
 
-    <ImageView
+    <com.zolad.zoominimageview.ZoomInImageView
         android:id="@+id/jda_job_image"
         android:layout_width="@dimen/job_detail_image_hw"
         android:layout_height="@dimen/job_detail_image_hw"

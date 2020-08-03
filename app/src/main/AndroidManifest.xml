@@ -3,7 +3,7 @@
     package="com.example.quickcash">
 
     <uses-permission android:name="android.permission.INTERNET" />
-    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
@@ -19,7 +19,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
-        <activity android:name=".NotificationsActivity"></activity>
+        <activity android:name=".NotificationsActivity" />
         <activity android:name=".detailactivities.ToDoJobDetailsActivity" />
         <activity android:name=".detailactivities.BaseJobDetailsActivity" />
         <activity android:name=".detailactivities.MyJobsDetailsActivity" />

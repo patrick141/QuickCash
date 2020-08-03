@@ -110,7 +110,6 @@ public class JobDetailsActivity extends BaseJobDetailsActivity implements OnMapR
         tvReqCA = findViewById(R.id.request_createdAt);
         clRequest.setVisibility(View.GONE);
 
-
         /**
          * If the user has already submitted a job, to prevent the user from sending multiple jobs
          * They are given an alternative layout that shows that they have already submitted a job request.
