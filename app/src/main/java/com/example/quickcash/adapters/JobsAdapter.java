@@ -36,6 +36,8 @@ import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 
+import jp.wasabeef.glide.transformations.RoundedCornersTransformation;
+
 import static com.example.quickcash.detailactivities.MyJobsDetailsActivity.REQUEST_CODE_MYDA_RDA;
 
 /**
@@ -111,6 +113,9 @@ public class JobsAdapter extends RecyclerView.Adapter<JobsAdapter.ViewHolder> {
         private TextView jobAddress;
         private TextView jobPrice;
 
+        private static final int CCHEIGHT = 30;
+        private static final int CCWIDTH = 30;
+
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
             jobName = itemView.findViewById(R.id.job_request_name);
@@ -129,10 +134,10 @@ public class JobsAdapter extends RecyclerView.Adapter<JobsAdapter.ViewHolder> {
             jobDate.setText(dateDisplay(job.getJobDate()));
             jobRequestorName.setText(job.getUser().getUsername());
             ParseFile image = job.getImage();
-            if (image != null) {
-                Glide.with(context).load(job.getImage().getUrl()).placeholder(R.drawable.logo).into(jobPicture);
-            } else {
-                Glide.with(context).load(R.drawable.logo).placeholder(R.drawable.logo).into(jobPicture);
+            if(image !=  null){
+                Glide.with(context).load(image.getUrl()).transform(new RoundedCornersTransformation(CCHEIGHT,CCWIDTH)).placeholder(R.drawable.logo).error(R.drawable.logo).into(jobPicture);
+            } else{
+                Glide.with(context).load(R.drawable.logo).transform(new RoundedCornersTransformation(CCHEIGHT,CCWIDTH)).placeholder(R.drawable.logo).error(R.drawable.logo).into(jobPicture);
             }
             jobDatePosted.setText(" " + getRelativeTimeAgo(job.getCreatedAt().toString()));
             jobAddress.setText(job.getAddress());
