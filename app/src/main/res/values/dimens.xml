@@ -56,6 +56,8 @@
     <dimen name="margin_start_iv">17dp</dimen>
     <dimen name="margin_top_name_com">10dp</dimen>
 
+    <dimen name="et_request_width">300dp</dimen>
+
     <dimen name="rv_jobs_height">100dp</dimen>
 
     <!-- Dimensions for Profile/Profile Activity -->
