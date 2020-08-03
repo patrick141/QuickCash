@@ -13,6 +13,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.resource.bitmap.CircleCrop;
 import com.example.quickcash.adapters.JobsAdapter;
 import com.example.quickcash.models.Job;
 import com.example.quickcash.models.User;
@@ -75,11 +76,7 @@ public class ProfileActivity extends AppCompatActivity {
             tvPhoneNumber.setText("7047047040");
         }
         ParseFile userImage = (ParseFile) user.get(User.KEY_USER_IMAGE);
-        if(userImage == null){
-            Glide.with(this).load(R.drawable.logo).into(ivProfilePic);
-        } else{
-            Glide.with(this).load(userImage.getUrl()).into(ivProfilePic);
-        }
+        Glide.with(this).load(userImage.getUrl()).transform(new CircleCrop()).placeholder(R.drawable.logo).error(R.drawable.logo).into(ivProfilePic);
 
         rbUserRating.setRating((float) user.getDouble(User.KEY_USER_RATING));
 
