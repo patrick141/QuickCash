@@ -96,6 +96,10 @@
     <string name="JDA_request_toast">Request has been submitted</string>
     <string name="JDA_job_request_arr_error">Error adding job to requests array</string>
     <string name="JDA_job_request_arr">Request now in this job array.</string>
+    <string name="JDA_edit">EDIT</string>
+    <string name="JDA_edit_cancel">RETURN</string>
+    <string name="JDA_edit_req">Edit My Request</string>
+    <string name="JDA_edit_req_success">Request was successfully edited</string>
 
     <!--MJDA Messages -->
     <string name="MJDA_delete_reqs_success">Deleted this request.</string>

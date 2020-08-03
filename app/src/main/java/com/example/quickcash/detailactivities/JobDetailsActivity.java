@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -226,6 +227,57 @@ public class JobDetailsActivity extends BaseJobDetailsActivity implements OnMapR
     }
 
     private void playEditAD() {
+        ParseUser user = ParseUser.getCurrentUser();
+        LayoutInflater inflator = LayoutInflater.from(JobDetailsActivity.this);
+        final View view = inflator.inflate(R.layout.edit_request, null);
+        TextView tvName = view.findViewById(R.id.tv_myU);
+        EditText etNewComment = view.findViewById(R.id.et_request);
+        ImageView ivMyImage = view.findViewById(R.id.iv_er);
+
+        ParseFile image = (ParseFile) user.getParseFile(User.KEY_USER_IMAGE);
+        if(image == null){
+            Glide.with(this).load(R.drawable.logo).into(ivMyImage);
+        } else{
+            Glide.with(this).load(image.getUrl()).into(ivMyImage);
+        }
+
+        tvName.setText(user.getUsername());
+        etNewComment.setText(tvReqComment.getText().toString());
+
+        AlertDialog dialog = new AlertDialog.Builder(JobDetailsActivity.this)
+                .setTitle(getString(R.string.JDA_edit_req))
+                .setView(view)
+                .setPositiveButton(getString(R.string.JDA_edit), new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        String newComment = etNewComment.getText().toString();
+                        if(newComment.isEmpty()){
+                            Toast.makeText(JobDetailsActivity.this, getString(R.string.JDA_fill), Toast.LENGTH_SHORT).show();
+                            return;
+                        }
+                        saveRequest(newComment);
+                    }
+                })
+                .setNegativeButton(getString(R.string.JDA_edit_cancel), null).create();
+        dialog.show();
+    }
+
+    /**
+     * This methods takes what we typed into our edit request and
+     * @param newComment
+     */
+    private void saveRequest(String newComment) {
+        request.setComment(newComment);
+        request.saveInBackground(new SaveCallback() {
+            @Override
+            public void done(ParseException e) {
+                if(e != null){
+                    e.printStackTrace();
+                }
+                Log.i(TAG, getString(R.string.JDA_edit_req_success) + " " + newComment);
+                tvReqComment.setText(newComment);
+            }
+        });
 
     }
 
