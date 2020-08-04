@@ -5,6 +5,7 @@ import android.os.Bundle;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
+import com.example.quickcash.adapters.MapInfoAdapter;
 import com.example.quickcash.models.Job;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
@@ -28,6 +29,7 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
     private SupportMapFragment mapFragment;
     private Toolbar toolbar;
     private HashMap<Marker, Job> markers;
+    private MapInfoAdapter mapInfoAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,12 +38,10 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
         markers = new HashMap<>();
         mapFragment = (SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.map_search);
         mapFragment.getMapAsync(this);
-
         toolbar = findViewById(R.id.toolbar_Home);
+        mapInfoAdapter = new MapInfoAdapter(this, markers);
         setSupportActionBar(toolbar);
     }
-
-
 
     @Override
     public void onMapReady(GoogleMap googleMap) {
@@ -62,7 +62,7 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
                 } else{
                     myPlace = new LatLng(getResources().getFloat(R.dimen.map_lat_default), getResources().getFloat(R.dimen.map_lon_default));
                 }
-                Marker marker = map.addMarker(new MarkerOptions().position(myPlace).title(job.getName()));
+                Marker marker = map.addMarker(new MarkerOptions().position(myPlace));
                 map.setInfoWindowAdapter(null);
                 markers.put(marker, job);
             }
@@ -70,5 +70,6 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
             e.printStackTrace();
         }
         map.moveCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(getResources().getFloat(R.dimen.map_lat_default),getResources().getFloat(R.dimen.map_lon_default)),zoomLength));
+        map.setInfoWindowAdapter(mapInfoAdapter);
     }
 }

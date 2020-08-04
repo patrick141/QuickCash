@@ -72,6 +72,8 @@
 
     <!-- Dimensions for todo_activity -->
     <dimen name="todo_width_from_p">40dp</dimen>
+    <dimen name="map_image_hw">50dp</dimen>
+    <dimen name="map_info_width">300dp</dimen>
 
     <item name="map_zoom" type="dimen" format="float">8.00</item>
     <item name="map_lat_default" type="dimen" format="float">35.258599</item>
