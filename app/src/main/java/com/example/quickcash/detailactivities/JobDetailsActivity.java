@@ -34,7 +34,7 @@ import com.parse.SaveCallback;
 
 import org.parceler.Parcels;
 
-import java.util.Arrays;
+import java.util.ArrayList;
 import java.util.List;
 
 import static com.example.quickcash.adapters.JobsAdapter.getRelativeTimeAgo;
@@ -276,7 +276,9 @@ public class JobDetailsActivity extends BaseJobDetailsActivity{
     }
 
     private void deleteMyRequest() {
-        job.removeAll(Job.KEY_JOB_REQUESTS, Arrays.asList(request));
+        ArrayList<Request> requests = job.getRequests();
+        requests.remove(request);
+        job.setJobRequests(requests);
         job.saveInBackground(new SaveCallback() {
             @Override
             public void done(ParseException e) {

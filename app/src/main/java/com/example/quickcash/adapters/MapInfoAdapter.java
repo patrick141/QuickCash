@@ -1,6 +1,8 @@
 package com.example.quickcash.adapters;
 
+import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.ImageView;
@@ -8,16 +10,21 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.example.quickcash.R;
+import com.example.quickcash.detailactivities.JobDetailsActivity;
 import com.example.quickcash.models.Job;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.model.Marker;
 import com.parse.ParseFile;
 
+import org.parceler.Parcels;
+
 import java.util.HashMap;
 
 import static com.example.quickcash.adapters.JobsAdapter.dateDisplay;
 
-public class MapInfoAdapter implements GoogleMap.InfoWindowAdapter {
+public class MapInfoAdapter implements GoogleMap.InfoWindowAdapter, GoogleMap.OnInfoWindowClickListener {
+
+    public static final int GM_REQUEST_CODE = 27;
     private final Context context;
     private HashMap<Marker, Job> markers;
 
@@ -51,5 +58,13 @@ public class MapInfoAdapter implements GoogleMap.InfoWindowAdapter {
         }
         tvPrice.setText("$" + String.format("%.2f", job.getPrice()));
         return view;
+    }
+
+    @Override
+    public void onInfoWindowClick(Marker marker) {
+        Job job = markers.get(marker);
+        Intent i = new Intent(context, JobDetailsActivity.class);
+        i.putExtra(Job.class.getSimpleName(), Parcels.wrap(job));
+        ((Activity) context).startActivityForResult(i, GM_REQUEST_CODE);
     }
 }
