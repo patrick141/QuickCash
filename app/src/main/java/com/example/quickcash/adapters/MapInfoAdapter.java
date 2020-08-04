@@ -40,24 +40,28 @@ public class MapInfoAdapter implements GoogleMap.InfoWindowAdapter, GoogleMap.On
 
     @Override
     public View getInfoContents(Marker marker) {
-        Job job = markers.get(marker);
         View view = LayoutInflater.from(context).inflate(R.layout.map_job_view, null);
+        Job job = markers.get(marker);
+        if(job != null) {
+            TextView tvName = view.findViewById(R.id.tv_map_name);
+            TextView tvDate = view.findViewById(R.id.tv_map_date);
+            TextView tvPrice = view.findViewById(R.id.tv_map_price);
+            ImageView ivJob = view.findViewById(R.id.iv_mapImage);
 
-        TextView tvName = view.findViewById(R.id.tv_map_name);
-        TextView tvDate = view.findViewById(R.id.tv_map_date);
-        TextView tvPrice = view.findViewById(R.id.tv_map_price);
-        ImageView ivJob = view.findViewById(R.id.iv_mapImage);
-
-        tvName.setText(job.getName());
-        tvDate.setText(dateDisplay(job.getJobDate()));
-        ParseFile image = job.getImage();
-        if(image!=null){
-            Glide.with(context).load(image.getUrl()).placeholder(R.drawable.logo).error(R.drawable.logo).into(ivJob);
-        } else {
-            Glide.with(context).load(R.drawable.logo).placeholder(R.drawable.logo).error(R.drawable.logo).into(ivJob);
+            tvName.setText(job.getName());
+            tvDate.setText(dateDisplay(job.getJobDate()));
+            ParseFile image = job.getImage();
+            if (image != null) {
+                Glide.with(context).load(image.getUrl()).placeholder(R.drawable.logo).error(R.drawable.logo).into(ivJob);
+            } else {
+                Glide.with(context).load(R.drawable.logo).placeholder(R.drawable.logo).error(R.drawable.logo).into(ivJob);
+            }
+            tvPrice.setText("$" + String.format("%.2f", job.getPrice()));
+            return view;
         }
-        tvPrice.setText("$" + String.format("%.2f", job.getPrice()));
-        return view;
+        else{
+            return null;
+        }
     }
 
     @Override
