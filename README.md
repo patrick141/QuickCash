@@ -1,4 +1,4 @@
-# #1: QuickCash
+# QuickCash
 
 ## Table of Contents
 1. [Overview](#Overview)
@@ -8,15 +8,15 @@
 
 ## Overview
 ### Description
-Need to make money fast? QuickCash is an app that allows people to find easy-quick money jobs. Users can request specific people to help complete tasks and pay them afterwards. Examples include but not limited to (Car-wash, dog-walking, move heavy items, etc). 
+Need to make money fast? QuickCash is an app that allows people to find easy-quick money jobs. Users can request specific people to help complete tasks and pay them afterwards. Examples include but not limited to (Car-wash, dog-walking, move heavy items, etc). Users can also ask for reccuring jobs such as babysitter, translator, etc.
 
 ### App Evaluation
 [Evaluation of your app across the following attributes]
-- **Category:** Matching. This app is for finding easy and quick jobs. 
+- **Category:** Matching. This app is for finding easy and quick jobs.
 - **Mobile:** This app is in mobile so users can quickly find job posts and create job requests. Camera is used.
 - **Story:** Allows users to find ways to make quick cash by searching for small tasks that other users post.
-- **Market:** This app allows people to market their small tasks and post to audience who are willing to do small tasks for money. This app can be useful for all ages. 
-- **Habit:** Users can post throughout the day and complete up to 5 tasks per day. 
+- **Market:** This app allows people to market their small tasks and post to audience who are willing to do small tasks for money. This app can be useful for all ages.
+- **Habit:** Users can post throughout the day and complete up to 5 tasks per day.
 - **Scope:** This app starts with searching for job tasks but helps people connect with others.
 
 ## Product Spec
@@ -26,18 +26,19 @@ Need to make money fast? QuickCash is an app that allows people to find easy-qui
 **Required Must-have Stories**
 
 * Users can sign up and log in into account.
-* Users can upload profile picture using the camera. 
-* Users can post job tasks.
-* Users can see a list of tasks that other people posted.
-* Users can search for tasks and filter them (Ex: Location, Money, etc).
-* Users can request to complete tasks and users can approve of them or not.
+* Users can upload profile picture using the camera.
+* Users can create jobs.
+* Users can see a list of jobs that other people posted.
+* Users can search for jobs and filter them (Ex: Location, Money, etc).
+* Users can request to complete jobs and users can approve of them or not.
+* Once approved of job, user can notify when they have finished a job.
 
 **Optional Nice-to-have (Stretch) Stories**
 * Users can pay person via cash or online.
+* Users can look for jobs using Google Maps.
 * Users can add and remove friends.
-* Users can comment on Job posts and interact with users.
 * Users can recieve notifications.
-* Users can make approve specific when creating a job post.
+* Users can approve specific user when creating a job post.
 * Users can change account settings.
 
 ### 2. Screen Archetypes
@@ -56,7 +57,7 @@ Need to make money fast? QuickCash is an app that allows people to find easy-qui
 * MyJobs (Fragment)
    * User can view job tasks that they want to do and check approval status.
 
-### 3. Navigation (NEED TO UPDATE)
+### 3. Navigation
 
 **Tab Navigation** (Tab to Screen)
 Fragments used to navigate between activites.
@@ -95,50 +96,78 @@ https://www.figma.com/file/QbfAQARWlZ9yfjCAmeGdxs/QuickCash?node-id=0%3A1
 Coming Soon!
 https://www.figma.com/embed?embed_host=share&url=https%3A%2F%2Fwww.figma.com%2Ffile%2FQbfAQARWlZ9yfjCAmeGdxs%2FQuickCash%3Fnode-id%3D0%253A1&chrome=DOCUMENTATION
 
-## Schema 
-[This section will be completed in Unit 9]
+## Schema
 ### Models
-REQUEST
-   | Property      | Type     | Description |
-   | ------------- | -------- | ------------|
-   | objectId      | String   | unique id for the user post (default field) |
-   | _user_        | Pointer to User| image author |
-   | picture       | File     | image that user posts |
-   | description      | String   | job description by author |
-   | cashAmount | Number | amount author is willing to pay |
-   | commentsCount | Number   | number of comments that has been posted to an image |
-   | location      | Location/Float | Captures location of request |  
-   | createdAt     | DateTime | date when post is created (default field) |
-   | updatedAt     | DateTime | date when post is last updated (default field) |
-   | requested | Boolean | if job has been approved. |
-   | approvedUser | Pointer to User | id for the user approved for task |
-   
 USER
    | Property      | Type     | Description |
    | ------------- | -------- | ------------|
    | objectId      | String   | unique id for the user (default field) |
-   | profilePic     | File     | user's profile picture |
-   | description      | String   | job description by author |
-   | commentsCount | Number   | number of comments that has been posted to an image |
-   | location      | Location/Float | Captures location of request |  
+   | username    | String     | User's profile picture |
+   | password     | String     | User's profile picture |
+   | description      | String   | User's profile description |
    | createdAt     | DateTime | date when user is created (default field) |
    | updatedAt     | DateTime | date when user is last updated (default field) |
-   | myRequests | Array | users' request|
-   | requested | Boolean | if job has been approved. |
-   | approvedUser | Pointer to User | id for the user approved for task |
+  | myJobs | Array | This is the user's jobs that they created|
+   | completedJobs | Array | This is the user's jobs that they were assigned and have completed.|
+
+JOB
+   | Property      | Type     | Description |
+   | ------------- | -------- | ------------|
+   | objectId      | String   | A unique id for the user post (default field) |
+   | _user_        | Pointer to User| User who posted the job |
+   | name | String | The job name (ex: Tutor Needed)  |
+   | image     | File     | Picture associated with job(if provided) |
+   | description      | String   | A small description for the job|
+   | price | Number | The price amount the job creator is willing to pay |
+   | address | String | Address of the Job|
+   | location      | GeoPoint | Coordinate Points of job|
+   | createdAt     | DateTime | date when post is created (default field) |
+   | dateOfJob | DateTime | Job date and time |
+   | requests | Array | Array of requests for the job |
+   | assignedUser | Pointer to User | id for the user approved for job |
+   |isTaken | Boolean | Checks if|
+   |isFinished |Boolean| Checks to see if the job has been completed|
+
+
+NOTIFICATION
+   | Property      | Type     | Description |
+   | ------------- | -------- | ------------|
+   | objectId      | String   | Unique id for the notification (default field) |
+   | messenger   | Pointer to User| Notification author |
+   | recipient   | Pointer to User| User who will recieve the notification |
+   |messenge| String | The notification's message|
+   | referJob | Pointer to Job| Job that the notification is refering to|
+   | referRequest| Pointer to Request| Request the notification is refering to|
+   | description      | String   | Job description by author |
+   | createdAt     | DateTime | date when post is created (default field) |
+   | updatedAt     | DateTime | date when post is last updated (default field) |
+
+
+REQUEST
+   | Property      | Type     | Description |
+   | ------------- | -------- | ------------|
+   | objectId      | String   | Unique id for the user post (default field) |
+   | _user_        | Pointer to User| Job post author |
+   | jobPost | Pointer to Job| Job that the request is for |
+   | description      | String   | Job description by author |
+   | createdAt     | DateTime | date when post is created (default field) |
+   | updatedAt     | DateTime | date when post is last updated (default field) |
+
 
 ### Networking
    - Home Feed Screen
-      - (Read/GET) Query all posts where user is author
-      - (Create/POST) Create a new like on a post
-      - (Delete) Delete existing like
-      - (Create/POST) Create a new comment on a post
-      - (Delete) Delete existing comment
+      - (Read/GET) Query all job posts where user is author.
+      - (Read/GET) Query all job posts where user hasn't been assigned.
+      - (Create/POST) Create a job post.
+      - (Delete) Delete existing job post.
+      - (Create/POST) Create a new request on a job post.
+      - (Delete) Delete existing job request.
    - Create Post Screen
-      - (Create/POST) Create a new post object
+      - (Create/POST) Create a new job post
    - Profile Screen
       - (Read/GET) Query logged in user object
       - (Update/PUT) Update user profile image
 #### [OPTIONAL:] Existing API Endpoints
 - Google Maps SDK & API
+- Google Places API
 - Parse Database & API
