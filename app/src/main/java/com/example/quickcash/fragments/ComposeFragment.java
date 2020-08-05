@@ -6,8 +6,10 @@ import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
+import android.graphics.ImageDecoder;
 import android.graphics.drawable.ColorDrawable;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
@@ -43,7 +45,11 @@ import com.parse.ParseGeoPoint;
 import com.parse.ParseUser;
 import com.parse.SaveCallback;
 
+import java.io.ByteArrayOutputStream;
 import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Arrays;
@@ -78,6 +84,7 @@ public class ComposeFragment extends Fragment {
     private EditText etPrice;
     private Button btnCompose;
     private Button btnTakeImage;
+    private Button btnSelectImage;
     private ImageView ivImage;
     private File photoFile;
     private String photoFileName = "photo.jpg";
@@ -111,6 +118,7 @@ public class ComposeFragment extends Fragment {
         etPrice = binding.etPrice;
         btnCompose = binding.btnComposeJob;
         btnTakeImage = binding.btnTakeJobPic;
+        btnSelectImage = binding.btnSelectPhoto;
         ivImage = binding.ivOptionImage;
 
         Places.initialize(getContext(), getResources().getString(R.string.newAPIKEY));
@@ -171,6 +179,13 @@ public class ComposeFragment extends Fragment {
             @Override
             public void onClick(View view) {
                 launchCamera();
+            }
+        });
+
+        btnSelectImage.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                launchCameraStorage();
             }
         });
         /**
@@ -274,7 +289,7 @@ public class ComposeFragment extends Fragment {
         // wrap File object into a content provider
         // required for API >= 24
         // See https://guides.codepath.com/android/Sharing-Content-with-Intents#sharing-files-with-api-24-or-higher
-        Uri fileProvider = FileProvider.getUriForFile(getContext(), "com.codepath.fileprovider.QuickCash", photoFile);
+        Uri fileProvider = FileProvider.getUriForFile(getContext(), getString(R.string.fileProviderText), photoFile);
         intent.putExtra(MediaStore.EXTRA_OUTPUT, fileProvider);
 
         // If you call startActivityForResult() using an intent that no app can handle, your app will crash.
@@ -283,6 +298,44 @@ public class ComposeFragment extends Fragment {
             // Start the image capture intent to take photo
             startActivityForResult(intent, CAPTURE_IMAGE_ACTIVITY_REQUEST_CODE);
         }
+    }
+
+    /**
+     * This method opens up a photo storage in your phone. This works with Gallery.
+     */
+    public void launchCameraStorage(){
+        Intent intent = new Intent(Intent.ACTION_PICK,
+                MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+        // If you call startActivityForResult() using an intent that no app can handle, your app will crash.
+        // So as long as the result is not null, it's safe to use the intent.
+
+        if (intent.resolveActivity(getContext().getPackageManager()) != null) {
+            // Bring up gallery to select a photo
+            startActivityForResult(intent, PICK_PHOTO_CODE);
+        }
+    }
+
+    /**
+     * This methods takes a photoUri and converts it into a Bitmap image.
+     * @param photoUri
+     * @return
+     */
+    public Bitmap loadFromUri(Uri photoUri) {
+        Bitmap image = null;
+        try {
+            // check version of Android on device
+            if(Build.VERSION.SDK_INT > 27){
+                // on newer versions of Android, use the new decodeBitmap method
+                ImageDecoder.Source source = ImageDecoder.createSource(getContext().getContentResolver(), photoUri);
+                image = ImageDecoder.decodeBitmap(source);
+            } else {
+                // support older versions of Android by using getBitmap
+                image = MediaStore.Images.Media.getBitmap(getContext().getContentResolver(), photoUri);
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return image;
     }
 
     public File getPhotoFileUri(String fileName) {
@@ -298,7 +351,6 @@ public class ComposeFragment extends Fragment {
 
         // Return the file target for the photo based on filename
         File file = new File(mediaStorageDir.getPath() + File.separator + fileName);
-
         return file;
     }
 
@@ -313,7 +365,7 @@ public class ComposeFragment extends Fragment {
                 // Load the taken image into a preview
                 ivImage.setImageBitmap(takenImage);
             } else { // Result was a failure
-                Toast.makeText(getContext(), "Picture wasn't taken!", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getContext(), getString(R.string.take_photo_error), Toast.LENGTH_SHORT).show();
             }
         }
 
@@ -324,6 +376,49 @@ public class ComposeFragment extends Fragment {
             Status status = Autocomplete.getStatusFromIntent(data);
             Toast.makeText(getContext(), status.getStatusMessage(),Toast.LENGTH_SHORT).show();
         }
+
+        if ((data != null) && requestCode == PICK_PHOTO_CODE) {
+            Uri photoUri = data.getData();
+            // Load the image located at photoUri into selectedImage
+            Bitmap selectedImage = loadFromUri(photoUri);
+            photoFile = getFileFromBitmap(selectedImage);
+            // Load the selected image into a preview
+            ivImage.setImageBitmap(selectedImage);
+        } else{
+            Toast.makeText(getContext(), getString(R.string.cf_select_error), Toast.LENGTH_SHORT).show();
+        }
+    }
+
+    /**
+     * This method takes a bitmap and coverts it into a JPEG file
+     * @param selectedImage
+     * @return
+     */
+    private File getFileFromBitmap(Bitmap selectedImage) {
+        File file = new File(getContext().getCacheDir(), photoFileName);
+        try {
+            file.createNewFile();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        //Convert bitmap to byte array
+        Bitmap bitmap = selectedImage;
+        ByteArrayOutputStream bos = new ByteArrayOutputStream();
+        bitmap.compress(Bitmap.CompressFormat.JPEG, 100, bos);
+        byte[] bitmapdata = bos.toByteArray();
+        //write the bytes in file
+        FileOutputStream fos = null;
+        try {
+            fos = new FileOutputStream(file);
+            fos.write(bitmapdata);
+            fos.flush();
+            fos.close();
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return file;
     }
 
     /**

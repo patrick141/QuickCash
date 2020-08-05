@@ -156,8 +156,17 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/CF_takeImageID"
-        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toStartOf="@id/btn_select_photo"
         app:layout_constraintTop_toBottomOf="@+id/cf_imageID" />
+
+    <Button
+        android:id="@+id/btn_select_photo"
+        android:layout_width="wrap_content"
+        app:layout_constraintStart_toEndOf="@id/btn_takeJobPic"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/cf_imageID"
+        android:text="@string/CF_selectID"
+        android:layout_height="wrap_content"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

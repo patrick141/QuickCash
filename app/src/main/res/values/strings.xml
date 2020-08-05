@@ -48,7 +48,7 @@
     <string name="CF_timeID">Enter Job Time Here:</string>
     <string name="CF_addressID">Enter Job Address Here:</string>
     <string name="CF_priceID">Enter Job Price Here:</string>
-    <string name="CF_imageID">(Optional)</string>
+    <string name="CF_imageID">(Optional: Place an image)</string>
     <string name="CF_composeJobID">Compose Job</string>
     <string name="CF_takeImageID">Upload Image</string>
 
@@ -142,4 +142,7 @@
     <string name="JDA_del_req_conf">You have deleted your request</string>
     <string name="map_activity">Map</string>
     <string name="my_location">MY LOCATION</string>
+    <string name="CF_selectID">Choose from Library</string>
+    <string name="cf_select_error">Picture wasn\'t selected!</string>
+    <string name="take_photo_error">Picture wasn\'t taken!</string>
 </resources>
