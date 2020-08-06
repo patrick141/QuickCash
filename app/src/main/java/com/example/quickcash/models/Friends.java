@@ -1,8 +1,10 @@
 package com.example.quickcash.models;
 
 import com.parse.ParseClassName;
+import com.parse.ParseException;
 import com.parse.ParseObject;
 import com.parse.ParseUser;
+import com.parse.SaveCallback;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -16,6 +18,8 @@ import java.util.Arrays;
 public class Friends extends ParseObject {
     public static final String KEY_USER = "user";
     public static final String KEY_FRIEND_LIST = "friendsList";
+    public static final String KEY_FRIEND_PENDING = "friendsPending";
+    public static final String KEY_FRIEND_REQUEST = "friendsRequests";
 
     public ParseUser getUser(){
         return getParseUser(KEY_USER);
@@ -26,18 +30,92 @@ public class Friends extends ParseObject {
     }
 
     public ArrayList<ParseUser> getFriendsList(){
-        return (ArrayList<ParseUser>) get(KEY_FRIEND_LIST);
+        try {
+            return (ArrayList<ParseUser>) fetchIfNeeded().get(KEY_FRIEND_LIST);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        return null;
     }
 
     public void setFriendList(ArrayList<ParseUser> friendList){
         put(KEY_FRIEND_LIST, friendList);
     }
 
-    public void addFriend(ParseUser user){
-        add(KEY_FRIEND_LIST, user);
+    public ArrayList<ParseUser> getFriendsPendingList(){
+        return (ArrayList<ParseUser>) get(KEY_FRIEND_PENDING);
     }
 
-    public void removeFriend(ParseUser user){
-        removeAll(KEY_FRIEND_LIST, Arrays.asList(user));
+    public void setPendingList(ArrayList<ParseUser> users){
+        put(KEY_FRIEND_PENDING, users);
     }
+
+    public ArrayList<ParseUser> getFriendRequests(){
+        return (ArrayList<ParseUser>) get(KEY_FRIEND_REQUEST);
+    }
+
+    public void setFriendRequests(ArrayList<ParseUser> users){
+        put(KEY_FRIEND_REQUEST, users);
+    }
+
+    public void addFriend(ParseUser otherUser){
+        ParseUser currentUser = ParseUser.getCurrentUser();
+        add(KEY_FRIEND_LIST, otherUser);
+        removeAll(KEY_FRIEND_REQUEST, Arrays.asList(otherUser));
+        try {
+            Friends userFriends = (Friends) otherUser.fetchIfNeeded().get(User.KEY_USER_FRIENDS);
+            userFriends.add(KEY_FRIEND_LIST, currentUser);
+            userFriends.removeAll(KEY_FRIEND_PENDING, Arrays.asList(currentUser));
+            userFriends.saveInBackground(new SaveCallback() {
+                @Override
+                public void done(ParseException e) {
+                    if(e != null){
+                        e.printStackTrace();
+                    }
+                }
+            });
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+
+    }
+
+    public void removeFriend(ParseUser otherUser){
+        ParseUser currentUser = ParseUser.getCurrentUser();
+        removeAll(KEY_FRIEND_LIST, Arrays.asList(otherUser));
+        try {
+            Friends friends = (Friends) otherUser.fetchIfNeeded().get(User.KEY_USER_FRIENDS);
+            friends.removeAll(KEY_FRIEND_LIST, Arrays.asList(currentUser));
+            friends.saveInBackground(new SaveCallback() {
+                @Override
+                public void done(ParseException e) {
+                    if(e != null){
+                        e.printStackTrace();
+                    }
+                }
+            });
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void sendFriendRequest(ParseUser otherUser){
+        ParseUser currentUser = ParseUser.getCurrentUser();
+        add(KEY_FRIEND_PENDING, otherUser);
+        try {
+            Friends friends = (Friends) otherUser.fetchIfNeeded().get(User.KEY_USER_FRIENDS);
+            friends.add(KEY_FRIEND_REQUEST, currentUser);
+            friends.saveInBackground(new SaveCallback() {
+                @Override
+                public void done(ParseException e) {
+                    if(e != null){
+                        e.printStackTrace();
+                    }
+                }
+            });
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+    }
+
 }
