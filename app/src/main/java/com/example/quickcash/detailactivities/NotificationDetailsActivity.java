@@ -1,4 +1,4 @@
-package com.example.quickcash.models;
+package com.example.quickcash.detailactivities;
 
 import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
