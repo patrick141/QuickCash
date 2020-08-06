@@ -10,7 +10,7 @@
         />
     <item
         android:id="@+id/notifications_main"
-        android:icon="@drawable/ic_baseline_message_24"
+        android:icon="@drawable/icon_message"
         android:title="@string/notification"
         app:showAsAction="always" />
     <item

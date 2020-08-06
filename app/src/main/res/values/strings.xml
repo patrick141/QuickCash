@@ -154,4 +154,5 @@
     <string name="sample_email">quickcash123@email.com</string>
     <string name="PA_no_phone">No Phone Number</string>
     <string name="PA_no_email">No email provided</string>
+    <string name="friends">Friends</string>
 </resources>
