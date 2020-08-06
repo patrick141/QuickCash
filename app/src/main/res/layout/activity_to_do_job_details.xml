@@ -16,7 +16,7 @@
     <include layout="@layout/item_job_detail"
         android:id="@+id/ijd_view"
         android:layout_height="wrap_content"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_below="@id/toolbar_TODO"/>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -46,5 +46,16 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
     </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <Button
+        android:id="@+id/btn_request_pay"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/cl_todo_views"
+        android:layout_marginTop="@dimen/todo_margin_top"
+        android:background="@color/background_color_light_green"
+        android:text="@string/tododa_request_pay"
+        android:layout_centerHorizontal="true"/>
+
 
 </RelativeLayout>

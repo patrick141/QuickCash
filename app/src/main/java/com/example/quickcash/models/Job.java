@@ -30,6 +30,7 @@ public class Job extends ParseObject {
     public static final String KEY_JOB_ASSIGNED_USER = "assignedUser";
     public static final String KEY_JOB_ISFINISHED = "isFinished";
     public static final String KEY_JOB_LOCATION = "location";
+    public static final String KEY_JOB_PAYMENT = "payment";
 
     public String getName(){
         return getString(KEY_JOB_NAME);
@@ -147,5 +148,13 @@ public class Job extends ParseObject {
         } else{
             return getRequests().size();
         }
+    }
+
+    public Payment getPayment(){
+        return (Payment) getParseObject(KEY_JOB_PAYMENT);
+    }
+
+    public void setPayment(Payment payment){
+        put(KEY_JOB_PAYMENT, payment);
     }
 }

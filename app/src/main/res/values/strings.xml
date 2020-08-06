@@ -155,4 +155,9 @@
     <string name="PA_no_phone">No Phone Number</string>
     <string name="PA_no_email">No email provided</string>
     <string name="friends">Friends</string>
+    <string name="tododa_request_pay">Request Payment</string>
+    <string name="tododa_request_pay_success">Successfully requested a payment.</string>
+    <string name="todo_request_pay_reminder">Payment already requested.</string>
+    <string name="notif_pay">"is requesting payment for: "</string>
+    <string name="payment_req_sent">Payment has been submitted.</string>
 </resources>

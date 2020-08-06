@@ -2,16 +2,20 @@ package com.example.quickcash.detailactivities;
 
 import android.content.DialogInterface;
 import android.os.Bundle;
+import android.os.Handler;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AlertDialog;
+import androidx.constraintlayout.widget.ConstraintLayout;
 
 import com.example.quickcash.R;
 import com.example.quickcash.databinding.ActivityToDoJobDetailsBinding;
 import com.example.quickcash.models.Job;
 import com.example.quickcash.models.Notification;
+import com.example.quickcash.models.Payment;
 import com.example.quickcash.models.User;
 import com.parse.ParseException;
 import com.parse.ParseUser;
@@ -21,8 +25,11 @@ import org.parceler.Parcels;
 
 public class ToDoJobDetailsActivity extends BaseJobDetailsActivity{
     private Job job;
+    private ConstraintLayout clButtons;
     private Button btnDone;
     private Button btnLeave;
+    private Button btnPayRequest;
+    private Payment jobPayment;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,7 +43,15 @@ public class ToDoJobDetailsActivity extends BaseJobDetailsActivity{
         setJobContents(job);
         btnDone = binding.todoDone;
         btnLeave = binding.todoLeave;
+        btnPayRequest = binding.btnRequestPay;
+        clButtons = binding.clTodoViews;
 
+        clButtons.setVisibility(View.VISIBLE);
+        btnPayRequest.setVisibility(View.GONE);
+        if(job.isFinished()){
+            clButtons.setVisibility(View.GONE);
+            btnPayRequest.setVisibility(View.VISIBLE);
+        }
         btnDone.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -51,6 +66,18 @@ public class ToDoJobDetailsActivity extends BaseJobDetailsActivity{
             }
         });
 
+        jobPayment = job.getPayment();
+
+        btnPayRequest.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if(jobPayment == null){
+                    createPayment();
+                }else{
+                    Toast.makeText(ToDoJobDetailsActivity.this, getString(R.string.todo_request_pay_reminder), Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
     }
 
     /**
@@ -119,6 +146,10 @@ public class ToDoJobDetailsActivity extends BaseJobDetailsActivity{
                 Log.i(TAG, "added job in completed array");
             }
         });
+
+        jobstatusJDA.setText(getString(R.string.MJDA_status));
+        clButtons.setVisibility(View.GONE);
+        btnPayRequest.setVisibility(View.VISIBLE);
     }
 
     private void leaveThisJob() {
@@ -134,5 +165,56 @@ public class ToDoJobDetailsActivity extends BaseJobDetailsActivity{
             }
         });
     }
+
+    private void createPayment() {
+        ParseUser currentUser = ParseUser.getCurrentUser();
+        Payment payment = new Payment();
+        payment.setRecipient(currentUser);
+        payment.setBuyer(job.getUser());
+        payment.setAmount(job.getPrice());
+        payment.setJob(job);
+        payment.saveInBackground(new SaveCallback() {
+            @Override
+            public void done(ParseException e) {
+                if(e!= null){
+                    e.printStackTrace();
+                }
+                Log.i(TAG, getString(R.string.tododa_request_pay_success));
+                job.setPayment(payment);
+                job.saveInBackground(new SaveCallback() {
+                    @Override
+                    public void done(ParseException e) {
+                        if(e != null){
+                            e.printStackTrace();
+                        }
+                    }
+                });
+
+                Notification notification = new Notification();
+                notification.setSender(currentUser);
+                notification.setRecipient(job.getUser());
+                notification.setMessage(currentUser.getUsername() +getString(R.string.notif_pay) + " " + job.getName());
+                notification.setJob(job);
+                notification.setPayment(payment);
+                notification.saveInBackground(new SaveCallback() {
+                    @Override
+                    public void done(ParseException e) {
+                        if(e != null){
+                            e.printStackTrace();
+                        }
+                        Log.i(TAG,getString(R.string.notif_suc));
+                    }
+                });
+                Toast.makeText(ToDoJobDetailsActivity.this, getString(R.string.payment_req_sent), Toast.LENGTH_SHORT).show();
+                new Handler().postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        finish();
+                    }
+                }, 2000);
+            }
+        });
+    }
+
 
 }

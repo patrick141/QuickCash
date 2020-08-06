@@ -21,12 +21,14 @@ public class Notification extends ParseObject {
     public static final String KEY_NOTIF_SENDER = "messenger";
     public static final String KEY_NOTIF_REFER_JOB = "referJob";
     public static final String KEY_NOTIF_REFER_REQ = "referRequest";
+    public static final String KEY_NOTIF_PAYMENT = "referPayment";
 
     public static final String SEND_REQUEST = "sendReq";
     public static final String APPROVED_USER = "approveUser";
     public static final String DENY_REQ = "denyReq";
     public static final String LEAVE_JOB = "leaveJob";
     public static final String JOB_DONE = "jobDone";
+    public static final String PAYMENT_REQUEST = "paymentRequest";
 
 
     public ParseUser getRecipient(){
@@ -85,6 +87,14 @@ public class Notification extends ParseObject {
 
     public void setRequest(Request request) {
         put(KEY_NOTIF_REFER_REQ, request);
+    }
+
+    public Payment getPayment() {
+        return (Payment) getParseObject(KEY_NOTIF_PAYMENT);
+    }
+
+    public void setPayment(Payment payment){
+        put(KEY_NOTIF_PAYMENT, payment);
     }
 
     /**

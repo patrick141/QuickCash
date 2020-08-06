@@ -47,7 +47,7 @@ public class BaseJobDetailsActivity extends AppCompatActivity implements OnMapRe
     private TextView jobUserJDA;
     private TextView jobPriceJDA;
     private TextView jobAddressJDA;
-    private TextView jobstatusJDA;
+    protected TextView jobstatusJDA;
     private ImageView jobImageJDA;
     private SupportMapFragment mapFragment;
     private GoogleMap map;
@@ -169,6 +169,7 @@ public class BaseJobDetailsActivity extends AppCompatActivity implements OnMapRe
     public void setJobImageJDA(ImageView jobImageJDA) {
         this.jobImageJDA = jobImageJDA;
     }
+
 
 
     /**
