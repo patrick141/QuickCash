@@ -16,6 +16,7 @@
     <dimen name="la_tv_width">350dp</dimen>
     <dimen name="la_button_width">300dp</dimen>
     <dimen name="la_textSize">14sp</dimen>
+    <dimen name="su_padding">16dp</dimen>
 
     <!-- Dimensions for Search Fragment -->
     <dimen name="sf_rb_btn_margin">5dp</dimen>
@@ -74,6 +75,7 @@
     <dimen name="todo_width_from_p">40dp</dimen>
     <dimen name="map_image_hw">50dp</dimen>
     <dimen name="map_info_width">300dp</dimen>
+    <dimen name="su_icon_height">100dp</dimen>
 
     <item name="map_zoom" type="dimen" format="float">8.00</item>
     <item name="map_lat_default" type="dimen" format="float">35.258599</item>

@@ -5,7 +5,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:layout_margin="16dp"
+    android:layout_margin="@dimen/su_padding"
     android:orientation="vertical"
     tools:context=".SignUpActivity">
 
@@ -21,7 +21,7 @@
     <ImageView
         android:id="@+id/iv_SA"
         android:layout_width="match_parent"
-        android:layout_height="175dp"
+        android:layout_height="@dimen/su_icon_height"
         app:srcCompat="@drawable/logoname" />
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/SA_usernameTIL"
@@ -48,6 +48,33 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="@string/sa_enterP"/>
+
+    </com.google.android.material.textfield.TextInputLayout>
+
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/SA_emailTIL"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/SA_email"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/sa_enterE"/>
+
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/SA_phoneTIL"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/SA_phone"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/sa_enterPh"/>
 
     </com.google.android.material.textfield.TextInputLayout>
 
