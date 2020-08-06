@@ -5,6 +5,7 @@ import android.app.Application;
 import com.example.quickcash.models.Friends;
 import com.example.quickcash.models.Job;
 import com.example.quickcash.models.Notification;
+import com.example.quickcash.models.Payment;
 import com.example.quickcash.models.Request;
 import com.parse.Parse;
 import com.parse.ParseObject;
@@ -31,6 +32,7 @@ public class ParseApplication extends Application {
         ParseObject.registerSubclass(Request.class);
         ParseObject.registerSubclass(Notification.class);
         ParseObject.registerSubclass(Friends.class);
+        ParseObject.registerSubclass(Payment.class);
 
         /**
          * This is to monitor our Parse network traffic
