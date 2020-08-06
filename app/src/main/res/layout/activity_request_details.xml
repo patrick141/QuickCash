@@ -5,7 +5,7 @@
     android:id="@+id/cl_request_details"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".RequestDetailsActivity">
+    tools:context=".detailactivities.RequestDetailsActivity">
 
     <include
         android:id="@+id/toolbar_ARD"

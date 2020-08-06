@@ -1,7 +1,10 @@
 package com.example.quickcash.detailactivities;
 
-import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
+
+import androidx.appcompat.app.AppCompatActivity;
+
+import com.example.quickcash.R;
 
 public class NotificationDetailsActivity extends AppCompatActivity {
 

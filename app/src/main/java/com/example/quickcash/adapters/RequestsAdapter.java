@@ -16,7 +16,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.example.quickcash.R;
-import com.example.quickcash.RequestDetailsActivity;
+import com.example.quickcash.detailactivities.RequestDetailsActivity;
 import com.example.quickcash.models.Job;
 import com.example.quickcash.models.Request;
 import com.example.quickcash.models.User;

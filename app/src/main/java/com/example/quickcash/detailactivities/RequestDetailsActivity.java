@@ -1,4 +1,4 @@
-package com.example.quickcash;
+package com.example.quickcash.detailactivities;
 
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -14,6 +14,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
 import com.bumptech.glide.Glide;
+import com.example.quickcash.R;
 import com.example.quickcash.databinding.ActivityRequestDetailsBinding;
 import com.example.quickcash.models.Job;
 import com.example.quickcash.models.Notification;

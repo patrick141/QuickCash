@@ -19,12 +19,13 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
-        <activity android:name=".MapActivity"></activity>
+        <activity android:name=".detailactivities.NotificationDetailsActivity"></activity>
+        <activity android:name=".MapActivity" />
         <activity android:name=".NotificationsActivity" />
         <activity android:name=".detailactivities.ToDoJobDetailsActivity" />
         <activity android:name=".detailactivities.BaseJobDetailsActivity" />
         <activity android:name=".detailactivities.MyJobsDetailsActivity" />
-        <activity android:name=".RequestDetailsActivity" />
+        <activity android:name=".detailactivities.RequestDetailsActivity" />
 
         <provider
             android:name="androidx.core.content.FileProvider"
