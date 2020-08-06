@@ -62,6 +62,7 @@ public class ProfileFragment extends HomeFragment {
     private TextView tvUsername;
     private TextView tvUserSince;
     private TextView tvPhone;
+    private TextView tvEmail;
     private RatingBar rbUserRating;
     private TabLayout jobTabLayout;
     private File photoFile;
@@ -86,6 +87,7 @@ public class ProfileFragment extends HomeFragment {
         tvUsername = view.findViewById(R.id.tv_Username);
         tvUserSince = view.findViewById(R.id.tv_UserSince);
         tvPhone = view.findViewById(R.id.tv_phone);
+        tvEmail = view.findViewById(R.id.tv_email);
         rbUserRating = view.findViewById(R.id.rb_user_rating);
         jobTabLayout = view.findViewById(R.id.myjobs_view_switcher);
 
@@ -103,6 +105,8 @@ public class ProfileFragment extends HomeFragment {
             Glide.with(getContext()).load(userImage.getUrl()).transform(new CircleCrop()).placeholder(R.drawable.logo).error(R.drawable.logo).into(ivProfilePic);
         }
         rbUserRating.setRating((float) user.getDouble(User.KEY_USER_RATING));
+        tvPhone.setText(user.getString(User.KEY_USER_PHONE));
+        tvEmail.setText(user.getEmail());
         queryJobs();
 
         ivProfilePic.setOnClickListener(new View.OnClickListener() {

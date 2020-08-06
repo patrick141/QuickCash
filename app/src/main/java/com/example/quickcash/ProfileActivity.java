@@ -41,6 +41,7 @@ public class ProfileActivity extends AppCompatActivity {
     private TextView tvUsername;
     private TextView tvDescription;
     private TextView tvPhoneNumber;
+    private TextView tvEmail;
     private RatingBar rbUserRating;
 
     private RecyclerView rvProfile;
@@ -58,6 +59,7 @@ public class ProfileActivity extends AppCompatActivity {
         tvUsername = findViewById(R.id.tv_Username);
         tvDescription = findViewById(R.id.tv_UserSince);
         tvPhoneNumber = findViewById(R.id.tv_phone);
+        tvEmail = findViewById(R.id.tv_email);
         rbUserRating = findViewById(R.id.rb_user_rating);
 
         final ParseUser user = Parcels.unwrap(getIntent().getParcelableExtra(User.class.getSimpleName()));
@@ -73,8 +75,15 @@ public class ProfileActivity extends AppCompatActivity {
         if(phone != null){
             tvPhoneNumber.setText(phone);
         } else{
-            tvPhoneNumber.setText("7047047040");
+            tvPhoneNumber.setText(getString(R.string.PA_no_phone));
         }
+        String email = user.getEmail();
+        if(email != null){
+            tvEmail.setText(email);
+        } else{
+            tvEmail.setText(getString(R.string.PA_no_email));
+        }
+
         ParseFile userImage = (ParseFile) user.get(User.KEY_USER_IMAGE);
         if(userImage == null){
             Glide.with(this).load(R.drawable.logo).transform(new CircleCrop()).placeholder(R.drawable.logo).error(R.drawable.logo).into(ivProfilePic);
