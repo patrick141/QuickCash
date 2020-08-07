@@ -161,4 +161,6 @@
     <string name="notif_pay">"is requesting payment for: "</string>
     <string name="payment_req_sent">Payment has been submitted.</string>
     <string name="payments">Payments</string>
+    <string name="pay_activity_recieve">Pending</string>
+    <string name="pay_activity_paying">Paying</string>
 </resources>

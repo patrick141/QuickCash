@@ -84,4 +84,7 @@
     <item name="map_lat_default" type="dimen" format="float">35.258599</item>
     <item name="map_lon_default" type="dimen" format="float">-80.836403</item>
 
+    <dimen name="payment_name">20sp</dimen>
+    <dimen name="bill_icon_hw">30dp</dimen>
+
 </resources>

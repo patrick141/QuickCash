@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/cl_item_payment"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:padding="@dimen/largePadding">
+
+
+    <ImageView
+        android:id="@+id/ip_image"
+        android:layout_width="@dimen/profile_image_hw"
+        android:layout_height="@dimen/profile_image_hw"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:srcCompat="@tools:sample/avatars" />
+
+    <ImageView
+        android:id="@+id/ip_payment_pending"
+        android:layout_width="@dimen/bill_icon_hw"
+        android:layout_height="@dimen/bill_icon_hw"
+        android:layout_marginEnd="@dimen/profile_margin_fromIV"
+        app:layout_constraintEnd_toStartOf="@+id/ip_price"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:srcCompat="@drawable/bill_icon" />
+
+    <TextView
+        android:id="@+id/ip_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/profile_margin_fromIV"
+        android:text="@string/app_name_cap"
+        app:layout_constraintStart_toEndOf="@+id/ip_image"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/ip_price"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/ij_samplePrice"
+        android:textSize="@dimen/job_price_textSize"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/ip_job"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/profile_margin_fromIV"
+        android:layout_marginTop="@dimen/profile_margin_top"
+        android:text="@string/ij_sampleDescription"
+        app:layout_constraintStart_toEndOf="@+id/ip_image"
+        app:layout_constraintTop_toBottomOf="@+id/ip_name" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

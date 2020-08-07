@@ -33,7 +33,12 @@ public class Job extends ParseObject {
     public static final String KEY_JOB_PAYMENT = "payment";
 
     public String getName(){
-        return getString(KEY_JOB_NAME);
+        try {
+            return fetchIfNeeded().getString(KEY_JOB_NAME);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        return null;
     }
 
     public void setName(String name){
