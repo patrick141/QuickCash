@@ -83,9 +83,12 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
     @Override
     public void onMapReady(GoogleMap googleMap) {
         map = googleMap;
-        LatLng myLocation = new LatLng(currentLocation.getLatitude(), currentLocation.getLongitude());
-        MarkerOptions myMarker = new MarkerOptions().position(myLocation).title(getString(R.string.my_location)).icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_GREEN));
-        map.addMarker(myMarker);
+        if(currentLocation != null) {
+            LatLng myLocation = new LatLng(currentLocation.getLatitude(), currentLocation.getLongitude());
+            MarkerOptions myMarker = new MarkerOptions().position(myLocation).title(getString(R.string.my_location)).icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_GREEN));
+            map.addMarker(myMarker);
+            map.moveCamera(CameraUpdateFactory.newLatLngZoom(myLocation, zoomLength));
+        }
         ParseQuery<Job> query = ParseQuery.getQuery(Job.class);
         query.include(Job.KEY_JOB_USER);
         query.setLimit(20);
@@ -109,7 +112,6 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
         } catch (ParseException e) {
             e.printStackTrace();
         }
-        map.moveCamera(CameraUpdateFactory.newLatLngZoom(myLocation,zoomLength));
         map.setInfoWindowAdapter(mapInfoAdapter);
         map.setOnInfoWindowClickListener(mapInfoAdapter);
     }
@@ -118,7 +120,7 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if(requestCode == MapInfoAdapter.GM_REQUEST_CODE &&  resultCode == RESULT_OK){
-
+            finish();
         }
     }
 
