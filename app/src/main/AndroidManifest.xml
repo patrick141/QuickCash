@@ -19,7 +19,8 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
-        <activity android:name=".detailactivities.NotificationDetailsActivity"></activity>
+        <activity android:name=".PaymentActivity"></activity>
+        <activity android:name=".detailactivities.NotificationDetailsActivity" />
         <activity android:name=".MapActivity" />
         <activity android:name=".NotificationsActivity" />
         <activity android:name=".detailactivities.ToDoJobDetailsActivity" />
@@ -58,7 +59,6 @@
         <meta-data
             android:name="com.google.android.maps.v2.API_KEY"
             android:value="@string/newAPIKEY" />
-
         <meta-data
             android:name="com.google.android.gms.wallet.api.enabled"
             android:value="true" />

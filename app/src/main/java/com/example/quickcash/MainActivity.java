@@ -139,6 +139,12 @@ public class MainActivity extends AppCompatActivity {
                 Intent intent = new Intent(this, NotificationsActivity.class);
                 startActivity(intent);
                 break;
+            case R.id.payments_main:
+                Intent in = new Intent(this, PaymentActivity.class);
+                startActivity(in);
+                break;
+            default:
+                break;
         }
         return super.onOptionsItemSelected(item);
     }

@@ -160,4 +160,5 @@
     <string name="todo_request_pay_reminder">Payment already requested.</string>
     <string name="notif_pay">"is requesting payment for: "</string>
     <string name="payment_req_sent">Payment has been submitted.</string>
+    <string name="payments">Payments</string>
 </resources>
