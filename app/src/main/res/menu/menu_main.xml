@@ -11,6 +11,7 @@
         android:id="@+id/notifications_main"
         android:icon="@drawable/icon_message"
         android:title="@string/notification"
+        android:actionLayout="@layout/icon_notification"
         app:showAsAction="always" />
     <item
         android:id="@+id/payments_main"

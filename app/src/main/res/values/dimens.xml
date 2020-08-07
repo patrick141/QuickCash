@@ -89,5 +89,6 @@
     <dimen name="google_pay_h">80dp</dimen>
     <dimen name="google_pay_w">120dp</dimen>
     <dimen name="pda_price_textSize">40sp</dimen>
+    <dimen name="icon_notif_hw">32dp</dimen>
 
 </resources>
