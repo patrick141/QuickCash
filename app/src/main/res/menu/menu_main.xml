@@ -17,6 +17,13 @@
         android:icon="@drawable/icon_pay"
         app:showAsAction="always"
         android:title="@string/payments"/>
+
+    <item
+        android:id="@+id/friends_main"
+        android:icon="@drawable/icon_friends"
+        android:title="@string/friends"
+        app:showAsAction="always"/>
+
     <item
         android:id="@+id/sign_out_main"
         android:title="@string/sign_out"

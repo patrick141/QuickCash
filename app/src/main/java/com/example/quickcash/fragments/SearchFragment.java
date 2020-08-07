@@ -58,7 +58,6 @@ public class SearchFragment extends HomeFragment {
         searchView = view.findViewById(R.id.search_bar);
         searchFilter = view.findViewById(R.id.rg_filter);
         jobsSearch = new ArrayList<>();
-        getSwipeContainer().setOnRefreshListener(null);
 
         searchView.setQueryHint(" Search here ");
         searchFilter.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {

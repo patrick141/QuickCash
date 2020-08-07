@@ -143,6 +143,9 @@ public class MainActivity extends AppCompatActivity {
                 Intent in = new Intent(this, PaymentActivity.class);
                 startActivity(in);
                 break;
+            case R.id.friends_main:
+                Intent intent2 = new Intent(this, FriendActivity.class);
+                startActivity(intent2);
             default:
                 break;
         }
