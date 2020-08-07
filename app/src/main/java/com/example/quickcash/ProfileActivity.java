@@ -2,6 +2,7 @@ package com.example.quickcash;
 
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
 import android.widget.ImageView;
 import android.widget.RatingBar;
 import android.widget.TextView;
@@ -77,11 +78,8 @@ public class ProfileActivity extends AppCompatActivity {
         } else{
             tvPhoneNumber.setText(getString(R.string.PA_no_phone));
         }
-        String email = user.getEmail();
-        if(email != null){
-            tvEmail.setText(email);
-        } else{
-            tvEmail.setText(getString(R.string.PA_no_email));
+        if(!user.hasSameId(ParseUser.getCurrentUser())){
+            tvEmail.setVisibility(View.GONE);
         }
 
         ParseFile userImage = (ParseFile) user.get(User.KEY_USER_IMAGE);

@@ -1,22 +1,29 @@
 package com.example.quickcash.adapters;
 
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.RatingBar;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
+import com.example.quickcash.ProfileActivity;
 import com.example.quickcash.R;
 import com.example.quickcash.models.User;
 import com.parse.ParseFile;
 import com.parse.ParseUser;
 
+import org.parceler.Parcels;
+
 import java.util.List;
+
+import static com.example.quickcash.adapters.JobsAdapter.timeNeed;
 
 public class UsersAdapter extends RecyclerView.Adapter<UsersAdapter.ViewHolder> {
     private Context context;
@@ -55,8 +62,12 @@ public class UsersAdapter extends RecyclerView.Adapter<UsersAdapter.ViewHolder> 
         notifyDataSetChanged();
     }
 
-    public class ViewHolder extends RecyclerView.ViewHolder {
+    public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
         private TextView tvName;
+        private TextView tvPhone;
+        private TextView tvDes;
+        private TextView tvEmail;
+        private RatingBar rbUser;
         private ImageView ivUser;
 
         // TODO: Finish all views.
@@ -64,6 +75,11 @@ public class UsersAdapter extends RecyclerView.Adapter<UsersAdapter.ViewHolder> 
             super(itemView);
             tvName = itemView.findViewById(R.id.tv_Username);
             ivUser = itemView.findViewById(R.id.iv_profliePic);
+            tvEmail = itemView.findViewById(R.id.tv_email);
+            tvDes = itemView.findViewById(R.id.tv_UserSince);
+            tvPhone = itemView.findViewById(R.id.tv_phone);
+            rbUser = itemView.findViewById(R.id.rb_user_rating);
+            itemView.setOnClickListener(this);
         }
 
         public void bind(ParseUser user) {
@@ -73,6 +89,21 @@ public class UsersAdapter extends RecyclerView.Adapter<UsersAdapter.ViewHolder> 
                 Glide.with(context).load(image.getUrl()).into(ivUser);
             } else{
                 Glide.with(context).load(R.drawable.logo).into(ivUser);
+            }
+            tvEmail.setText(user.getEmail());
+            tvDes.setText(context.getString(R.string.user_since) + " " + timeNeed(user.getCreatedAt()));
+            tvPhone.setText(user.getString(User.KEY_USER_PHONE));
+            rbUser.setRating((float) user.getDouble(User.KEY_USER_RATING));
+        }
+
+        @Override
+        public void onClick(View view) {
+            int position = getAdapterPosition();
+            if(position != RecyclerView.NO_POSITION) {
+                ParseUser user = users.get(position);
+                Intent i = new Intent(context, ProfileActivity.class);
+                i.putExtra(User.class.getSimpleName(), Parcels.wrap(user));
+                context.startActivity(i);
             }
         }
     }

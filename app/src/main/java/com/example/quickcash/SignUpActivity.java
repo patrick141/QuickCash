@@ -11,9 +11,11 @@ import android.widget.Toast;
 import androidx.appcompat.widget.Toolbar;
 
 import com.example.quickcash.databinding.ActivitySignUpBinding;
+import com.example.quickcash.models.Friends;
 import com.example.quickcash.models.User;
 import com.parse.ParseException;
 import com.parse.ParseUser;
+import com.parse.SaveCallback;
 import com.parse.SignUpCallback;
 
 import java.util.regex.Matcher;
@@ -83,8 +85,27 @@ public class SignUpActivity extends LoginActivity {
                     public void done(ParseException e) {
                         if(e == null){
                             Log.e(TAG, "creating new user");
-                            // If successful, user logs into account.
-                            loginUser(username, password);
+                            Friends friends = new Friends();
+                            friends.setUser(user);
+                            friends.saveInBackground(new SaveCallback() {
+                                @Override
+                                public void done(ParseException e) {
+                                    if(e!=null){
+                                        e.printStackTrace();
+                                    }
+                                    user.put(User.KEY_USER_FRIENDS, friends);
+                                    user.saveInBackground(new SaveCallback() {
+                                        @Override
+                                        public void done(ParseException e) {
+                                            if(e!= null){
+                                                e.printStackTrace();
+                                            }
+                                            // If successful, user logs into account.
+                                            loginUser(username, password);
+                                        }
+                                    });
+                                }
+                            });
                         }
                         else{
                             Log.e(TAG, " failure on creating new account");
