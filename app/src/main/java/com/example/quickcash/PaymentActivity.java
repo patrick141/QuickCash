@@ -49,10 +49,10 @@ public class PaymentActivity extends AppCompatActivity {
                 int position = tab.getPosition();
                 switch(position){
                     case 0:
-                        queryPayments();
+                        queryMyPayments();
                         break;
                     case 1:
-                        queryMyPayments();
+                        queryPayments();
                         break;
                     default:
                         break;

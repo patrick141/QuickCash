@@ -62,7 +62,12 @@ public class Job extends ParseObject {
     }
 
     public ParseUser getUser() {
-        return getParseUser(KEY_JOB_USER);
+        try {
+            return fetchIfNeeded().getParseUser(KEY_JOB_USER);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        return null;
     }
 
     public void setUser(ParseUser user){

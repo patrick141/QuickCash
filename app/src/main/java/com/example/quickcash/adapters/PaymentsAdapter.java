@@ -1,6 +1,7 @@
 package com.example.quickcash.adapters;
 
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,12 +13,15 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.example.quickcash.R;
+import com.example.quickcash.detailactivities.PaymentDetailsActivity;
 import com.example.quickcash.models.Job;
 import com.example.quickcash.models.Payment;
 import com.example.quickcash.models.User;
 import com.parse.ParseException;
 import com.parse.ParseFile;
 import com.parse.ParseUser;
+
+import org.parceler.Parcels;
 
 import java.util.List;
 
@@ -58,7 +62,7 @@ public class PaymentsAdapter extends RecyclerView.Adapter<PaymentsAdapter.ViewHo
         return payments.size();
     }
 
-    public class ViewHolder extends RecyclerView.ViewHolder {
+    public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
         private ImageView ivPaymentStatus;
         private ImageView ivRecipient;
         private TextView tvRecipient;
@@ -72,6 +76,7 @@ public class PaymentsAdapter extends RecyclerView.Adapter<PaymentsAdapter.ViewHo
             tvRecipient = itemView.findViewById(R.id.ip_name);
             tvReferJob = itemView.findViewById(R.id.ip_job);
             tvPaymentPrice = itemView.findViewById(R.id.ip_price);
+            itemView.setOnClickListener(this);
         }
 
         public void bind(Payment payment) {
@@ -91,6 +96,17 @@ public class PaymentsAdapter extends RecyclerView.Adapter<PaymentsAdapter.ViewHo
             Job job = payment.getJob();
             tvReferJob.setText(job.getName());
             tvPaymentPrice.setText("$" + String.format("%.2f", job.getPrice()));
+        }
+
+        @Override
+        public void onClick(View view) {
+            int position = getAdapterPosition();
+            if(position != RecyclerView.NO_POSITION) {
+                Payment payment = payments.get(position);
+                Intent i = new Intent(context, PaymentDetailsActivity.class);
+                i.putExtra(Payment.class.getSimpleName(), Parcels.wrap(payment));
+                context.startActivity(i);
+            }
         }
     }
 }

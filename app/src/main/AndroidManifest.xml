@@ -19,7 +19,8 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
-        <activity android:name=".PaymentActivity"></activity>
+        <activity android:name=".detailactivities.PaymentDetailsActivity"></activity>
+        <activity android:name=".PaymentActivity" />
         <activity android:name=".detailactivities.NotificationDetailsActivity" />
         <activity android:name=".MapActivity" />
         <activity android:name=".NotificationsActivity" />

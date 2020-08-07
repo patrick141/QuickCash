@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".detailactivities.PaymentDetailsActivity">
+
+
+    <include android:id="@+id/toolbar_PDA" layout="@layout/toolbar_main"/>
+    <include android:id="@+id/pda_profile" layout="@layout/item_profile"/>
+
+    <LinearLayout
+        android:id="@+id/ll_enter_info"
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/PDA_usernameTIL"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Enter Username: ">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/PDA_username"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/sa_enterU"/>
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/PDA_passwordTIL"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/PDA_password"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/sa_enterP"/>
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/PDA_emailTIL"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/PDA_email"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/sa_enterE"/>
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/PDA_phoneTIL"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/PDA_phone"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/sa_enterPh"/>
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/pda_job_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:text="@string/ij_sampleDescription"
+        android:textColor="@color/background_color_orange"
+        android:textSize="@dimen/job_name_textSize"
+        />
+
+    <TextView
+        android:id="@+id/pda_job_price"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="@dimen/pda_price_textSize"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="@dimen/margin_top_name_com"
+        android:text="@string/ij_samplePrice"/>
+
+    <Button
+        android:id="@+id/btn_pay_user"
+        android:layout_width="@dimen/google_pay_w"
+        android:layout_height="@dimen/google_pay_h"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="@dimen/margin_top_name_com"
+        android:background="@drawable/google_pay"/>
+
+
+</LinearLayout>

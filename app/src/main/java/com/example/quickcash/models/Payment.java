@@ -56,7 +56,12 @@ public class Payment extends ParseObject {
     }
 
     public Job getJob(){
-        return (Job) getParseObject(KEY_REFER_JOB);
+        try {
+            return (Job) fetchIfNeeded().getParseObject(KEY_REFER_JOB);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        return null;
     }
 
     public void setJob(Job job){
