@@ -1,8 +1,11 @@
 package com.example.quickcash;
 
+import android.Manifest;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.pm.PackageManager;
+import android.location.Location;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -13,6 +16,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.core.app.ActivityCompat;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 
@@ -22,6 +26,10 @@ import com.example.quickcash.fragments.HomeFragment;
 import com.example.quickcash.fragments.JobTasksFragment;
 import com.example.quickcash.fragments.ProfileFragment;
 import com.example.quickcash.fragments.SearchFragment;
+import com.google.android.gms.location.FusedLocationProviderClient;
+import com.google.android.gms.location.LocationServices;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.parse.ParseUser;
 
@@ -37,11 +45,14 @@ import com.parse.ParseUser;
 public class MainActivity extends AppCompatActivity {
 
     public static final String TAG = "MainActivity";
+    public static final int MAIN_LOCATION = 1930;
     private Toolbar toolbar;
     private BottomNavigationView bottomNavigationView;
     private final FragmentManager fragmentManager = getSupportFragmentManager();
     public SharedPreferences prefs;
 
+    private Location myLocation;
+    private FusedLocationProviderClient client;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -89,6 +100,9 @@ public class MainActivity extends AppCompatActivity {
         });
         // Default fragment when user signs is in the Home Fragment
         bottomNavigationView.setSelectedItemId(R.id.action_home);
+
+        client = LocationServices.getFusedLocationProviderClient(this);
+        fetchLastLocation();
     }
 
     /**
@@ -186,6 +200,48 @@ public class MainActivity extends AppCompatActivity {
         Toast.makeText(this, "You have signed out.", Toast.LENGTH_SHORT).show();
         startActivity(i);
         finish();
+    }
+
+    public Location getMyLocation(){
+        return myLocation;
+    }
+
+    /**
+     * This method gets our last location.
+     */
+    private void fetchLastLocation() {
+        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+            ActivityCompat.requestPermissions(this, new String[] {Manifest.permission.ACCESS_FINE_LOCATION}, MAIN_LOCATION);
+            return;
+        }
+        Task<Location> task = client.getLastLocation();
+        task.addOnSuccessListener(new OnSuccessListener<Location>() {
+            @Override
+            public void onSuccess(Location location) {
+                if(location != null){
+                    myLocation = new Location(location);
+                    myLocation.setLatitude(location.getLatitude());
+                    myLocation.setLongitude(location.getLongitude());
+                }
+            }
+        });
+    }
+
+    /**
+     * User will be asked for permission, if they say yes, they can use their location.
+     * @param requestCode
+     * @param permissions
+     * @param grantResults
+     */
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        switch(requestCode){
+            case MAIN_LOCATION:
+                if(grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED){
+                    fetchLastLocation();
+                }
+                break;
+        }
     }
 
 }

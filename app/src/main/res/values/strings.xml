@@ -165,4 +165,5 @@
     <string name="pay_activity_paying">Paying</string>
     <string name="pda_pay_user">Pay User</string>
     <string name="user_since">User Since:</string>
+    <string name="search_hint">Search Here:</string>
 </resources>

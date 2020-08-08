@@ -1,5 +1,6 @@
 package com.example.quickcash.fragments;
 
+import android.location.Location;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -11,17 +12,18 @@ import android.widget.SearchView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
+import com.example.quickcash.MainActivity;
 import com.example.quickcash.R;
 import com.example.quickcash.models.Job;
 import com.parse.FindCallback;
 import com.parse.ParseException;
+import com.parse.ParseGeoPoint;
 import com.parse.ParseQuery;
 import com.parse.ParseUser;
 
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
-import java.util.Date;
 import java.util.List;
 /**
  * SearchFragment
@@ -59,15 +61,45 @@ public class SearchFragment extends HomeFragment {
         searchFilter = view.findViewById(R.id.rg_filter);
         jobsSearch = new ArrayList<>();
 
-        searchView.setQueryHint(" Search here ");
+        searchView.setQueryHint(getString(R.string.search_hint));
+        searchFilter.clearCheck();
         searchFilter.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(RadioGroup radioGroup, int i) {
                 switch (i) {
                     case R.id.filter_location:
+                        Collections.sort(allJobs, new Comparator<Job>() {
+                            @Override
+                            public int compare(Job j1, Job j2) {
+                                ParseGeoPoint gp1 = j1.getLocation();
+                                ParseGeoPoint gp2 = j2.getLocation();
+
+                                Location myPoint = ((MainActivity) getActivity()).getMyLocation();
+                                Location l1 = new Location(myPoint);
+                                l1.setLatitude(gp1.getLatitude());
+                                l1.setLongitude(gp1.getLongitude());
+
+                                Location l2 = new Location(myPoint);
+                                l2.setLatitude(gp2.getLatitude());
+                                l2.setLongitude(gp2.getLongitude());
+
+                                double distance1 = myPoint.distanceTo(l1);
+                                double distance2 = myPoint.distanceTo(l2);
+
+                                if(distance1 > distance2){
+                                    return 1;
+                                } else if(distance1 < distance2){
+                                    return -1;
+                                } else{
+                                    return 0;
+                                }
+                            }
+                        });
+                        jobsAdapter.notifyDataSetChanged();
                         break;
+
                     case R.id.filter_amount:
-                        Collections.sort(jobsSearch, new Comparator<Job>() {
+                        Collections.sort(allJobs, new Comparator<Job>() {
                             @Override
                             public int compare(Job j1, Job j2) {
                                 if(j1.getPrice() > j2.getPrice()){
@@ -79,18 +111,18 @@ public class SearchFragment extends HomeFragment {
                                 }
                             }
                         });
-                        jobsAdapter.clear();
-                        jobsAdapter.addAll(jobsSearch);
+                        jobsAdapter.notifyDataSetChanged();
                         break;
                     case R.id.filter_popularity:
-                        Collections.sort(jobsSearch, new Comparator<Job>() {
+                        Collections.sort(allJobs, new Comparator<Job>() {
                             @Override
                             public int compare(Job j1, Job j2) {
                                 return j2.getJobRequestCount() - j1.getJobRequestCount();
                             }
                         });
-                        jobsAdapter.clear();
-                        jobsAdapter.addAll(jobsSearch);
+                        jobsAdapter.notifyDataSetChanged();
+                        break;
+                    default:
                         break;
                 }
             }
@@ -103,42 +135,16 @@ public class SearchFragment extends HomeFragment {
             @Override
             public boolean onQueryTextSubmit(String myText) {
                 textSearch = myText;
+                searchFilter.clearCheck();
                 querySearchJobs(textSearch);
                 return true;
             }
 
             @Override
             public boolean onQueryTextChange(String s) {
+                searchFilter.clearCheck();
+                querySearchJobs(s);
                 return true;
-            }
-        });
-    }
-
-    @Override
-    protected void queryJobs(){
-        ParseQuery<Job> query = ParseQuery.getQuery(Job.class);
-        query.include(Job.KEY_JOB_USER);
-        query.setLimit(20);
-        query.addAscendingOrder(Job.KEY_JOB_DATE);
-        query.whereNotEqualTo(Job.KEY_JOB_USER, ParseUser.getCurrentUser());
-        query.whereEqualTo(Job.KEY_JOB_ISTAKEN, false);
-        query.whereGreaterThan(Job.KEY_JOB_DATE, new Date());
-        query.findInBackground(new FindCallback<Job>() {
-            @Override
-            public void done(List<Job> jobs, ParseException e) {
-                if(e != null){
-                    Log.e(TAG, "Issues with getting jobs", e);
-                    return;
-                }
-                for(Job job: jobs){
-                    Log.i(TAG, "Job: " + job.getName() + ", username" + job.getUser().getUsername());
-                }
-                jobsSearch.clear();
-                jobsSearch.addAll(jobs);
-                jobsAdapter.clear();
-                jobsAdapter.addAll(jobs);
-                swipeContainer.setRefreshing(false);
-                jobsAdapter.notifyDataSetChanged();
             }
         });
     }
