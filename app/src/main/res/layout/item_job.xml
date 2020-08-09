@@ -28,9 +28,11 @@
                 android:id="@+id/job_request_name"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:textColor="@color/quantum_black_text"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintWidth_default="wrap"
+                android:transitionName="@string/tr_job_name"
                 android:text="@string/app_name"
                 android:textSize="@dimen/job_name_textSize"
                 android:textStyle="bold" />
@@ -39,17 +41,20 @@
                 android:id="@+id/job_date"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginEnd="2dp"
+                android:fontFamily="sans-serif"
                 android:text="@string/ij_sampleDate"
-                app:layout_constraintWidth_default="wrap"
+                android:textSize="@dimen/job_date_textSize"
+                app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/job_request_name"
-                app:layout_constraintEnd_toStartOf="@id/job_picture"/>
+                app:layout_constraintWidth_default="wrap" />
 
             <LinearLayout
                 android:id="@+id/ll_requestUserInfo"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/job_request_name">
+                app:layout_constraintTop_toBottomOf="@id/job_date">
 
                 <TextView
                     android:id="@+id/posted_ID"
@@ -62,6 +67,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="5dp"
+                    android:transitionName="@string/tr_job_creator"
                     android:text="@string/app_name"
                     android:textStyle="bold|italic" />
 
@@ -79,6 +85,7 @@
                 android:layout_height="wrap_content"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintBottom_toBottomOf="parent"
+                android:transitionName="@string/tr_job_price"
                 android:text="@string/ij_samplePrice"
                 android:textSize="@dimen/job_price_textSize"/>
 
@@ -87,9 +94,9 @@
                 android:layout_width="@dimen/job_image_hw"
                 android:layout_height="@dimen/job_image_hw"
                 android:layout_below="@id/job_request_name"
+                android:transitionName="@string/tr_job_image"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                android:transitionName="@string/tr_job_image"
                 tools:srcCompat="@tools:sample/avatars" />
 
             <TextView
@@ -98,8 +105,8 @@
                 android:layout_height="wrap_content"
                 android:layout_below="@id/ll_requestUserInfo"
                 android:text="@string/ij_sampleAddress"
-                android:textIsSelectable="true"
                 android:textStyle="bold"
+                app:layout_constraintTop_toBottomOf="@id/ll_requestUserInfo"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toStartOf="@id/job_picture"/>
 

@@ -166,4 +166,8 @@
     <string name="pda_pay_user">Pay User</string>
     <string name="user_since">User Since:</string>
     <string name="search_hint">Search Here:</string>
+    <string name="tr_job_name">job_name</string>
+    <string name="tr_job_price">job_price</string>
+    <string name="tr_job_date">job_date</string>
+    <string name="tr_job_creator">job_creator</string>
 </resources>

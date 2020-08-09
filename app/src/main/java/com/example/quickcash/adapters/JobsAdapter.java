@@ -9,11 +9,11 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.cardview.widget.CardView;
 import androidx.core.app.ActivityOptionsCompat;
+import androidx.core.util.Pair;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -113,8 +113,8 @@ public class JobsAdapter extends RecyclerView.Adapter<JobsAdapter.ViewHolder> {
         private TextView jobAddress;
         private TextView jobPrice;
 
-        private static final int CCHEIGHT = 30;
-        private static final int CCWIDTH = 30;
+        public static final int CCHEIGHT = 30;
+        public static final int CCWIDTH = 30;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -154,9 +154,14 @@ public class JobsAdapter extends RecyclerView.Adapter<JobsAdapter.ViewHolder> {
             if(position != RecyclerView.NO_POSITION) {
                 Job job = jobs.get(position);
                 Log.d(context.getResources().getString(R.string.jobdetailOnClick), job.getName());
+
+                Pair<View, String> p1 = Pair.create((View) jobPicture, context.getResources().getString(R.string.tr_job_image));
+                Pair<View, String> p2 = Pair.create((View) jobName, context.getResources().getString(R.string.tr_job_name));
+                Pair<View, String> p3 = Pair.create((View) jobPrice, context.getResources().getString(R.string.tr_job_price));
+                Pair<View, String> p4 = Pair.create((View) jobRequestorName, context.getResources().getString(R.string.tr_job_creator));
+
                 ActivityOptionsCompat options = ActivityOptionsCompat.
-                        makeSceneTransitionAnimation((Activity) context, (View) jobPicture, context.getResources().getString(R.string.tr_job_image));
-                Toast.makeText(context, job.getName(), Toast.LENGTH_SHORT).show();
+                        makeSceneTransitionAnimation((Activity) context, p1, p2, p3, p4);
                 Intent intent = generateIntent(context, fragment, job);
                 startActivityFor(context, intent, fragment, options);
             }

@@ -114,7 +114,7 @@ public class JobDetailsActivity extends BaseJobDetailsActivity{
             }
         }
 
-        getJobUserJDA().setOnClickListener(new View.OnClickListener() {
+        jobUserJDA.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent i = new Intent(JobDetailsActivity.this, ProfileActivity.class);

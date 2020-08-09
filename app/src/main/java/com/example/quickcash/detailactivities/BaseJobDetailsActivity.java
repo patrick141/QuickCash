@@ -28,6 +28,10 @@ import com.parse.SaveCallback;
 
 import java.util.ArrayList;
 
+import jp.wasabeef.glide.transformations.RoundedCornersTransformation;
+
+import static com.example.quickcash.adapters.JobsAdapter.ViewHolder.CCHEIGHT;
+import static com.example.quickcash.adapters.JobsAdapter.ViewHolder.CCWIDTH;
 import static com.example.quickcash.adapters.JobsAdapter.getRelativeTimeAgo;
 import static com.example.quickcash.adapters.JobsAdapter.timeNeed;
 
@@ -39,19 +43,19 @@ import static com.example.quickcash.adapters.JobsAdapter.timeNeed;
 
 public class BaseJobDetailsActivity extends AppCompatActivity implements OnMapReadyCallback {
     public static final String TAG = "BaseJobDetailsActivity";
-    private Toolbar toolbar;
-    private TextView jobNameJDA;
-    private TextView jobDateJDA;
-    private TextView jobDateCreatedJDA;
-    private TextView jobDescriptionJDA;
-    private TextView jobUserJDA;
-    private TextView jobPriceJDA;
-    private TextView jobAddressJDA;
+    protected Toolbar toolbar;
+    protected TextView jobNameJDA;
+    protected TextView jobDateJDA;
+    protected TextView jobDateCreatedJDA;
+    protected TextView jobDescriptionJDA;
+    protected TextView jobUserJDA;
+    protected TextView jobPriceJDA;
+    protected TextView jobAddressJDA;
     protected TextView jobstatusJDA;
-    private ImageView jobImageJDA;
-    private SupportMapFragment mapFragment;
-    private GoogleMap map;
-    private Job baseJob;
+    protected ImageView jobImageJDA;
+    protected SupportMapFragment mapFragment;
+    protected GoogleMap map;
+    protected Job baseJob;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -90,9 +94,9 @@ public class BaseJobDetailsActivity extends AppCompatActivity implements OnMapRe
             jobDateCreatedJDA.setText(" " + getRelativeTimeAgo(job.getCreatedAt().toString()));
             ParseFile jobImage = job.getImage();
             if (jobImage == null) {
-                Glide.with(this).load(R.drawable.logo).into(jobImageJDA);
+                Glide.with(this).load(R.drawable.logo).transform(new RoundedCornersTransformation(CCHEIGHT,CCWIDTH)).placeholder(R.drawable.logo).error(R.drawable.logo).into(jobImageJDA);
             } else {
-                Glide.with(this).load(job.getImage().getUrl()).into(jobImageJDA);
+                Glide.with(this).load(jobImage.getUrl()).transform(new RoundedCornersTransformation(CCHEIGHT,CCWIDTH)).placeholder(R.drawable.logo).error(R.drawable.logo).into(jobImageJDA);
             }
             jobUserJDA.setText(job.getUser().getUsername());
             jobPriceJDA.setText("$" + String.format("%.2f", job.getPrice()));
