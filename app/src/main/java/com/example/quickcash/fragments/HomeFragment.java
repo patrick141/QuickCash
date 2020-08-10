@@ -123,20 +123,10 @@ public class HomeFragment extends Fragment {
     public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if(requestCode == JOB_SEND_REQUEST_CODE && resultCode == RESULT_OK){
-                jobsAdapter.clear();
-                queryJobs();
+            jobsAdapter.clear();
+            queryJobs();
         }
     }
-
-    public RecyclerView getRvJobs() { return rvJobs; }
-
-    public JobsAdapter getJobsAdapter() { return jobsAdapter; }
-
-    public void setJobsAdapter(JobsAdapter jobsAdapter) { this.jobsAdapter = jobsAdapter;}
-
-    public List<Job> getAllJobs() { return allJobs; }
-
-    public SwipeRefreshLayout getSwipeContainer() { return swipeContainer; }
 
     @Override
     public void onDestroyView() {

@@ -13,6 +13,7 @@ import android.view.View;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
@@ -46,6 +47,7 @@ public class MainActivity extends AppCompatActivity {
 
     public static final String TAG = "MainActivity";
     public static final int MAIN_LOCATION = 1930;
+    public static final int MAIN_TO_MAP = 1842;
     private Toolbar toolbar;
     private BottomNavigationView bottomNavigationView;
     private final FragmentManager fragmentManager = getSupportFragmentManager();
@@ -144,7 +146,7 @@ public class MainActivity extends AppCompatActivity {
         switch(item.getItemId()){
             case R.id.map_main:
                 Intent i = new Intent(this, MapActivity.class);
-                startActivity(i);
+                startActivityForResult(i, MAIN_TO_MAP);
                 break;
             case R.id.sign_out_main:
                 playSignOutAD();
@@ -198,7 +200,7 @@ public class MainActivity extends AppCompatActivity {
         ParseUser currentUser = ParseUser.getCurrentUser(); // this will now be null
         Intent i = new Intent(this, LoginActivity.class);
         Toast.makeText(this, "You have signed out.", Toast.LENGTH_SHORT).show();
-        startActivity(i);
+        startActivityForResult(i, MAIN_TO_MAP);
         finish();
     }
 
@@ -244,4 +246,12 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if(requestCode == MAIN_TO_MAP && resultCode == RESULT_OK){
+            HomeFragment hf = new HomeFragment();
+            fragmentManager.beginTransaction().replace(R.id.flContainer, hf).commit();
+        }
+    }
 }

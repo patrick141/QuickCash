@@ -33,6 +33,7 @@ import androidx.fragment.app.Fragment;
 import com.example.quickcash.R;
 import com.example.quickcash.databinding.FragmentComposeBinding;
 import com.example.quickcash.models.Job;
+import com.example.quickcash.models.User;
 import com.google.android.gms.common.api.Status;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.libraries.places.api.Places;
@@ -167,7 +168,7 @@ public class ComposeFragment extends Fragment {
         mDateSetListener = new DatePickerDialog.OnDateSetListener() {
             @Override
             public void onDateSet(DatePicker datePicker, int year, int month, int day) {
-                Log.d(TAG, "onDateSet date: mm/dd/yyyy: " + month + "/" +day + "/" + year);
+                Log.d(TAG, getString(R.string.cf_date_picker) + month + "/" +day + "/" + year);
                 month+= 1;
                 String date = month + "/" + day + "/" + year;
                 etJobDate.setText(date);
@@ -250,7 +251,7 @@ public class ComposeFragment extends Fragment {
                         Toast.makeText(getContext(), "Job has been posted", Toast.LENGTH_LONG).show();
                     }
                 });
-                currentUser.add("myJobs", job);
+                currentUser.add(User.KEY_USER_JOBS, job);
                 currentUser.saveInBackground(new SaveCallback() {
                     @Override
                     public void done(com.parse.ParseException e) {

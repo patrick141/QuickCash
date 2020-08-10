@@ -170,4 +170,6 @@
     <string name="tr_job_price">job_price</string>
     <string name="tr_job_date">job_date</string>
     <string name="tr_job_creator">job_creator</string>
+    <string name="cf_date_picker">onDateSet date: mm/dd/yyyy:</string>
+    <string name="todo_job_leave">You have left this job.</string>
 </resources>

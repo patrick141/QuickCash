@@ -131,7 +131,7 @@ public class ProfileFragment extends HomeFragment {
                 switch(position){
                     case 0:{
                         queryJobs();
-                        getSwipeContainer().setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+                        swipeContainer.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
                             @Override
                             public void onRefresh() {
                                 queryJobs();
@@ -141,7 +141,7 @@ public class ProfileFragment extends HomeFragment {
                     }
                     case 1:{
                         queryFinishedJobs();
-                        getSwipeContainer().setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+                        swipeContainer.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
                             @Override
                             public void onRefresh() {
                                 queryFinishedJobs();
@@ -228,7 +228,7 @@ public class ProfileFragment extends HomeFragment {
                 Toast.makeText(getContext(), "Picture wasn't taken!", Toast.LENGTH_SHORT).show();
             }
         } else if( requestCode ==  REQUEST_CODE_MYDA_RDA && resultCode == RESULT_OK){
-            getJobsAdapter().clear();
+            jobsAdapter.clear();
             queryJobs();
         }
     }
@@ -252,10 +252,10 @@ public class ProfileFragment extends HomeFragment {
                 for(Job job: jobs){
                     Log.i(TAG, "Job: " + job.getName() + ", username" + job.getUser().getUsername());
                 }
-                getJobsAdapter().clear();
-                getJobsAdapter().addAll(jobs);
-                getSwipeContainer().setRefreshing(false);
-                getJobsAdapter().notifyDataSetChanged();
+                jobsAdapter.clear();
+                jobsAdapter.addAll(jobs);
+                swipeContainer.setRefreshing(false);
+                jobsAdapter.notifyDataSetChanged();
             }
         });
     }
@@ -277,10 +277,10 @@ public class ProfileFragment extends HomeFragment {
                 for(Job job: jobs){
                     Log.i(TAG, "Job: " + job.getName() + ", username" + job.getUser().getUsername());
                 }
-                getJobsAdapter().clear();
-                getJobsAdapter().addAll(jobs);
-                getSwipeContainer().setRefreshing(false);
-                getJobsAdapter().notifyDataSetChanged();
+                jobsAdapter.clear();
+                jobsAdapter.addAll(jobs);
+                swipeContainer.setRefreshing(false);
+                jobsAdapter.notifyDataSetChanged();
             }
         });
     }

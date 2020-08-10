@@ -23,6 +23,7 @@ import com.example.quickcash.detailactivities.JobDetailsActivity;
 import com.example.quickcash.detailactivities.MyJobsDetailsActivity;
 import com.example.quickcash.detailactivities.ToDoJobDetailsActivity;
 import com.example.quickcash.fragments.HomeFragment;
+import com.example.quickcash.fragments.JobTasksFragment;
 import com.example.quickcash.fragments.ProfileFragment;
 import com.example.quickcash.fragments.SearchFragment;
 import com.example.quickcash.models.Job;
@@ -53,6 +54,7 @@ public class JobsAdapter extends RecyclerView.Adapter<JobsAdapter.ViewHolder> {
     private static final int HOUR_MILLIS = 60 * MINUTE_MILLIS;
     private static final int DAY_MILLIS = 24 * HOUR_MILLIS;
     public static final int JOB_SEND_REQUEST_CODE = 1001;
+    public static final int JOB_FINISHED_CODE = 1002;
 
     public static final String TAG = "JobsAdapter";
 
@@ -222,12 +224,14 @@ public class JobsAdapter extends RecyclerView.Adapter<JobsAdapter.ViewHolder> {
     private void startActivityFor(Context context, Intent intent, Fragment fragment, ActivityOptionsCompat options){
         if(fragment instanceof ProfileFragment){
             fragment.startActivityForResult(intent, REQUEST_CODE_MYDA_RDA);
+        } else if(fragment instanceof JobTasksFragment) {
+            fragment.startActivityForResult(intent, JOB_FINISHED_CODE);
         } else {
-            if(fragment != null){
-                fragment.startActivityForResult(intent, JOB_SEND_REQUEST_CODE, options.toBundle());
-            } else{
-                ((Activity) context).startActivityForResult(intent, JOB_SEND_REQUEST_CODE, options.toBundle());
-            }
+                if(fragment != null){
+                    fragment.startActivityForResult(intent, JOB_SEND_REQUEST_CODE, options.toBundle());
+                } else{
+                    ((Activity) context).startActivityForResult(intent, JOB_SEND_REQUEST_CODE, options.toBundle());
+                }
         }
     }
 

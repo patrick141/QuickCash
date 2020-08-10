@@ -1,5 +1,6 @@
 package com.example.quickcash.fragments;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -18,6 +19,10 @@ import com.parse.ParseQuery;
 import com.parse.ParseUser;
 
 import java.util.List;
+
+import static android.app.Activity.RESULT_OK;
+import static com.example.quickcash.adapters.JobsAdapter.JOB_FINISHED_CODE;
+
 /**
  * JobTasksFragment
  *
@@ -69,13 +74,20 @@ public class JobTasksFragment extends HomeFragment {
                 for(Job job: jobs){
                     Log.i(TAG, "Job: " + job.getName() + ", username" + job.getUser().getUsername());
                 }
-                getAllJobs().addAll(jobs);
-                getJobsAdapter().notifyDataSetChanged();
-                getJobsAdapter().clear();
-                getJobsAdapter().addAll(jobs);
-                getSwipeContainer().setRefreshing(false);
-                getJobsAdapter().notifyDataSetChanged();
+                jobsAdapter.clear();
+                jobsAdapter.addAll(jobs);
+                swipeContainer.setRefreshing(false);
+                jobsAdapter.notifyDataSetChanged();
             }
         });
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if(requestCode == JOB_FINISHED_CODE && resultCode == RESULT_OK){
+            jobsAdapter.clear();
+            queryJobs();
+        }
     }
 }

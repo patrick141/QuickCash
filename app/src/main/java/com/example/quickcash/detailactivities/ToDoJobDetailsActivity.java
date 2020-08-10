@@ -1,6 +1,7 @@
 package com.example.quickcash.detailactivities;
 
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.util.Log;
@@ -22,6 +23,8 @@ import com.parse.ParseUser;
 import com.parse.SaveCallback;
 
 import org.parceler.Parcels;
+
+import static com.example.quickcash.detailactivities.JobDetailsActivity.PAUSE;
 
 public class ToDoJobDetailsActivity extends BaseJobDetailsActivity{
     private Job job;
@@ -56,7 +59,14 @@ public class ToDoJobDetailsActivity extends BaseJobDetailsActivity{
             @Override
             public void onClick(View view) {
                 finishedThisJob();
-                finish();
+                Intent i = new Intent();
+                setResult(RESULT_OK, i);
+                new Handler().postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        finish();
+                    }
+                }, PAUSE);
             }
         });
         btnLeave.setOnClickListener(new View.OnClickListener() {
@@ -94,14 +104,17 @@ public class ToDoJobDetailsActivity extends BaseJobDetailsActivity{
                     public void onClick(DialogInterface dialog, int whichButton) {
                         dialog.dismiss();
                         leaveThisJob();
-                        finish();
+                        Intent i = new Intent();
+                        setResult(RESULT_OK, i);
+                        new Handler().postDelayed(new Runnable() {
+                            @Override
+                            public void run() {
+                                finish();
+                            }
+                        }, PAUSE);
                     }
                 })
-                .setNegativeButton(getResources().getString(R.string.rda_no), new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog, int which) {
-                        dialog.dismiss();
-                    }
-                })
+                .setNegativeButton(getResources().getString(R.string.rda_no), null)
                 .create();
         dialog.show();
     }
@@ -152,6 +165,9 @@ public class ToDoJobDetailsActivity extends BaseJobDetailsActivity{
         btnPayRequest.setVisibility(View.VISIBLE);
     }
 
+    /**
+     * This method let's user leave a job they were assigned to.
+     */
     private void leaveThisJob() {
         job.remove(Job.KEY_JOB_ASSIGNED_USER);
         job.setIsTaken(false);
@@ -162,10 +178,14 @@ public class ToDoJobDetailsActivity extends BaseJobDetailsActivity{
                     Log.e(TAG, "Error trying to leave this job");
                 }
                 Log.i(TAG, " Leaving this job from " + job.getUser().getUsername());
+                Toast.makeText(ToDoJobDetailsActivity.this, getString(R.string.todo_job_leave), Toast.LENGTH_SHORT).show();
             }
         });
     }
 
+    /**
+     * This method creates a payment in the Parse DB.
+     */
     private void createPayment() {
         ParseUser currentUser = ParseUser.getCurrentUser();
         Payment payment = new Payment();

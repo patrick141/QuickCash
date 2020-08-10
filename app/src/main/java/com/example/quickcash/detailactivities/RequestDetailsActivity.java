@@ -3,6 +3,7 @@ package com.example.quickcash.detailactivities;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -14,11 +15,13 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
 import com.bumptech.glide.Glide;
+import com.example.quickcash.ProfileActivity;
 import com.example.quickcash.R;
 import com.example.quickcash.databinding.ActivityRequestDetailsBinding;
 import com.example.quickcash.models.Job;
 import com.example.quickcash.models.Notification;
 import com.example.quickcash.models.Request;
+import com.example.quickcash.models.User;
 import com.parse.DeleteCallback;
 import com.parse.ParseException;
 import com.parse.ParseFile;
@@ -29,6 +32,7 @@ import org.parceler.Parcels;
 import java.util.ArrayList;
 
 import static com.example.quickcash.adapters.RequestsAdapter.userAssigned;
+import static com.example.quickcash.detailactivities.JobDetailsActivity.PAUSE;
 
 /**
  * RequestDetailsActivity
@@ -100,7 +104,6 @@ public class RequestDetailsActivity extends AppCompatActivity {
                             Log.e(TAG, "Error giving " + request.getUser().getUsername() + " this job.", e);
                         }
                         Log.i(TAG, request.getUser().getUsername() + " has this job!");
-                        finish();
                     }
                 });
                 Notification notification = Notification.generateMyNotification(Notification.APPROVED_USER,job, request, RequestDetailsActivity.this);
@@ -113,6 +116,14 @@ public class RequestDetailsActivity extends AppCompatActivity {
                         Log.i(TAG, getString(R.string.notif_suc));
                     }
                 });
+                Intent i = new Intent();
+                setResult(RESULT_OK, i);
+                new Handler().postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        finish();
+                    }
+                },PAUSE);
             }
         });
         btnDenyUser.setOnClickListener(new View.OnClickListener() {
@@ -122,6 +133,14 @@ public class RequestDetailsActivity extends AppCompatActivity {
             }
         });
 
+        btnContactUser.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent i = new Intent(RequestDetailsActivity.this, ProfileActivity.class);
+                i.putExtra(User.class.getSimpleName(), Parcels.wrap(request.getUser()));
+                startActivity(i);
+            }
+        });
     }
 
     /**
@@ -176,7 +195,12 @@ public class RequestDetailsActivity extends AppCompatActivity {
                 Log.i(TAG, "Going to delete this request");
                 Intent i = new Intent();
                 setResult(RESULT_OK, i);
-                finish();
+                new Handler().postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        finish();
+                    }
+                },PAUSE);
             }
         });
     }

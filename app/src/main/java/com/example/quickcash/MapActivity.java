@@ -120,6 +120,8 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if(requestCode == MapInfoAdapter.GM_REQUEST_CODE &&  resultCode == RESULT_OK){
+            Intent i = new Intent();
+            setResult(RESULT_OK, i);
             finish();
         }
     }

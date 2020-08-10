@@ -212,10 +212,10 @@ public class MyJobsDetailsActivity extends BaseJobDetailsActivity{
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if(requestCode == REQUEST_CODE_MYDA_RDA && resultCode == RESULT_OK){
-            numReqs.setText(getString(R.string.requestCount_1) + " " + job.getJobRequestCount() + " " + getString(R.string.requestCount_2));
-            requestsAdapter.clear();
-            queryRequests();
+        if(requestCode == REQUEST_CODE_MYDA_RDA && resultCode == RESULT_OK) {
+                numReqs.setText(getString(R.string.requestCount_1) + " " + job.getJobRequestCount() + " " + getString(R.string.requestCount_2));
+                requestsAdapter.clear();
+                queryRequests();
         }
     }
 }
