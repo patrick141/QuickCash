@@ -7,8 +7,11 @@ import com.example.quickcash.models.Job;
 import com.example.quickcash.models.Notification;
 import com.example.quickcash.models.Payment;
 import com.example.quickcash.models.Request;
+import com.facebook.FacebookSdk;
+import com.facebook.appevents.AppEventsLogger;
 import com.parse.Parse;
 import com.parse.ParseObject;
+import com.parse.facebook.ParseFacebookUtils;
 
 import okhttp3.OkHttpClient;
 import okhttp3.logging.HttpLoggingInterceptor;
@@ -37,7 +40,6 @@ public class ParseApplication extends Application {
         /**
          * This is to monitor our Parse network traffic
          */
-        // Use for monitoring Parse network traffic
         OkHttpClient.Builder builder = new OkHttpClient.Builder();
         HttpLoggingInterceptor httpLoggingInterceptor = new HttpLoggingInterceptor();
         // Can be Level.BASIC, Level.HEADERS, or Level.BODY
@@ -52,5 +54,12 @@ public class ParseApplication extends Application {
                 .clientBuilder(builder)
                 .clientKey("CodepathMoveFaster")
                 .server("https://patrick-quickcash.herokuapp.com/parse").build());
+
+        /**
+         * This enables us to use the Facebook SDK and ParseFacebook SDK to log in via Facebook.
+         */
+        FacebookSdk.sdkInitialize(getApplicationContext());
+        AppEventsLogger.activateApp(this);
+        ParseFacebookUtils.initialize(this);
     }
 }

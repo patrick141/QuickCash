@@ -172,4 +172,12 @@
     <string name="tr_job_creator">job_creator</string>
     <string name="cf_date_picker">onDateSet date: mm/dd/yyyy:</string>
     <string name="todo_job_leave">You have left this job.</string>
+    <string name="la_facebook_fail">Uh oh. User exited facebook login.</string>
+    <string name="la_facebook_new_user">User signed up and logged in through Facebook!</string>
+    <string name="la_facebook_al_sign_in">User logged in through Facebook!</string>
+    <string name="attempt_log">Attempting to log in.</string>
+    <string name="issue_login">Issue with login</string>
+    <string name="login_failed">Login failed. Try Again</string>
+    <string name="login_sucess">Success!</string>
+    <string name="login_fb_sucess">Logged in via Facebook.</string>
 </resources>

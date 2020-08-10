@@ -12,10 +12,21 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
 import com.example.quickcash.databinding.ActivityLoginBinding;
+import com.facebook.AccessToken;
+import com.facebook.GraphRequest;
+import com.facebook.GraphResponse;
 import com.google.android.material.textfield.TextInputEditText;
 import com.parse.LogInCallback;
 import com.parse.ParseException;
 import com.parse.ParseUser;
+import com.parse.SaveCallback;
+import com.parse.facebook.ParseFacebookUtils;
+
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * LoginActivity
@@ -30,11 +41,19 @@ public class LoginActivity extends AppCompatActivity {
 
     public static final String TAG = "LoginActivity";
     public static final int REQUEST_SIGN_UP = 132;
+    public static final List<String> mPermissions = new ArrayList<String>(){{
+        add("public_profile");
+        add("email");
+    }
+    };
     private TextInputEditText etUsername;
     private TextInputEditText etPassword;
     private Button btnLogin;
     private Button btnSignup;
+    private Button btnFace;
     private Toolbar toolbar;
+    private String fbUsername;
+    private String fbEmail;
     /**
      * This is method calls upon getting the layout items from activity_login.xml.
      */
@@ -51,6 +70,7 @@ public class LoginActivity extends AppCompatActivity {
         etPassword = binding.laPassword;
         btnLogin = binding.btnLogin;
         btnSignup = binding.btnSignup;
+        btnFace = binding.btnLoginFacebook;
         toolbar = binding.toolbarLi;
         setSupportActionBar(toolbar);
 
@@ -76,7 +96,70 @@ public class LoginActivity extends AppCompatActivity {
                 startActivityForResult(i, REQUEST_SIGN_UP);
             }
         });
+
+        btnFace.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                ParseFacebookUtils.logInWithReadPermissionsInBackground(LoginActivity.this, mPermissions,new LogInCallback() {
+                    @Override
+                    public void done(ParseUser user, ParseException e) {
+                        if (user == null) {
+                            Log.d(TAG, getString(R.string.la_facebook_fail));
+                        } else if (user.isNew()) {
+                            Log.d(TAG, getString(R.string.la_facebook_new_user));
+                            saveContents();
+                        } else {
+                            Log.d(TAG, getString(R.string.la_facebook_al_sign_in));
+                            goMainActivity();
+                        }
+                    }
+                });
+            }
+        });
     }
+
+    /**
+     * This method
+     */
+    private void saveContents() {
+        GraphRequest request = GraphRequest.newMeRequest(AccessToken.getCurrentAccessToken(), new GraphRequest.GraphJSONObjectCallback() {
+            @Override
+            public void onCompleted(JSONObject object, GraphResponse response) {
+                try {
+                    String username = object.getString("name");
+                    fbUsername = username;
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+                try {
+                    String email = object.getString("email");
+                    fbEmail = email;
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+                ParseUser user = ParseUser.getCurrentUser();
+                user.setUsername(fbUsername);
+                user.setEmail(fbEmail);
+                user.saveInBackground(new SaveCallback() {
+                    @Override
+                    public void done(ParseException e) {
+                        if(e!= null){
+                            e.printStackTrace();
+                        }
+                        Toast.makeText(LoginActivity.this, getString(R.string.login_fb_sucess), Toast.LENGTH_SHORT).show();
+                    }
+                });
+            }
+        });
+
+        Bundle parameters = new Bundle();
+        parameters.putString("fields","name,emails");
+        request.setParameters(parameters);
+        request.executeAsync();
+
+        goMainActivity();
+    }
+
 
     /**
      * This method signs our user into the App using Parse.
@@ -85,19 +168,19 @@ public class LoginActivity extends AppCompatActivity {
      * If username and password match an existing account, the user will be signed in.
      */
     protected void loginUser(final String username, final String password){
-        Log.i(TAG, "Attempting to log");
+        Log.i(TAG, getString(R.string.attempt_log));
         ParseUser.logInInBackground(username, password, new LogInCallback() {
             @Override
             public void done(ParseUser user, ParseException e) {
                 if( e!= null){
-                    Log.e(TAG, "Issue with login", e);
-                    Toast.makeText(LoginActivity.this, "Login failed. Try again", Toast.LENGTH_LONG).show();
+                    Log.e(TAG, getString(R.string.issue_login), e);
+                    Toast.makeText(LoginActivity.this, getString(R.string.login_failed), Toast.LENGTH_LONG).show();
                     return;
                 }
                 goMainActivity();
-                Log.i(TAG, username + " is logged in.");
-                Toast.makeText(LoginActivity.this, "Success!", Toast.LENGTH_SHORT).show();
-            }
+                Log.i(TAG, username + getString(R.string.login_sucess));
+                Toast.makeText(LoginActivity.this, getString(R.string.login_sucess), Toast.LENGTH_SHORT).show();
+            };
         });
     }
 
@@ -121,6 +204,7 @@ public class LoginActivity extends AppCompatActivity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
+        ParseFacebookUtils.onActivityResult(requestCode, resultCode, data);
         if(requestCode == REQUEST_SIGN_UP && resultCode == RESULT_OK){
             goMainActivity();
         }

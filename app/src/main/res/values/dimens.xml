@@ -91,5 +91,6 @@
     <dimen name="pda_price_textSize">40sp</dimen>
     <dimen name="icon_notif_hw">32dp</dimen>
     <dimen name="job_date_textSize">16sp</dimen>
+    <dimen name="btn_facebook_hw">30dp</dimen>
 
 </resources>
