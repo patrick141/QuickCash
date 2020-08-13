@@ -8,6 +8,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.quickcash.adapters.UsersAdapter;
+import com.example.quickcash.models.User;
 import com.parse.FindCallback;
 import com.parse.ParseException;
 import com.parse.ParseQuery;
@@ -40,6 +41,7 @@ public class FriendActivity extends AppCompatActivity {
 
     private void queryUsers() {
         ParseQuery<ParseUser> query = ParseUser.getQuery();
+        query.whereNotEqualTo(User.KEY_OBJECT_ID,ParseUser.getCurrentUser().getObjectId());
         query.findInBackground(new FindCallback<ParseUser>() {
             @Override
             public void done(List<ParseUser> usersList, ParseException e) {

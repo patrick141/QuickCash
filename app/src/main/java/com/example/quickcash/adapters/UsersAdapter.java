@@ -1,5 +1,6 @@
 package com.example.quickcash.adapters;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.view.LayoutInflater;
@@ -10,9 +11,11 @@ import android.widget.RatingBar;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.core.app.ActivityOptionsCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.resource.bitmap.CircleCrop;
 import com.example.quickcash.ProfileActivity;
 import com.example.quickcash.R;
 import com.example.quickcash.models.User;
@@ -86,24 +89,31 @@ public class UsersAdapter extends RecyclerView.Adapter<UsersAdapter.ViewHolder> 
             tvName.setText(user.getUsername());
             ParseFile image = user.getParseFile(User.KEY_USER_IMAGE);
             if(image != null){
-                Glide.with(context).load(image.getUrl()).into(ivUser);
+                Glide.with(context).load(image.getUrl()).placeholder(R.drawable.logo).transform(new CircleCrop()).into(ivUser);
             } else{
-                Glide.with(context).load(R.drawable.logo).into(ivUser);
+                Glide.with(context).load(R.drawable.logo).transform(new CircleCrop()).into(ivUser);
             }
             tvEmail.setText(user.getEmail());
             tvDes.setText(context.getString(R.string.user_since) + " " + timeNeed(user.getCreatedAt()));
-            tvPhone.setText(user.getString(User.KEY_USER_PHONE));
+            String phone = user.getString(User.KEY_USER_PHONE);
+            if(phone != null){
+                tvPhone.setText(phone);
+            } else {
+                tvPhone.setText(context.getString(R.string.PA_no_phone));
+            }
             rbUser.setRating((float) user.getDouble(User.KEY_USER_RATING));
         }
 
         @Override
         public void onClick(View view) {
             int position = getAdapterPosition();
+            ActivityOptionsCompat options = ActivityOptionsCompat.
+                    makeSceneTransitionAnimation((Activity) context, (View) itemView, context.getString(R.string.tr_profile));
             if(position != RecyclerView.NO_POSITION) {
                 ParseUser user = users.get(position);
                 Intent i = new Intent(context, ProfileActivity.class);
                 i.putExtra(User.class.getSimpleName(), Parcels.wrap(user));
-                context.startActivity(i);
+                context.startActivity(i, options.toBundle());
             }
         }
     }

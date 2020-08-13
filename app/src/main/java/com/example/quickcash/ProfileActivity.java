@@ -70,7 +70,7 @@ public class ProfileActivity extends AppCompatActivity {
         if(description != null){
             tvDescription.setText(description);
         } else{
-            tvDescription.setText(DEFAULT_RM1 + timeNeed(user.getCreatedAt()));
+            tvDescription.setText(getString(R.string.user_since) + " " + timeNeed(user.getCreatedAt()));
         }
         String phone = user.getString(User.KEY_USER_PHONE);
         if(phone != null){

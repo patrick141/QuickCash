@@ -5,6 +5,8 @@
     android:id="@+id/cl_profile"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:background="@drawable/app_background"
+    android:transitionName="@string/tr_profile"
     android:padding="@dimen/largePadding">
 
     <ImageView

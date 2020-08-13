@@ -1,9 +1,11 @@
 package com.example.quickcash.models;
 
+import com.parse.ParseObject;
+
 /**
  * This class is to hold variable constants as we cannot extend ParseUser.
  */
-public class User {
+public class User extends ParseObject {
     public static final String KEY_USER_RATING = "userRating";
     public static final String KEY_USER_PHONE = "phoneNumber";
     public static final String KEY_USER_IMAGE = "profilePic";

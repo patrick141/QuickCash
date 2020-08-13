@@ -180,4 +180,5 @@
     <string name="login_failed">Login failed. Try Again</string>
     <string name="login_sucess">Success!</string>
     <string name="login_fb_sucess">Logged in via Facebook.</string>
+    <string name="tr_profile">profile_item</string>
 </resources>

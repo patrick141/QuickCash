@@ -82,8 +82,9 @@ public class NotificationsActivity extends AppCompatActivity {
                 if(e!=null){
                     e.printStackTrace();
                 }
-                if(notifications.size() == 0){
+                if(notifications == null){
                     tvInfo.setVisibility(View.VISIBLE);
+                    return;
                 }
                 nAdapters.clear();
                 nAdapters.addAll(notifications);

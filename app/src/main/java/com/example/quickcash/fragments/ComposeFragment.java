@@ -379,14 +379,17 @@ public class ComposeFragment extends Fragment {
         }
 
         if ((data != null) && requestCode == PICK_PHOTO_CODE) {
-            Uri photoUri = data.getData();
-            // Load the image located at photoUri into selectedImage
-            Bitmap selectedImage = loadFromUri(photoUri);
-            photoFile = getFileFromBitmap(selectedImage);
-            // Load the selected image into a preview
-            ivImage.setImageBitmap(selectedImage);
-        } else{
-            Toast.makeText(getContext(), getString(R.string.cf_select_error), Toast.LENGTH_SHORT).show();
+            if(resultCode == RESULT_OK) {
+                Uri photoUri = data.getData();
+                // Load the image located at photoUri into selectedImage
+                Bitmap selectedImage = loadFromUri(photoUri);
+                photoFile = getFileFromBitmap(selectedImage);
+                // Load the selected image into a preview
+                ivImage.setImageBitmap(selectedImage);
+            }
+            else{
+                Toast.makeText(getContext(), getString(R.string.cf_select_error), Toast.LENGTH_SHORT).show();
+            }
         }
     }
 
