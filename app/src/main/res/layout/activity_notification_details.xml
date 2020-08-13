@@ -1,9 +1,24 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     tools:context=".detailactivities.NotificationDetailsActivity">
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+    <include android:id="@+id/toolbar_nda" layout="@layout/toolbar_main"/>
+
+    <include android:id="@+id/profile_nda" layout="@layout/item_profile"/>
+
+    <TextView
+        android:id="@+id/notif_messenge"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/notif_height"
+        android:text="@string/ij_sampleDescription"/>
+
+    <include android:id="@+id/refer_job" layout="@layout/item_job"/>
+    <include android:id="@+id/refer_request" layout="@layout/item_request"/>
+
+
+</LinearLayout>

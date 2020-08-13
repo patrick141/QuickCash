@@ -1,6 +1,7 @@
 package com.example.quickcash.adapters;
 
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,12 +12,16 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.resource.bitmap.CircleCrop;
 import com.example.quickcash.R;
+import com.example.quickcash.detailactivities.NotificationDetailsActivity;
 import com.example.quickcash.models.Notification;
 import com.example.quickcash.models.User;
 import com.parse.ParseException;
 import com.parse.ParseFile;
 import com.parse.ParseUser;
+
+import org.parceler.Parcels;
 
 import java.util.List;
 
@@ -60,7 +65,7 @@ public class NotificationsAdapter extends RecyclerView.Adapter<NotificationsAdap
         notifyDataSetChanged();
     }
 
-    public class ViewHolder extends RecyclerView.ViewHolder {
+    public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
         private ImageView ivMessenger;
         private TextView tvUser;
         private TextView tvMessenge;
@@ -72,6 +77,7 @@ public class NotificationsAdapter extends RecyclerView.Adapter<NotificationsAdap
             tvUser = itemView.findViewById(R.id.tv_messenger_name);
             tvMessenge = itemView.findViewById(R.id.tv_messenge);
             tvCreatedAt = itemView.findViewById(R.id.tv_messenge_CA);
+            itemView.setOnClickListener(this);
         }
 
         public void bind(final Notification notification) {
@@ -83,13 +89,24 @@ public class NotificationsAdapter extends RecyclerView.Adapter<NotificationsAdap
                 e.printStackTrace();
             }
             if(image == null){
-                Glide.with(context).load(R.drawable.logo).placeholder(R.drawable.logo).into(ivMessenger);
+                Glide.with(context).load(R.drawable.logo).transform(new CircleCrop()).placeholder(R.drawable.logo).into(ivMessenger);
             } else{
-                Glide.with(context).load(image.getUrl()).placeholder(R.drawable.logo).into(ivMessenger);
+                Glide.with(context).load(image.getUrl()).transform(new CircleCrop()).placeholder(R.drawable.logo).into(ivMessenger);
             }
             tvUser.setText(user.getUsername());
             tvMessenge.setText(notification.getMessage());
             tvCreatedAt.setText(getRelativeTimeAgo(notification.getCreatedAt().toString()));
+        }
+
+        @Override
+        public void onClick(View view) {
+            int position = getAdapterPosition();
+            if(position != RecyclerView.NO_POSITION) {
+                Notification notification = notifications.get(position);
+                Intent intent = new Intent(context, NotificationDetailsActivity.class);
+                intent.putExtra(Notification.class.getSimpleName(), Parcels.wrap(notification));
+                context.startActivity(intent);
+            }
         }
     }
 }
