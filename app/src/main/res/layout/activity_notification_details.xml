@@ -11,14 +11,21 @@
 
     <include android:id="@+id/profile_nda" layout="@layout/item_profile"/>
 
-    <TextView
-        android:id="@+id/notif_messenge"
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="@dimen/notif_height"
-        android:text="@string/ij_sampleDescription"/>
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:background="@drawable/app_background">
 
-    <include android:id="@+id/refer_job" layout="@layout/item_job"/>
-    <include android:id="@+id/refer_request" layout="@layout/item_request"/>
+        <TextView
+            android:id="@+id/notif_messenge"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/notif_height"
+            android:text="@string/ij_sampleDescription"
+            android:textSize="20sp"/>
 
+        <include android:id="@+id/refer_job" layout="@layout/item_job"/>
+        <include android:id="@+id/refer_request" layout="@layout/item_request" android:visibility="gone"/>
 
+    </LinearLayout>
 </LinearLayout>

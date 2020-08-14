@@ -181,4 +181,5 @@
     <string name="login_sucess">Success!</string>
     <string name="login_fb_sucess">Logged in via Facebook.</string>
     <string name="tr_profile">profile_item</string>
+    <string name="tr_profile_pic">profile_pic</string>
 </resources>

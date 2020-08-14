@@ -10,6 +10,7 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Button;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -48,6 +49,8 @@ public class MainActivity extends AppCompatActivity {
     public static final String TAG = "MainActivity";
     public static final int MAIN_LOCATION = 1930;
     public static final int MAIN_TO_MAP = 1842;
+    public static Button notifCount;
+    private Menu toolbarMenu;
     private Toolbar toolbar;
     private BottomNavigationView bottomNavigationView;
     private final FragmentManager fragmentManager = getSupportFragmentManager();
@@ -133,6 +136,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.menu_main, menu);
+        toolbarMenu = menu;
         return true;
     }
 
@@ -254,4 +258,19 @@ public class MainActivity extends AppCompatActivity {
             fragmentManager.beginTransaction().replace(R.id.flContainer, hf).commit();
         }
     }
+
+    /**
+    public void updateIcon(){
+        MenuInflater inflater = getMenuInflater();
+        ParseLiveQueryClient client = ParseLiveQueryClient.Factory.getClient();
+        ParseQuery<Notification> query = ParseQuery.getQuery(Notification.class);
+        SubscriptionHandling<Notification> subscriptionHandling = client.subscribe(query);
+
+        subscriptionHandling.handleEvent(SubscriptionHandling.Event.CREATE, new SubscriptionHandling.HandleEventCallback<Notification>() {
+            @Override
+            public void onEvent(ParseQuery<Notification> query, Notification object) {
+                return;
+            }
+        });
+    }*/
 }

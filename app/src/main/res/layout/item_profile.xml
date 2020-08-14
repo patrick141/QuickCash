@@ -17,6 +17,7 @@
         android:layout_marginTop="2dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
+        android:transitionName="@string/tr_profile_pic"
         tools:src="@tools:sample/avatars" />
 
     <TextView

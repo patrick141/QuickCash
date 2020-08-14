@@ -1,5 +1,6 @@
 package com.example.quickcash.adapters;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.view.LayoutInflater;
@@ -9,6 +10,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.core.app.ActivityOptionsCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
@@ -105,7 +107,9 @@ public class NotificationsAdapter extends RecyclerView.Adapter<NotificationsAdap
                 Notification notification = notifications.get(position);
                 Intent intent = new Intent(context, NotificationDetailsActivity.class);
                 intent.putExtra(Notification.class.getSimpleName(), Parcels.wrap(notification));
-                context.startActivity(intent);
+                ActivityOptionsCompat options = ActivityOptionsCompat
+                        .makeSceneTransitionAnimation((Activity) context, (View) ivMessenger, context.getString(R.string.tr_profile_pic));
+                context.startActivity(intent, options.toBundle());
             }
         }
     }

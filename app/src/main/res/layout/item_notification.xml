@@ -5,6 +5,7 @@
     android:id="@+id/cv_notification"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    app:cardCornerRadius="@dimen/background_radius"
     android:padding="@dimen/mediumPadding">
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -19,6 +20,7 @@
             android:layout_height="@dimen/profile_image_hw"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
+            android:transitionName="@string/tr_profile_pic"
             tools:srcCompat="@tools:sample/avatars" />
 
         <TextView
@@ -37,7 +39,7 @@
             android:layout_marginStart="@dimen/profile_margin_fromIV"
             android:layout_marginTop="@dimen/profile_margin_top"
             android:text="@string/ij_sampleDescription"
-            app:autoSizeTextType="uniform"
+            android:textSize="18sp"
             app:layout_constraintStart_toEndOf="@+id/iv_messenger"
             app:layout_constraintTop_toBottomOf="@+id/tv_messenger_name" />
 

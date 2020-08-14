@@ -69,9 +69,11 @@ public class SignUpActivity extends LoginActivity {
                 final String phone = etPhone.getText().toString();
                 if(username.isEmpty() || password.isEmpty() || email.isEmpty() || phone.isEmpty()){
                     Toast.makeText(SignUpActivity.this, getString(R.string.sa_enterAll), Toast.LENGTH_SHORT).show();
+                    return;
                 }
                 if(!isValidEmail(email) || !isValidPhone(phone) ){
                     Toast.makeText(SignUpActivity.this, getString(R.string.sa_get_valid), Toast.LENGTH_SHORT).show();
+                    return;
                 }
                 Toast.makeText(SignUpActivity.this, "Signing up " + username, Toast.LENGTH_SHORT).show();
                 //We are creating a new account based off the user's details.
