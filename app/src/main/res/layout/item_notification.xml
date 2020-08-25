@@ -5,7 +5,7 @@
     android:id="@+id/cv_notification"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    app:cardCornerRadius="@dimen/background_radius"
+    app:cardCornerRadius="@dimen/job_corner_radius"
     android:padding="@dimen/mediumPadding">
 
     <androidx.constraintlayout.widget.ConstraintLayout

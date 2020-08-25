@@ -44,7 +44,7 @@ import static com.example.quickcash.adapters.JobsAdapter.JOB_SEND_REQUEST_CODE;
 public class HomeFragment extends Fragment {
 
     public static final String TAG = "HomeFragment";
-
+    public static final int maxJobsView = 100;
     protected RecyclerView rvJobs;
     protected JobsAdapter jobsAdapter;
     protected List<Job> allJobs;
@@ -96,7 +96,7 @@ public class HomeFragment extends Fragment {
     protected void queryJobs(){
         ParseQuery<Job> query = ParseQuery.getQuery(Job.class);
         query.include(Job.KEY_JOB_USER);
-        query.setLimit(20);
+        query.setLimit(maxJobsView);
         query.addAscendingOrder(Job.KEY_JOB_DATE);
         query.whereNotEqualTo(Job.KEY_JOB_USER, ParseUser.getCurrentUser());
         query.whereEqualTo(Job.KEY_JOB_ISTAKEN, false);

@@ -17,10 +17,13 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.TimePicker;
 import android.widget.Toast;
@@ -41,8 +44,10 @@ import com.google.android.libraries.places.api.model.Place;
 import com.google.android.libraries.places.widget.Autocomplete;
 import com.google.android.libraries.places.widget.AutocompleteActivity;
 import com.google.android.libraries.places.widget.model.AutocompleteActivityMode;
+import com.parse.FindCallback;
 import com.parse.ParseFile;
 import com.parse.ParseGeoPoint;
+import com.parse.ParseQuery;
 import com.parse.ParseUser;
 import com.parse.SaveCallback;
 
@@ -53,6 +58,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Date;
@@ -87,6 +93,7 @@ public class ComposeFragment extends Fragment {
     private Button btnTakeImage;
     private Button btnSelectImage;
     private ImageView ivImage;
+    private Spinner spinnerUsers;
     private File photoFile;
     private String photoFileName = "photo.jpg";
     private Place place;
@@ -121,6 +128,7 @@ public class ComposeFragment extends Fragment {
         btnTakeImage = binding.btnTakeJobPic;
         btnSelectImage = binding.btnSelectPhoto;
         ivImage = binding.ivOptionImage;
+        spinnerUsers = binding.spinUser;
 
         Places.initialize(getContext(), getResources().getString(R.string.newAPIKEY));
 
@@ -189,6 +197,8 @@ public class ComposeFragment extends Fragment {
                 launchCameraStorage();
             }
         });
+
+        setUserSpinner();
         /**
          * This entire method creates a new job post once user has filled all necessary information.
          * This gets the information provided in the editTexts and sends a request to create a new
@@ -435,6 +445,25 @@ public class ComposeFragment extends Fragment {
         String newDate = stringDate + " " + stringTime;
         SimpleDateFormat format = new SimpleDateFormat("MM/dd/yyyy HH:mm", Locale.ENGLISH);
         return (format.parse(newDate));
+    }
+
+    private void setUserSpinner(){
+        List<String> userNames = new ArrayList<>();
+        ParseQuery<ParseUser> query = ParseUser.getQuery();
+        query.whereNotEqualTo(User.KEY_OBJECT_ID, ParseUser.getCurrentUser().getObjectId());
+        query.findInBackground(new FindCallback<ParseUser>() {
+            @Override
+            public void done(List<ParseUser> users, com.parse.ParseException e) {
+                if(e != null){
+                    e.printStackTrace();
+                }
+                for(ParseUser user: users){
+                    userNames.add(user.toString());
+                }
+            }
+        });
+        ArrayAdapter<String> adapter = new ArrayAdapter<String>(getContext(), android.R.layout.simple_spinner_dropdown_item, userNames);
+        spinnerUsers.setAdapter(adapter);
     }
 
     @Override

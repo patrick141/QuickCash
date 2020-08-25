@@ -13,6 +13,7 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.core.app.ActivityCompat;
 
 import com.example.quickcash.adapters.MapInfoAdapter;
+import com.example.quickcash.fragments.HomeFragment;
 import com.example.quickcash.models.Job;
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationServices;
@@ -91,7 +92,7 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
         }
         ParseQuery<Job> query = ParseQuery.getQuery(Job.class);
         query.include(Job.KEY_JOB_USER);
-        query.setLimit(20);
+        query.setLimit(HomeFragment.maxJobsView);
         query.whereNotEqualTo(Job.KEY_JOB_USER, ParseUser.getCurrentUser());
         query.whereEqualTo(Job.KEY_JOB_ISTAKEN, false);
         query.whereGreaterThan(Job.KEY_JOB_DATE, new Date());

@@ -92,5 +92,6 @@
     <dimen name="icon_notif_hw">32dp</dimen>
     <dimen name="job_date_textSize">16sp</dimen>
     <dimen name="btn_facebook_hw">30dp</dimen>
+    <dimen name="cf_margin_top">5dp</dimen>
 
 </resources>

@@ -86,6 +86,13 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
-        android:layout_marginTop="@dimen/btn_facebook_hw"
-        android:layout_marginBottom="@dimen/btn_facebook_hw" />
+        android:layout_marginTop="@dimen/btn_facebook_hw" />
+    
+    <Button
+        android:id="@+id/btn_login_twitter"
+        android:text="@string/la_twitter_login"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="@dimen/la_margin"/>
 </LinearLayout>

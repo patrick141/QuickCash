@@ -10,6 +10,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.widget.Toolbar;
 import androidx.core.app.ActivityOptionsCompat;
 import androidx.core.util.Pair;
 import androidx.recyclerview.widget.RecyclerView;
@@ -123,7 +124,6 @@ public class RequestsAdapter extends RecyclerView.Adapter<RequestsAdapter.ViewHo
 
                 Pair<View, String> p1 = Pair.create((View) ivRequest, context.getString(R.string.tr_request_image));
                 Pair<View, String> p2 = Pair.create((View) tvRequestUsername, context.getString(R.string.tr_request_name));
-
                 ActivityOptionsCompat options = ActivityOptionsCompat.
                         makeSceneTransitionAnimation((Activity) context, p1, p2);
                 ((Activity) context).startActivityForResult(i, REQUEST_CODE_MYDA_RDA , options.toBundle());

@@ -160,7 +160,7 @@ public class SearchFragment extends HomeFragment {
         }
         ParseQuery<Job> query = ParseQuery.getQuery(Job.class);
         query.include(Job.KEY_JOB_USER);
-        query.setLimit(10);
+        query.setLimit(maxJobsView);
         query.addDescendingOrder(Job.KEY_CREATED_AT);
         query.whereNotEqualTo(Job.KEY_JOB_USER, ParseUser.getCurrentUser());
         query.whereNotEqualTo(Job.KEY_JOB_ISTAKEN, true);

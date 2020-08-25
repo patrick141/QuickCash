@@ -15,18 +15,32 @@ import com.example.quickcash.databinding.ActivityLoginBinding;
 import com.facebook.AccessToken;
 import com.facebook.GraphRequest;
 import com.facebook.GraphResponse;
+import com.facebook.login.widget.LoginButton;
 import com.google.android.material.textfield.TextInputEditText;
 import com.parse.LogInCallback;
 import com.parse.ParseException;
 import com.parse.ParseUser;
 import com.parse.SaveCallback;
 import com.parse.facebook.ParseFacebookUtils;
+import com.parse.twitter.ParseTwitterUtils;
+import com.parse.twitter.Twitter;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+
+import oauth.signpost.exception.OAuthCommunicationException;
+import oauth.signpost.exception.OAuthExpectationFailedException;
+import oauth.signpost.exception.OAuthMessageSignerException;
+import okhttp3.Call;
+import okhttp3.Callback;
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import okhttp3.Response;
+import se.akerfeldt.okhttp.signpost.OkHttpOAuthConsumer;
 
 /**
  * LoginActivity
@@ -54,6 +68,7 @@ public class LoginActivity extends AppCompatActivity {
     private Toolbar toolbar;
     private String fbUsername;
     private String fbEmail;
+    private Button btnTwitter;
     /**
      * This is method calls upon getting the layout items from activity_login.xml.
      */
@@ -72,6 +87,7 @@ public class LoginActivity extends AppCompatActivity {
         btnSignup = binding.btnSignup;
         btnFace = binding.btnLoginFacebook;
         toolbar = binding.toolbarLi;
+        btnTwitter = binding.btnLoginTwitter;
         setSupportActionBar(toolbar);
 
         /**
@@ -107,9 +123,32 @@ public class LoginActivity extends AppCompatActivity {
                             Log.d(TAG, getString(R.string.la_facebook_fail));
                         } else if (user.isNew()) {
                             Log.d(TAG, getString(R.string.la_facebook_new_user));
-                            saveContents();
+                            saveFBContents();
+                            goMainActivity();
                         } else {
                             Log.d(TAG, getString(R.string.la_facebook_al_sign_in));
+                            goMainActivity();
+                        }
+                    }
+                });
+            }
+        });
+
+        btnTwitter.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(LoginActivity.this, "trying to login with twitter", Toast.LENGTH_SHORT).show();
+                ParseTwitterUtils.logIn(LoginActivity.this, new LogInCallback() {
+                    @Override
+                    public void done(ParseUser user, ParseException e) {
+                        if (user == null) {
+                            Log.d("MyApp", "Uh oh. The user cancelled the Twitter login.");
+                        } else if (user.isNew()) {
+                            Log.d("MyApp", "User signed up and logged in through Twitter!");
+                            saveTwitterContents();
+                            goMainActivity();
+                        } else {
+                            Log.d("MyApp", "User logged in through Twitter!");
                             goMainActivity();
                         }
                     }
@@ -121,34 +160,31 @@ public class LoginActivity extends AppCompatActivity {
     /**
      * This method
      */
-    private void saveContents() {
+    private void saveFBContents() {
         GraphRequest request = GraphRequest.newMeRequest(AccessToken.getCurrentAccessToken(), new GraphRequest.GraphJSONObjectCallback() {
             @Override
             public void onCompleted(JSONObject object, GraphResponse response) {
                 try {
                     String username = object.getString("name");
-                    fbUsername = username;
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                }
-                try {
                     String email = object.getString("email");
+                    fbUsername = username;
                     fbEmail = email;
+                    ParseUser user = ParseUser.getCurrentUser();
+                    user.setUsername(fbUsername);
+                    user.setEmail(fbEmail);
+                    user.saveInBackground(new SaveCallback() {
+                        @Override
+                        public void done(ParseException e) {
+                            if(e!= null){
+                                e.printStackTrace();
+                            }
+                            Toast.makeText(LoginActivity.this, getString(R.string.login_fb_sucess), Toast.LENGTH_SHORT).show();
+                        }
+                    });
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
-                ParseUser user = ParseUser.getCurrentUser();
-                user.setUsername(fbUsername);
-                user.setEmail(fbEmail);
-                user.saveInBackground(new SaveCallback() {
-                    @Override
-                    public void done(ParseException e) {
-                        if(e!= null){
-                            e.printStackTrace();
-                        }
-                        Toast.makeText(LoginActivity.this, getString(R.string.login_fb_sucess), Toast.LENGTH_SHORT).show();
-                    }
-                });
+
             }
         });
 
@@ -156,8 +192,44 @@ public class LoginActivity extends AppCompatActivity {
         parameters.putString("fields","name,emails");
         request.setParameters(parameters);
         request.executeAsync();
+    }
 
-        goMainActivity();
+    private void saveTwitterContents(){
+        OkHttpClient client = new OkHttpClient();
+        Request request = new Request.Builder()
+                .url("https://api.twitter.com/1.1/account/verify_credentials.json")
+                .build();
+        OkHttpOAuthConsumer consumer = new OkHttpOAuthConsumer(getString(R.string.twitter_consumer_key),
+                getString(R.string.twitter_consumer_secret));
+        client.newCall(request).enqueue(new Callback() {
+            @Override
+            public void onFailure(Call call, IOException e) {
+                e.printStackTrace();
+            }
+
+            @Override
+            public void onResponse(Call call, Response response) throws IOException {
+                String responseData = response.body().string();
+                try {
+                    JSONObject jsonObject = new JSONObject(responseData);
+                    String username = jsonObject.getString("screen_name");
+                    ParseUser user = ParseUser.getCurrentUser();
+                    user.setUsername(username);
+                    user.saveInBackground(new SaveCallback() {
+                        @Override
+                        public void done(ParseException e) {
+                            if(e!=null){
+                                e.printStackTrace();
+                            }
+                            Log.i(TAG,getString(R.string.tw_us_suc));
+                        }
+                    });
+                } catch (JSONException e) {
+                    Log.e(TAG,getString(R.string.twitter_login_fail));
+                    e.printStackTrace();
+                }
+            }
+        });
     }
 
 

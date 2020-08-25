@@ -182,4 +182,8 @@
     <string name="login_fb_sucess">Logged in via Facebook.</string>
     <string name="tr_profile">profile_item</string>
     <string name="tr_profile_pic">profile_pic</string>
+    <string name="tr_toolbar">toolbar_tr</string>
+    <string name="la_twitter_login">Sign in with Twitter</string>
+    <string name="tw_us_suc">new Twitter user update username</string>
+    <string name="twitter_login_fail">Can\'t update twitter un</string>
 </resources>

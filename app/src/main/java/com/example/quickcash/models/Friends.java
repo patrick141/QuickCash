@@ -43,7 +43,12 @@ public class Friends extends ParseObject {
     }
 
     public ArrayList<ParseUser> getFriendsPendingList(){
-        return (ArrayList<ParseUser>) get(KEY_FRIEND_PENDING);
+        try {
+            return (ArrayList<ParseUser>) fetchIfNeeded().get(KEY_FRIEND_PENDING);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        return null;
     }
 
     public void setPendingList(ArrayList<ParseUser> users){
@@ -51,7 +56,12 @@ public class Friends extends ParseObject {
     }
 
     public ArrayList<ParseUser> getFriendRequests(){
-        return (ArrayList<ParseUser>) get(KEY_FRIEND_REQUEST);
+        try {
+            return (ArrayList<ParseUser>) fetchIfNeeded().get(KEY_FRIEND_REQUEST);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        return null;
     }
 
     public void setFriendRequests(ArrayList<ParseUser> users){
@@ -60,7 +70,7 @@ public class Friends extends ParseObject {
 
     public void addFriend(ParseUser otherUser){
         ParseUser currentUser = ParseUser.getCurrentUser();
-        add(KEY_FRIEND_LIST, otherUser);
+        currentUser.add(KEY_FRIEND_LIST, otherUser);
         removeAll(KEY_FRIEND_REQUEST, Arrays.asList(otherUser));
         try {
             Friends userFriends = (Friends) otherUser.fetchIfNeeded().get(User.KEY_USER_FRIENDS);

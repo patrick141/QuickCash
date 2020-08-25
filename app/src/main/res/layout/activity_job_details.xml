@@ -1,10 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/rl_jobsDA"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     tools:context=".detailactivities.JobDetailsActivity">
 
     <include
@@ -17,13 +18,12 @@
         android:id="@+id/jobdetail"
         android:layout_below="@id/toolbar_JDA"
         android:layout_height="wrap_content"
-        android:layout_width="match_parent"></include>
+        android:layout_width="match_parent"/>
 
     <LinearLayout
         android:id="@+id/ll_jda_request"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
         android:layout_marginStart="5dp"
         android:layout_marginEnd="5dp"
         android:layout_below="@id/jobdetail"
@@ -54,8 +54,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@id/ll_jda_request"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="10dp"
+        android:layout_gravity="center_horizontal"
         android:text="@string/JDA_reqIsSent"
         android:textSize="24sp" />
 
@@ -64,7 +63,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@id/sentView"
-        android:padding="@dimen/largePadding">
+        android:padding="@dimen/smallPadding">
 
         <include layout="@layout/item_request"
             android:id="@+id/my_request"
@@ -96,4 +95,4 @@
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 
-</RelativeLayout>
+</LinearLayout>
