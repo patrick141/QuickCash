@@ -51,10 +51,10 @@ public class ParseApplication extends Application {
          * our parameters.
          */
         Parse.initialize(new Parse.Configuration.Builder(this)
-                .applicationId("patrick-quickcash")
+                .applicationId(getString(R.string.app_id))
                 .clientBuilder(builder)
-                .clientKey("CodepathMoveFaster")
-                .server("https://patrick-quickcash.herokuapp.com/parse").build());
+                .clientKey(getString(R.string.client_key))
+                .server(getString(R.string.server)).build());
 
         /**
          * This enables us to use the Facebook SDK and ParseFacebook SDK to log in via Facebook.
