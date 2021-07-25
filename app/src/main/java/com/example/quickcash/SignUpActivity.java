@@ -144,7 +144,7 @@ public class SignUpActivity extends LoginActivity {
         String number = num2.replace("-","");
         Pattern p = Pattern.compile(getString(R.string.sa_phone_valid));
         Matcher m = p.matcher(number);
-        return (m.find() && m.group().equals(number));
+        return (m.find() && m.group().equals(num1));
     }
 
     /**

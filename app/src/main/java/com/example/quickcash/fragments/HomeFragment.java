@@ -6,6 +6,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -20,6 +21,7 @@ import com.example.quickcash.databinding.FragmentHomeBinding;
 import com.example.quickcash.models.Job;
 import com.parse.FindCallback;
 import com.parse.ParseException;
+import com.parse.ParseObject;
 import com.parse.ParseQuery;
 import com.parse.ParseUser;
 
@@ -101,20 +103,13 @@ public class HomeFragment extends Fragment {
         query.whereNotEqualTo(Job.KEY_JOB_USER, ParseUser.getCurrentUser());
         query.whereEqualTo(Job.KEY_JOB_ISTAKEN, false);
         query.whereGreaterThan(Job.KEY_JOB_DATE, new Date());
-        query.findInBackground(new FindCallback<Job>() {
-            @Override
-            public void done(List<Job> jobs, ParseException e) {
-                if(e != null){
-                    Log.e(TAG, "Issues with getting jobs", e);
-                    return;
+        query.findInBackground((objects, e) -> {
+            if(e == null){
+                for (ParseObject result : objects) {
+                    Log.d("Object found ",result.getObjectId());
                 }
-                for(Job job: jobs){
-                    Log.i(TAG, "Job: " + job.getName() + ", username" + job.getUser().getUsername());
-                }
-                jobsAdapter.clear();
-                jobsAdapter.addAll(jobs);
-                swipeContainer.setRefreshing(false);
-                jobsAdapter.notifyDataSetChanged();
+            }else{
+                Toast.makeText(getContext(), e.getMessage(), Toast.LENGTH_SHORT).show();
             }
         });
     }
